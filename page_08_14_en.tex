@@ -1,0 +1,282 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{bbold}
+
+%New command to display footnote whose markers will always be hidden
+\let\svthefootnote\thefootnote
+\newcommand\blfootnotetext[1]{%
+  \let\thefootnote\relax\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \let\thefootnote\svthefootnote%
+}
+
+%Overriding the \footnotetext command to hide the marker if its value is `0`
+\let\svfootnotetext\footnotetext
+\renewcommand\footnotetext[2][?]{%
+  \if\relax#1\relax%
+    \ifnum\value{footnote}=0\blfootnotetext{#2}\else\svfootnotetext{#2}\fi%
+  \else%
+    \if?#1\ifnum\value{footnote}=0\blfootnotetext{#2}\else\svfootnotetext{#2}\fi%
+    \else\svfootnotetext[#1]{#2}\fi%
+  \fi
+}
+
+\DeclareUnicodeCharacter{25A1}{\ifmmode\square\else{$\square$}\fi}
+
+\begin{document}
+\subsection*{3.1 Definition of $\square_{1}^{\mathrm{QP}}$-Functions}
+Our schematic definition induces a special function class, called $\square_{1}^{\mathrm{QP}}$ (where □ is pronounced "square"), capturing polynomial-time computable quantum functions mapping $\mathcal{H}_{\infty}$ to $\mathcal{H}_{\infty}$, which is composed of a small set of initial quantum functions and four special construction rules: composition, swapping, branching, and multi-qubit quantum recursion. Definition 3.1 formally presents our schematic definition.
+
+Hereafter, we say that a quantum function $f$ from $\mathcal{H}_{\infty}$ to $\mathcal{H}_{\infty}$ is dimension-preserving if, for every quantum state $|\phi\rangle \in \mathcal{H}_{\infty}$ and any number $n \in \mathbb{N}^{+},|\phi\rangle \in \mathcal{H}_{2^{n}}$ implies $f(|\phi\rangle) \in \mathcal{H}_{2^{n}}$ (i.e., $\ell(|\phi\rangle)=\ell(f(|\phi\rangle))$ ).
+
+Definition 3.1 Let $\square_{1}^{\text {QP }}$ denote the collection of all quantum functions that are obtained from the initial quantum functions in Scheme I by a finite number (including zero) of applications of construction rules II-IV to quantum functions that have been already constructed, where Schemata I-IV are given as follows. Let $|\phi\rangle$ be any quantum state in $\mathcal{H}_{\infty}$.\\
+I. The initial quantum functions. Let $\theta \in[0,2 \pi) \cap \tilde{\mathbb{C}}$ and $a \in\{0,1\}$.
+
+\begin{enumerate}
+  \item $I(|\phi\rangle)=|\phi\rangle$. (identity)
+  \item $P H A S E_{\theta}(|\phi\rangle)=|0\rangle\langle 0 \mid \phi\rangle+e^{i \theta}|1\rangle\langle 1 \mid \phi\rangle$. (phase shift)
+  \item $R O T_{\theta}(|\phi\rangle)=\cos \theta|\phi\rangle+\sin \theta(|1\rangle\langle 0 \mid \phi\rangle-|0\rangle\langle 1 \mid \phi\rangle)$. (rotation around $x y$-axis at angle $\theta$ )
+  \item $N O T(|\phi\rangle)=|0\rangle\langle 1 \mid \phi\rangle+|1\rangle\langle 0 \mid \phi\rangle$. (negation)
+  \item $S W A P(|\phi\rangle)=\left\{\begin{array}{ll}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ \sum_{a, b \in\{0,1\}}|a b\rangle\langle b a \mid \phi\rangle & \text { otherwise. }\end{array}\right.$ (swapping of 2 qubits)
+  \item $M E A S[a](|\phi\rangle)=|a\rangle\langle a \mid \phi\rangle$. (partial projective measurement)\\
+II. The composition rule. From $g$ and $h$, we define Compo $[g, h]$ as follows:
+\end{enumerate}
+
+Compo $[g, h](|\phi\rangle)=g \circ h(|\phi\rangle)(=g(h(|\phi\rangle)))$.\\
+III. The branching rule. From $g$ and $h$, we define Branch $[g, h]$ as:\\
+(i) Branch $[g, h](|\phi\rangle)=|\phi\rangle \quad$ if $\ell(|\phi\rangle) \leq 1$,\\
+(ii) Branch $[g, h](|\phi\rangle)=|0\rangle \otimes g(\langle 0 \mid \phi\rangle)+|1\rangle \otimes h(\langle 1 \mid \phi\rangle) \quad$ otherwise.\\
+IV. The multi-qubit quantum recursion rule. From $g, h$, dimension-preserving $p$, and $k, t \in \mathbb{N}^{+}$, we define $k Q \operatorname{Rec}_{t}\left[g, h, p \mid \mathcal{F}_{k}\right]$ as:\\
+(i) $k Q \operatorname{Rec}_{t}\left[g, h, p \mid \mathcal{F}_{k}\right](|\phi\rangle)=g(|\phi\rangle) \quad$ if $\ell(|\phi\rangle) \leq t$,\\
+(ii) $k Q R e c_{t}\left[g, h, p \mid \mathcal{F}_{k}\right](|\phi\rangle)=h\left(\sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\right) \quad$ otherwise,\\
+where $\left|\psi_{p, \phi}\right\rangle=p(|\phi\rangle)$ and $\mathcal{F}_{k}=\left\{f_{s}\right\}_{s \in\{0,1\}^{k}} \subseteq\left\{k Q \operatorname{Rec}_{t}\left[g, h, p \mid \mathcal{F}_{k}\right], I\right\}$. To emphasize " $k$," we call this rule by the $k$-qubit quantum recursion. In the case of $k=1$, we write $Q \operatorname{Rec}_{t}\left[g, h, p \mid f_{0}, f_{1}\right]$ in place of $1 Q R e c_{t}\left[g, h, p \mid\left\{f_{0}, f_{1}\right\}\right]$ for brevity.
+
+In Scheme I, $P H A S E_{\theta}$ and $R O T_{\theta}$ correspond respectively to the matrices $Z_{2, \theta}$ and $R_{\theta}$ given in Section 2.3. Latter, we will argue that an angle $\theta$ in $P H A S E_{\theta}$ and $R O T_{\theta}$ could be fixed to $\pi / 4$. The quantum function MEAS is associated with a partial projective measurement, in the computational basis $\{0,1\}$, applied to the first qubit of $|\phi\rangle$, when $\ell(|\phi\rangle) \geq 1$, and it obviously follows that $\ell($ MEAS $[i](|\phi\rangle)) \leq \ell(|\phi\rangle)$.
+
+Before proceeding further, to help the reader understand the behaviors of the initial quantum functions listed in Scheme I, we briefly illustrate how these functions transform basic qustrings of length 3. For bits $a, b, c, d \in\{0,1\}$ with $d \neq a$, it follows that $I(|a b c\rangle)=|a b c\rangle, P H A S E_{\theta}\left(|a b c\rangle=e^{i \theta a}|a b c\rangle, R O T_{\theta}(|a b c\rangle)=\right. \cos \theta|a b c\rangle+(-1)^{a} \sin \theta|\bar{a} b c\rangle, N O T(|a b c\rangle)=|\bar{a} b c\rangle, S W A P(|a b c\rangle)=|b a c\rangle, M E A S[a](|a b c\rangle)=|a b c\rangle$, and $M E A S[d](|a b c\rangle)=\mathbf{0}$, where $\bar{a}=1-a$.
+
+Scheme IV is a core of the definition of $\square_{1}^{\mathrm{QP}}$. The standard recursion rule used to define a primitive recursive function $f$ from two functions $g$ and $h$ has the form: $f(0, x)=g(x)$ and $f(n+1, x)=h(n, x, f(n, x))$ for any $n \in \mathbb{N}$. This rule requires an internal counter (in the first argument place of $f$ ) that controls the number of iterated applications of $h$. In Scheme IV, however, we do not use such a counter. Instead, we use a divide-and-conquer strategy to slice a given quantum state qubit by qubit. At each inductive step, we deal with $k$-qubit shorter quantum states until the quantum state has become length $t$ or less. We wish to provide two concrete examples of how Scheme IV works in the cases of $k=1,2$. Notice that, in the case of $k=1$, Scheme IV becomes the 1-qubit (or single-qubit) quantum recursion rule described as:\\
+(i') $Q R e c_{t}\left[g, h, p \mid f_{0}, f_{1}\right](|\phi\rangle)=g(|\phi\rangle) \quad$ if $\ell(|\phi\rangle) \leq t$,\\
+(ii') $Q R e c_{t}\left[g, h, p \mid f_{0}, f_{1}\right](|\phi\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{p, \phi}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{p, \phi}\right\rangle\right)\right) \quad$ otherwise, where each of $f_{0}$ and $f_{1}$ must be either $I$ or $Q \operatorname{Rec}_{t}\left[g, h, p \mid f_{0}, f_{1}\right]$.
+
+\footnotetext{${ }^{\text {I }}$ The current formalism of Schemata I-IV corrects discrepancies caused by the early formalism given in the extended abstract 39.
+}Example 1. We first consider the case of $k=1$. In this example, we set $t=1, g=N O T, h=S W A P$, and $p=N O T$, and we briefly write $F$ for $Q R e c_{1}\left[N O T, S W A P, N O T \mid f_{0}, f_{1}\right]$ with $f_{0}=I$ and $f_{1}=F$. It is worth mentioning that $\mathbf{0}$ is a special object and we obtain $g(\mathbf{0})=\mathbf{0}$ for any quantum function $g$ by Lemma 3.4 (1). Let $|\phi\rangle$ denote any quantum state in $\mathcal{H}_{\infty}$ given as an input to $F$.\\
+(1) Assume that $|\phi\rangle$ has length 1 and is of the form $\alpha|0\rangle+\beta|1\rangle$ in general. By Lemma 3.4(2), it suffices for us to consider the computational basis $B_{1}=\{|0\rangle,|1\rangle\}$. Since $\ell(|\phi\rangle) \leq t$, the outcomes of $f$ for those basis qubits $|0\rangle$ and $|1\rangle$ are calculated as follows.\\
+(i) $F(|0\rangle)=g(|0\rangle)=N O T(|0\rangle)=|1\rangle$.\\
+(ii) $F(|1\rangle)=g(|1\rangle)=N O T(|1\rangle)=|0\rangle$.
+
+Obviously, $F(\mathbf{0})=\mathbf{0}$ holds. Since $|\phi\rangle$ is a superposition of the form $\alpha|0\rangle+\beta|1\rangle$, the above calculations instantly imply
+
+$$
+F(|\phi\rangle)=F(\alpha|0\rangle+\beta|1\rangle)=N O T(\alpha|0\rangle+\beta|1\rangle)=\alpha N O T(|0\rangle)+\beta N O T(|1\rangle)=\alpha|1\rangle+\beta|0\rangle .
+$$
+
+(2) Next, let us assume that $|\phi\rangle$ is of length 2. In the case where $|\phi\rangle$ is the basis quantum state $|00\rangle$ in $B_{2}=\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}$, we obtain $\left|\psi_{p, \phi}\right\rangle=\left|\psi_{N O T, 00}\right\rangle=N O T(|00\rangle)=|10\rangle$. Similarly, if $|\phi\rangle$ is $|01\rangle,|10\rangle$, and $|11\rangle$, then the quantum state $\left|\psi_{p, \phi}\right\rangle$ is $|11\rangle,|00\rangle$, and $|01\rangle$, respectively. Concerning the partial projective measurement, it follows that, for any bit $a \in\{0,1\},\langle 1 \mid 1 a\rangle=|a\rangle,\langle 0 \mid 0 a\rangle=|a\rangle,\langle 1 \mid 0 a\rangle=\mathbf{0}$, and $\langle 0 \mid 1 a\rangle=\mathbf{0}$. Note also that $I(\mathbf{0})=\mathbf{0}$. Using these equalities together with $F(|0\rangle)=|1\rangle$ and $F(|1\rangle)=|0\rangle$ obtained in (1), we can calculate the outcome $F(|\phi\rangle)$ as follows.\\
+(i) $F(|00\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 00}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 00}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 10\rangle)+|1\rangle \otimes F(\langle 1 \mid 10\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|0\rangle))=h(|1\rangle \otimes F(|0\rangle))=S W A P(|1\rangle \otimes|1\rangle)=S W A P(|11\rangle)=|11\rangle$.\\
+(ii) $F(|10\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 10}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 10}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 00\rangle)+|1\rangle \otimes F(\langle 1 \mid 00\rangle))=\right. h(|0\rangle \otimes I(|0\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|0\rangle))=S W A P(|0\rangle \otimes|0\rangle)=S W A P(|00\rangle)=|00\rangle$.\\
+(iii) $F(|01\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 01}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 01}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 11\rangle)+|1\rangle \otimes F(\langle 1 \mid 11\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|1\rangle))=h(|1\rangle \otimes F(|1\rangle))=S W A P(|1\rangle \otimes|0\rangle)=S W A P(|10\rangle)=|01\rangle$.\\
+(iv) $F(|11\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 11}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 11}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 01\rangle)+|1\rangle \otimes F(\langle 1 \mid 01\rangle))=\right. h(|0\rangle \otimes I(|1\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|1\rangle))=S W A P(|0\rangle \otimes|1\rangle)=S A W P(|01\rangle)=|10\rangle$.
+
+By Lemma 3.4 (2), when $|\phi\rangle$ is of the form $\alpha|00\rangle+\beta|10\rangle$ for example, we obtain
+
+$$
+F(|\phi\rangle)=F(\alpha|00\rangle+\beta|10\rangle)=\alpha F(|00\rangle)+\beta F(|10\rangle)=\alpha|11\rangle+\beta|00\rangle .
+$$
+
+(3) Let us consider the case where the length of $|\phi\rangle$ is 3 . For the computational basis $B_{3}= \{|000\rangle,|001\rangle,|010\rangle, \ldots,|111\rangle\}$, we calculate the outcomes $F(|\phi\rangle)$ only for inputs $|\phi\rangle$ in $\{|001\rangle,|101\rangle\}$. Notice that $\left|\psi_{N O T, 001}\right\rangle=|101\rangle$ and $\left|\psi_{N O T, 101}\right\rangle=|001\rangle$. Recall from (1)-(2) that $F(|01\rangle)=|01\rangle$ and $F(\mathbf{0})=\mathbf{0}$.\\
+(i) $F(|001\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 001}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 001}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 101\rangle)+|1\rangle \otimes F(\langle 1 \mid 101\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|01\rangle))=h(|1\rangle \otimes F(|01\rangle))=S W A P(|1\rangle \otimes|01\rangle)=S A W P(|101\rangle)=|011\rangle$.\\
+(ii) $F(|101\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 101}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 101}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 001\rangle)+|1\rangle \otimes F(\langle 1 \mid 001\rangle))=\right. h(|0\rangle \otimes I(|01\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|01\rangle))=S W A P(|0\rangle \otimes|01\rangle)=S A W P(|001\rangle)=|001\rangle$.
+
+If $|\phi\rangle$ is of the form $\alpha|001\rangle+\beta|101\rangle$ for example, Lemman 3.4(2) implies that $F(|\phi\rangle)=F(\alpha|001\rangle+\beta|101\rangle)= \alpha F(|001\rangle)+\beta F(|101\rangle)=\alpha|011\rangle+\beta|001\rangle$.\\
+Example 2. We see another example for the case of $k=2$. By setting $t=3, g=N O T, h=S W A P$, and $p=N O T$ for instance, we write $F$ for $2 Q R e c_{3}\left[N O T, S W A P, N O T \mid f_{00}, f_{01}, f_{10}, f_{11}\right]$ with $f_{00}=I$, $f_{01}=N O T, f_{10}=F$, and $f_{11}=F$. Let $|\phi\rangle$ denote any quantum state in $\mathcal{H}_{\infty}$.\\
+(1) When the length of $|\phi\rangle$ is at most 3, we instantly obtain $F(|\phi\rangle)=g(|\phi\rangle)=N O T(|\phi\rangle)$. For example, $F(|0\rangle)=|1\rangle, F(|10\rangle)=|00\rangle$, and $F(|101\rangle)=|001\rangle$.\\
+(2) Assuming that the length of $|\phi\rangle$ is 4 , let us consider the basis quantum states in $B_{4}= \{|0000\rangle,|0001\rangle,|0010\rangle, \ldots,|1111\rangle\}$. Here, we are focused only on two cases: $|\phi\rangle \in\{|0101\rangle,|1011\rangle\}$. We remark that $\left|\psi_{N O T, 0010}\right\rangle=N O T(|0010\rangle)=|1010\rangle$ and $\left|\psi_{N O T, 1011}\right\rangle=N O T(|1011\rangle)=|0011\rangle$.\\
+(i) $F(|0010\rangle)=h\left(|00\rangle \otimes f_{00}\left(\left\langle 00 \mid \psi_{N O T, 0010}\right\rangle\right)+|01\rangle \otimes f_{01}\left(\left\langle 01 \mid \psi_{N O T, 0010}\right\rangle\right)+|10\rangle \otimes f_{10}\left(\left\langle 10 \mid \psi_{N O T, 0010}\right\rangle\right)+\right. \left.|11\rangle \otimes f_{11}\left(\left\langle 11 \mid \psi_{N O T, 0010}\right\rangle\right)\right)=h(|00\rangle \otimes I(\langle 00 \mid 1010\rangle)+|01\rangle \otimes N O T(\langle 01 \mid 1010\rangle)+|10\rangle \otimes F(\langle 10 \mid 1010\rangle)+|11\rangle \otimes F(\langle 11 \mid 1010\rangle))=h(|00\rangle \otimes I(\mathbf{0})+|01\rangle \otimes N O T(\mathbf{0})+|10\rangle \otimes F(|10\rangle)+|11\rangle \otimes F(\mathbf{0}))=h(|10\rangle \otimes F(|10\rangle))= S W A P(|10\rangle \otimes|00\rangle)=S W A P(|1000\rangle)=|0100\rangle$.\\
+(ii) $F(|1101\rangle)=h\left(|00\rangle \otimes f_{00}\left(\left\langle 00 \mid \psi_{N O T, 1101}\right\rangle\right)+|01\rangle \otimes f_{01}\left(\left\langle 01 \mid \psi_{N O T, 1101}\right\rangle\right)+|10\rangle \otimes f_{10}\left(\left\langle 10 \mid \psi_{N O T, 1101}\right\rangle\right)+\right. \left.|11\rangle \otimes f_{11}\left(\left\langle 11 \mid \psi_{N O T, 1101}\right\rangle\right)\right)=h(|00\rangle \otimes I(\langle 00 \mid 0101\rangle)+|01\rangle \otimes N O T(\langle 01 \mid 0101\rangle)+|10\rangle \otimes F(\langle 10 \mid 0101\rangle)+|11\rangle \otimes F(\langle 11 \mid 0101\rangle))=h(|00\rangle \otimes I(\mathbf{0})+|01\rangle \otimes N O T(|01\rangle)+|10\rangle \otimes F(\mathbf{0})+|11\rangle \otimes F(\mathbf{0}))=h(|01\rangle \otimes N O T(|01\rangle))= S W A P(|01\rangle \otimes|11\rangle)=S W A P(|0111\rangle)=|1011\rangle$.
+
+\subsection*{3.2 A Subclass of $\square_{1}^{\mathrm{QP}}$ and Basic Properties}
+Among the six initial quantum functions in Scheme I, MEAS makes a quite different behavior. It can change the norm as well as the dimensionality of quantum states, and that fact makes it irreversible in nature. For this reason, it is often beneficial in practice to limit our attention to a subclass of $\square_{1}^{\mathrm{QP}}$, called $\widehat{\square_{1}^{\mathrm{QP}}}$, which entirely prohibits the use of MEAS.
+
+Definition 3.2 The notation $\widehat{\square_{1}^{\mathrm{QP}}}$ denotes the subclass of $\square_{1}^{\mathrm{QP}}$ defined by Schemata I-IV except for MEAS listed in Scheme I.
+
+With no use of MEAS in Scheme I, every quantum function $f$ in $\widehat{\square_{1}^{\mathrm{QP}}}$ preserves the dimensionality of inputs; in other words, $f$ satisfies $\ell(f(|\phi\rangle))=\ell(|\phi\rangle)$ for any input $|\phi\rangle \in \mathcal{H}_{\infty}$.
+
+Next, let us demonstrate how to construct typical unitary gates using our schematic definition.\\
+Lemma 3.3 The following functions are in $\widehat{\square_{1}^{\mathrm{QP}}}$. Let $|\phi\rangle$ be any element in $\mathcal{H}_{\infty}$.
+
+\begin{enumerate}
+  \item $\operatorname{CNOT}(|\phi\rangle)=\left\{\begin{array}{ll}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ |0\rangle\langle 0 \mid \phi\rangle+|1\rangle \otimes N O T(\langle 1 \mid \phi\rangle) & \text { otherwise. }\end{array} \quad\right.$ (controlled-NOT)
+  \item $Z_{1, \theta}(|\theta\rangle)=e^{i \theta}|0\rangle\langle 0 \mid \phi\rangle+|1\rangle\langle 1 \mid \phi\rangle$.
+  \item $z R O T_{\phi}(|\phi\rangle)=e^{i \theta}|0\rangle\langle 0 \mid \phi\rangle+e^{-i \theta}|1\rangle\langle 1 \mid \phi\rangle$. (rotation around the $z$-axis)
+  \item $G P S_{\theta}(|\phi\rangle)=e^{i \theta}|\phi\rangle$. (global phase shift)
+  \item $W H(|\phi\rangle)=\frac{1}{\sqrt{2}}|0\rangle \otimes(\langle 0 \mid \phi\rangle+\langle 1 \mid \phi\rangle)+\frac{1}{\sqrt{2}}|1\rangle \otimes(\langle 0 \mid \phi\rangle-\langle 1 \mid \phi\rangle)$. (Walsh-Hadamard transform)
+  \item $\operatorname{CPHASE}_{\theta}(|\phi\rangle)= \begin{cases}|\phi\rangle \\ \frac{1}{\sqrt{2}} \sum_{b \in\{0,1\}}\left(|0\rangle\langle b \mid \phi\rangle+e^{i \theta b}|1\rangle\langle b \mid \phi\rangle\right) & \text { if } \ell(|\phi\rangle) \leq 1, \quad \text { (controlled-PHASE) }\end{cases}$
+\end{enumerate}
+
+Proof. It suffices to build each of the quantum functions given in the lemma from the initial quantum functions and by applying the construction rules. These target functions are constructed as follows. (1) CNOT $=$ Branch $[I, N O T]$. Note that, when $\ell(|\phi\rangle) \leq 1$, Scheme III $(\mathrm{i})$ implies $\operatorname{CNOT}(|\phi\rangle)=|\phi\rangle$, matching Item 1 for $C N O T$. (2) $Z_{1, \theta}=N O T \circ P H A S E_{\theta} \circ N O T$. (3) $z R O T_{\theta}=Z_{1, \theta} \circ P H A S E_{-\theta}$. (4) $G P S_{\theta}= Z_{1, \theta} \circ P H A S E_{\theta}$. (5) $W H=\operatorname{ROT}_{\frac{\pi}{4}} \circ N O T$. (6) $C P H A S E_{\theta}=\operatorname{Branch}[W H, f]$, where $f=\operatorname{Branch}\left[I, G P S_{\theta}\right] \circ W H \circ N O T$.
+
+Since any $\square_{1}^{\mathrm{QP}}$-function $f$ is constructed by applying Schemata I-IV, an application of one of the schemata is viewed as a basic step of the construction process of generating $f$. This fact helps us define the descriptional complexity of $f$ to be the minimal number of times we use those schemata in order to construct $f$. For instance, all the initial functions have descriptional complexity 1 because they use Scheme I only once. As demonstrated in the proof of Lemma 3.3, the quantum functions $C N O T, Z_{1, \theta}$, and $W H$ have descriptional complexity at most 3 and $z R O T_{\theta}$ and $G P S_{\theta}$ have descriptional complexity at most 4, whereas $C P H A S E_{\theta}$ is of descriptional complexity at most 15 . This complexity measure is essential in proving, e.g., Lemma 3.4 since the lemma will be proven by induction on the descriptional complexity of a target quantum function. In Section 6.2, we will give a short discussion on this complexity measure for a future study.
+
+Fundamental properties of $\widehat{\square_{1}^{\mathrm{QP}}}$-functions are given in the following lemma. A quantum function from $\mathcal{H}_{\infty}$ to $\mathcal{H}_{\infty}$ is called norm-preserving if $\| f(|\phi\rangle)\|=\||\phi\rangle \|$ holds for all quantum states $|\phi\rangle$ in $\mathcal{H}_{\infty}$.
+
+Lemma 3.4 Let $f$ be any quantum function in $\widehat{\square_{1}^{\mathrm{QP}}}$ and let $|\phi\rangle,|\psi\rangle \in \mathcal{H}_{\infty}$ and $\alpha \in \mathbb{C}$.
+
+\begin{enumerate}
+  \item $f(\mathbf{0})=\mathbf{0}$, where $\mathbf{0}$ is the null vector.
+  \item $f(|\phi\rangle+|\psi\rangle)=f(|\phi\rangle)+f(|\psi\rangle)$.
+  \item $f(\alpha|\phi\rangle)=\alpha \cdot f(|\phi\rangle)$.
+  \item $f$ is dimension-preserving and norm-preserving.
+\end{enumerate}
+
+Proof. Let $f$ be any $\widehat{\square_{1}^{\mathrm{QP}}}$-function, let $|\phi\rangle,|\psi\rangle \in \mathcal{H}_{\infty}$, and let $\alpha \in \mathbb{C}$ and $\theta \in[0,2 \pi)$ be constants. As mentioned earlier, we will prove the lemma by induction of the descriptional complexity of $f$. If $f$ is one of the initial quantum functions in Scheme I, then it is easy to check that it satisfies Conditions $1-4$ of the lemma. In particular, when $|\phi\rangle$ is the null vector $\mathbf{0}$, all of $e^{i \theta}|\phi\rangle, \cos \theta|\phi\rangle, \sin \theta|\phi\rangle,\langle 0 \mid \phi\rangle,\langle 1 \mid \phi\rangle$, and $\langle b a \mid \phi\rangle$ used in Scheme I are $\mathbf{0}$; thus, $|b\rangle \otimes\langle 1 \mid \phi\rangle$ and $|b\rangle \otimes\langle 0 \mid \phi\rangle$ are also $\mathbf{0}$ for each bit $b \in\{0,1\}$. Therefore, Condition 1 follows.
+
+Among Schemata II-IV, let us consider Scheme IV since the other schemata are easily shown to meet Conditions 1-4. Let $g, h$, and $p$ be quantum functions in $\widehat{\square_{1}^{\mathrm{QP}}}$ and assume that $p$ is dimension-preserving. By induction hypothesis, we assume that $g, h$, and $p$ satisfy Conditions $1-4$. For readability, we write $f$ for $k Q R e c_{t}\left[g, h, p \mid \mathcal{F}_{k}\right]$. In what follows, we are focused only on Conditions 2 and 4 since the other conditions are easy to check. Our argument will employ induction on the length of input $|\phi\rangle$ given to $f$.\\
+(i) Our goal is to show that $f$ satisfies Condition 2. Firstly, consider the case of $\ell(|\phi\rangle) \leq t$. It then follows that $f(|\phi\rangle+|\xi\rangle)=g(|\phi\rangle+|\xi\rangle)=g(|\phi\rangle)+g(|\xi\rangle)$ since $g$ is assumed to meet Condition 2. Next, we consider the case where $\ell(|\phi\rangle)>t$. From the definition of $f$, we obtain $f(|\phi\rangle+|\xi\rangle)=h\left(\sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle\right)\right)$, where $\left|\psi_{p, \phi, \xi}\right\rangle=p(|\phi\rangle+|\xi\rangle)$. Since $p(|\phi\rangle+|\xi\rangle)=p(|\phi\rangle)+p(|\xi\rangle)$ by induction hypothesis, we conclude that $\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle=\left\langle s \mid \psi_{p, \phi}\right\rangle+\left\langle s \mid \psi_{p, \xi}\right\rangle$ for each string $s \in\{0,1\}^{k}$. It then follows by induction hypothesis that $f_{s}\left(\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle\right)=f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)+f_{s}\left(\left\langle s \mid \psi_{p, \xi}\right\rangle\right)$, leading to the equation $|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle\right)=|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)+ |s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \xi}\right\rangle\right)$. Using Condition 2 for $h$, we obtain $h\left(\sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle\right)\right)=\sum_{s:|s|=k} h(|s\rangle \otimes \left.f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\right)+\sum_{s:|s|=k} h\left(|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \xi}\right\rangle\right)\right)$. We then conclude that $f(|\phi\rangle+|\xi\rangle)=f(|\phi\rangle)+f(|\xi\rangle)$.\\
+(ii) We want to show that $f$ satisfies Condition 4. By induction hypothesis, it follows that, for any $s \in\{0,1\}^{k},\left\|f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\right\|=\left\|\left\langle s \mid \psi_{p, \phi}\right\rangle\right\|$ and $\| h(|\phi\rangle)\|=\||\phi\rangle \|$. These equalities imply that $\| f(|\phi\rangle) \|^{2}= \| h\left(\sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\right)\left\|^{2}=\right\| \sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\left\|^{2}=\sum_{s:|s|=k}\right\| f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right) \|^{2}$, which equals $\sum_{s:|s|=k}\left\|\left\langle s \mid \psi_{p, \phi}\right\rangle\right\|^{2}$. The last term coincides with $\|\left|\psi_{p, \phi}\right\rangle \|^{2}$, which equals $\| p(|\phi\rangle) \|^{2}$. This implies Condition 4 because $\| p(|\phi\rangle)\|=\||\phi\rangle \|$.
+
+Lemma 3.4(4) indicates that all functions in $\widehat{\square_{1}^{\mathrm{QP}}}$ also serve as functions mapping $\Phi_{\infty}$ to $\Phi_{\infty}$ in place of $\mathcal{H}_{\infty}$ to $\mathcal{H}_{\infty}$.
+
+Given a quantum function $g$ that is dimension-preserving and norm-preserving, the inverse of $g$ is a unique quantum function $f$ satisfying the condition that, for every $|\phi\rangle \in \mathcal{H}_{\infty}, f \circ g(|\phi\rangle)=g \circ f(|\phi\rangle)=|\phi\rangle$. This special quantum function $f$ is expressed as $g^{-1}$.
+
+The next proposition guarantees that $\widehat{\square_{1}^{\mathrm{QP}}}$ is closed under "inverse" since $\widehat{\square_{1}^{\mathrm{QP}}}$ lacks MEAS.\\
+Proposition 3.5 For any quantum function $g \in \widehat{\square_{1}^{\mathrm{QP}}}, g^{-1}$ exists and belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$.\\
+Proof. We prove this proposition by induction on the aforementioned descriptional complexity of $g$. If $g$ is one of the initial quantum functions, then we define its inverse $g^{-1}$ as: $I^{-1}=I$, $P H A S E_{\theta}^{-1}=P H A S E_{-\theta}, R O T_{\theta}^{-1}=R O T_{-\theta}, N O T^{-1}=N O T$, and $S W A P^{-1}=S W A P$. If $g$ is obtained from another quantum function or functions by one of the construction rules, then its inverse is defined as: $\operatorname{Compo}[g, h]^{-1}=\operatorname{Compo}\left[h^{-1}, g^{-1}\right], \operatorname{Branch}[g, h]^{-1}=\operatorname{Branch}\left[g^{-1}, h^{-1}\right]$, and $k Q R e c_{t}\left[g, h, p \mid\left\{f_{s}\right\}_{s \in\{0,1\}^{k}}\right]^{-1}=k Q R e c_{t}\left[g^{-1}, p^{-1}, h^{-1} \mid\left\{f_{s}^{-1}\right\}_{s \in\{0,1\}^{k}}\right]$.
+
+Our choice of Schemata I-IV is motivated by a particular universal set of quantum gates. Notice that a different choice of initial quantum functions and construction rules may lead to a different set of $\square_{1}^{\mathrm{QP}}$ functions. Scheme I uses an "arbitrary" angle of $\theta$ in $[0,2 \pi) \cap \widetilde{\mathbb{C}}$ to introduce $P H A S E_{\theta}$ and $R O T_{\theta}$; however, we can restrict $\theta$ to a unique value of $\frac{\pi}{4}$ since $P H A S E_{\theta}$ and $R O T_{\theta}$ for an arbitrary value $\theta \in[0,2 \pi)$ can be approximated to any desired accuracy using $W H$ and $Z_{2, \frac{\pi}{4}}$. This last part comes from the fact that any single-qubit unitary operator can be approximated to any accuracy from the quantum gates $W H$ and $Z_{2, \frac{\pi}{4}}$ 6 (see also 25). For a further discussion on the choice of the schemata, see Section 6.1.
+
+\subsection*{3.3 Construction of More Complicated Quantum Functions}
+Before presenting the main theorem (Theorem 4.1), we wish to prepare useful quantum functions and new construction rules derived directly from Schemata I-IV. These quantum functions and construction rules will be used for the proof of our key lemma (Lemma 4.3), which supports the main theorem.
+
+For each $k \in \mathbb{N}^{+}$, let us assume the standard lexicographic ordering $<$on $\{0,1\}^{k}$ and all elements in $\{0,1\}^{k}$ are enumerated lexicographically as $s_{1}<s_{2}<\cdots<s_{2^{k}}$. For example, when $k=2$, we obtain $00<01<10<11$. Given each string $s \in\{0,1\}^{n}, s^{R}$ denotes the reversal of $s$; that is, $s^{R}=s_{n} s_{n-1} \cdots s_{2} s_{1}$ if $s=s_{1} s_{2} \cdots s_{n-1} s_{n}$. We expand this notion to quantum states in the following manner. Given a quantum state $|\phi\rangle \in \mathcal{H}_{2^{n}}$, the reversal of $|\phi\rangle$, denoted by $\left|\phi^{R}\right\rangle$, is of the form $\sum_{s:|s|=n}\langle s \mid \phi\rangle \otimes\left|s^{R}\right\rangle$, where $\langle s \mid \phi\rangle$ is merely a scalar. For instance, if $|\phi\rangle=\alpha|01\rangle+\beta|10\rangle$, then $\left|\phi^{R}\right\rangle=\alpha|10\rangle+\beta|01\rangle$.
+
+Lemma 3.6 Let $k \in \mathbb{N}$ with $k \geq 2$, let $g, h \in \widehat{\square_{1}^{\mathrm{QP}}}$, and let $\mathcal{G}_{k}=\left\{g_{s} \mid s \in\{0,1\}^{k}\right\}$ be a set of $\widehat{\square_{1}^{\mathrm{QP}}}$-functions. The following quantum functions all belong to $\widehat{\square_{1}^{\mathrm{QP}}}$. The lemma also holds even if $\widehat{\square_{1}^{\mathrm{QP}}}$ is replaced by $\square_{1}^{\mathrm{QP}}$.
+
+Let $|\phi\rangle$ be any quantum state in $\mathcal{H}_{\infty}$.
+
+\begin{enumerate}
+  \item Compo $\left[\mathcal{G}_{k}\right](|\phi\rangle)=g_{s_{1}} \circ g_{s_{2}} \circ \cdots \circ g_{s_{2^{k}}}(|\phi\rangle)$. (multiple composition)
+  \item Switch $_{k}[g, h](|\phi\rangle)=g(|\phi\rangle)$ if $\ell(|\phi\rangle)<k$ and Switch ${ }_{k}[g, h](|\phi\rangle)=h(|\phi\rangle)$ otherwise. (switching)
+  \item $L E N G T H_{k}[g](|\phi\rangle)=|\phi\rangle$ if $\ell(|\phi\rangle)<k$ and $L E N G T H_{k}[g](|\phi\rangle)=g(|\phi\rangle)$ otherwise.
+  \item $\operatorname{REMOVE} E_{k}(|\phi\rangle)=|\phi\rangle$ if $\ell(|\phi\rangle)<k$ and $\operatorname{REMOVE} E_{k}(|\phi\rangle)=\sum_{s:|s|=k}\langle s \mid \phi\rangle \otimes|s\rangle$ otherwise.
+  \item $R E P_{k}(|\phi\rangle)=|\phi\rangle$ if $\ell(|\phi\rangle)<k$ and $R E P_{k}(|\phi\rangle)=\sum_{s:|s|=n-k}\langle s \mid \phi\rangle \otimes|s\rangle$ otherwise.
+  \item $S W A P_{k}(|\phi\rangle)=|\phi\rangle$ if $\ell(|\phi\rangle)<2 k$ and $S W A P_{k}(|\phi\rangle)=\sum_{s:|s|=k} \sum_{t:|t|=k}|s t\rangle\langle t s \mid \phi\rangle$ otherwise.
+  \item $\operatorname{REVERSE}(|\phi\rangle)=\left|\phi^{R}\right\rangle$.
+  \item $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle)=|\phi\rangle$ if $\ell(|\phi\rangle)<k$ and $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle)=\sum_{s:|s|=k}|s\rangle \otimes g_{s}(\langle s \mid \phi\rangle)$ otherwise.
+  \item $\operatorname{RevBranch}{ }_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle) \quad=\quad|\phi\rangle \quad$ if $\quad \ell(|\phi\rangle) \quad<\quad k \quad$ and $\operatorname{RevBranch}{ }_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle) \quad= \sum_{s:|s|=k} g_{s}\left(\sum_{u:|u|=n-k}\langle u s \mid \phi\rangle \otimes|u\rangle\right) \otimes|s\rangle$ otherwise, where $n=\ell(|\phi\rangle)$.\\
+The difference between $R E M O V E_{k}$ and $R E P_{k}$ is subtle but $R E M O V E_{k}$ moves the first $k$ qubits of an input to the end, whereas $R E P_{k}$ moves the last $k$ qubits to the front. For basic qustrings of length 4, for instance, it holds that $R E P_{1}\left(\left|a_{1} a_{2} a_{3} a_{4}\right\rangle\right)=\left|a_{4} a_{1} a_{2} a_{3}\right\rangle$ and $R E M O V E_{1}\left(\left|a_{1} a_{2} a_{3} a_{4}\right\rangle\right)=\left|a_{2} a_{3} a_{4} a_{1}\right\rangle$. Similarly, $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right]$ applies each $g_{s}$ in $\mathcal{G}_{k}$ to the quantum state obtained from $|\phi\rangle$ by eliminating the first $k$ qubits whereas $\operatorname{RevBranch}{ }_{k}\left[\mathcal{G}_{k}\right]$ applies $g_{s}$ to the quantum state obtained by eliminating the last $k$ qubits, whenever $k \leq \ell(|\phi\rangle)$. For example, if $\mathcal{G}_{k}=\{h\}_{s \in\{0,1\}^{k}}$ for a single quantum function $h$, then, for every string $s \in\{0,1\}^{k}$, we obtain $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right](|s\rangle|\phi\rangle)=|s\rangle \otimes h(|\phi\rangle)$ and $\operatorname{RevBranch}_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle|s\rangle)=h(|\phi\rangle) \otimes|s\rangle$.
+\end{enumerate}
+
+Proof of Lemma 3.6, Let $k \in \mathbb{N}^{+}, g \in \widehat{\square_{1}^{\mathrm{QP}}}$, and $\mathcal{G}_{k}=\left\{g_{s} \mid s \in\{0,1\}^{k}\right\} \subseteq \widehat{\square_{1}^{\mathrm{QP}}}$. For each index $i \in[k]$, let $s_{i}$ denote lexicographically the $i$ th element of $\{0,1\}^{k}$.
+
+\begin{enumerate}
+  \item We first set $f_{2^{k}}=g_{s_{2^{k}}}$ and inductively define $f_{i-1}=\operatorname{Compo}\left[g_{s_{i-1}}, f_{i}\right]$ for every index $i \in\left[2,2^{k}\right]_{\mathbb{Z}}$ to obtain $f_{1}=\operatorname{Compo}\left[\mathcal{G}_{k}\right]$. The resulted quantum function $f_{1}$ clearly belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$ because $k$ is a fixed constant independent of inputs to $f_{1}$.
+  \item This is a special case of the single-qubit quantum recursion rule (or the 1-qubit quantum recursion rule) in which $t=k-1, p=I$, and $f_{0}=f_{1}=I$. Therefore, Switch $[g, h]$ belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$.
+  \item Since $L E N G T H_{k}[g]=$ Switch $_{k}[I, g], L E N G T H_{k}$ is in $\widehat{\square_{1}^{\mathrm{QP}}}$.
+  \item We begin with the case of $k=1$. The desired quantum function $R E M O V E_{1}$ is defined as
+\end{enumerate}
+
+$$
+\operatorname{REMOVE}_{1}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ \sum_{a \in\{0,1\}}|a\rangle \otimes \operatorname{REMOV} E_{1}\left(\left\langle a \mid \psi_{S W A P, \phi}\right\rangle\right) & \text { otherwise },\end{cases}
+$$
+
+More formally, we set $R E M O V E_{1}=Q R e c_{1}\left[I, I, S W A P \mid R E M O V E_{1}, R E M O V E_{1}\right]$. In the case of $k=2$, we define $R E M O V E_{2}=R E M O V E_{1} \circ R E M O V E_{1}$. For each index $k \geq 3, R E M O V E_{k}$ is obtained as follows. Let $h_{k}^{\prime}$ be the $k$ compositions of $R E M O V E_{1}$ and define $R E M O V E_{k}$ to be $L E N G T H_{k}\left[h_{k}^{\prime}\right]$. We remark that $L E N G T H_{k}$ is necessary in our definition because $h_{k}^{\prime}$ is not guaranteed to equal $R E M O V E_{k}$ when $\ell(|\phi\rangle) \leq k-1$.\\
+5) First, we define $R E P_{1}$ as $R E P_{1}=Q R e c_{1}\left[I, S W A P, I \mid R E P_{1}, R E P_{1}\right]$, that is,
+
+$$
+R E P_{1}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1 \\ \sum_{a \in\{0,1\}} S W A P\left(|a\rangle \otimes R E P_{1}(\langle a \mid \phi\rangle)\right) & \text { otherwise. }\end{cases}
+$$
+
+Clearly, $R E P_{1}$ belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$. For a general index $k>1$, we define $R E P_{k}$ in the following way. We first set $h_{k}^{\prime}$ to be the $k$ compositions of $R E P_{1}$. Finally, we set $R E P_{k}=L E N G T H_{k}\left[h_{k}^{\prime}\right]$.\\
+6) We first realize a quantum function $S W A P_{i, i+j}$, which swaps between the $i$ th and the $(i+j)$ th qubits of any input. This goal is achieved by inductively constructing $S W A P_{i, i+j}$ in the following way. Initially, we set $S W A P_{i, i+1}=R E P_{i-1} \circ S W A P \circ R E M O V E_{i-1}$. For any index $j \in[k-i]$, we define $S W A P_{i, i+j}= S W A P_{i+j-1, i+j} \circ S W A P_{i, i+j-1} \circ S W A P_{i+j-1, i+j}$. We then set $g=S W A P_{k, 2 k} \circ S W A P_{k-1,2 k-1} \circ \cdots \circ S W A P_{2, k+2} \circ S W A P_{1, k+1}$. At last, it suffices to define $S W A P_{k}$ to be $L E N G T H_{2 k}[g]$.\\
+7) The desired quantum function REVERSE can be defined as REVERSE = QRec $_{1}\left[I\right.$, REMOV $E_{1}, I \mid$ REVERSE, REVERSE $]$, namely,
+
+$$
+R E V E R S E(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1 \\ R E M O V E_{1}\left(\sum_{a \in\{0,1\}}(|a\rangle \otimes R E V E R S E(\langle a \mid \phi\rangle))\right) & \text { otherwise. }\end{cases}
+$$
+
+\begin{enumerate}
+  \setcounter{enumi}{7}
+  \item Note that, when $k=2, \operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right]$ coincides with Branch and it thus belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$. Hereafter, we assume that $k \geq 3$. For each string $s \in\{0,1\}^{k}$, let $g_{s}^{(0)}=g_{s}$. For each index $i \in \mathbb{N}$ with $i<k$ and each string $s \in\{0,1\}^{*}$ with $|s|=k-i-1$, we inductively define $g_{s}^{(i+1)}$ to be $\operatorname{Branch}\left[g_{s 0}^{(i)}, g_{s 1}^{(i)}\right]$, that is,
+\end{enumerate}
+
+$$
+g_{s}^{(i+1)}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle \leq 1, \\ |0\rangle \otimes g_{s 0}^{(i)}(\langle 0 \mid \phi\rangle)+|1\rangle \otimes g_{s 1}^{(i)}(\langle 1 \mid \phi\rangle) & \text { otherwise } .\end{cases}
+$$
+
+Finally, we set $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right]=g_{\lambda}^{(k)}$, where $\lambda$ is the empty string.\\
+9) Assuming $k \geq 2$, let $\operatorname{RevBranch}_{k}\left[\left\{g_{s}\right\}_{s \in\{0,1\}^{k}}\right]=\operatorname{REMOVE} E_{k} \circ \operatorname{Branch}_{k}\left[\left\{g_{s}\right\}_{s \in\{0,1\}^{k}}\right] \circ R E P_{k}$.
+
+The next lemma shows that we can extend any classical bijection on $\{0,1\}^{k}$ to its associated $\widehat{\square_{1}^{\mathrm{QP}}}$-function, which behaves in exactly the same way as the bijection does on the first $k$ bits of its input.
+
+Lemma 3.7 Let $k$ be a constant in $\mathbb{N}^{+}$. For any bijection $f$ from $\{0,1\}^{k}$ to $\{0,1\}^{k}$, there exists a $\square_{1}^{\mathrm{QP}}$ function $g_{f}$ such that, for any quantum state $|\phi\rangle \in \mathcal{H}_{\infty}$,
+
+$$
+g_{f}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq k-1, \\ \sum_{s \in\{0,1\}^{k}}|f(s)\rangle\langle s \mid \phi\rangle & \text { otherwise } .\end{cases}
+$$
+
+Proof. Given a bijection $f$ on $\{0,1\}^{k}$, it suffices to show the existence of $\widehat{\square_{1}^{\mathrm{QP}}}$-function $h$ satisfying $h(|s\rangle|\phi\rangle)=|f(s)\rangle|\phi\rangle$ for any string $s \in\{0,1\}^{k}$ and any quantum state $|\phi\rangle \in \mathcal{H}_{\infty}$ since $g_{f}$ is obtained from $h$ simply by setting $g_{f}=L E N G T H_{k}[h]$. Notice that, if $h \in \widehat{\square_{1}^{\mathrm{QP}}}, h(\mathbf{0})=\mathbf{0}$ makes $g_{f}(\mathbf{0})$ equal $\mathbf{0}$.
+
+A bijection on $\{0,1\}^{k}$ is, in essence, a permutation on $\left\{s_{1}, s_{2}, \ldots, s_{2^{k}}\right\}$, where each $s_{i}$ is lexicographically the $i$ th string in $\{0,1\}^{k}$, and thus it can be expressed as the multiplication of a finite number of transpositions, each of which swaps between two distinct numbers. This can be done by an application of the multiple composition of the corresponding $S W A P_{i, i+j}$, which is defined in the proof of Lemma 3.6(6). Therefore, $h$ belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$.
+
+Given a quantum state $|\phi\rangle$, it is possible to apply simultaneously a quantum function $f$ to the first $k$ qubits of $|\phi\rangle$ and another quantum function $g$ to the rest.
+
+Lemma 3.8 Given $f, g \in \widehat{\square_{1}^{\mathrm{QP}}}$ and $k \in \mathbb{N}^{+}$, the quantum function $f^{\leq k} \otimes g$, which is defined by
+
+$$
+\left(f^{\leq k} \otimes g\right)(|\phi\rangle)= \begin{cases}f(|\phi\rangle) & \text { if } \ell(|\phi\rangle) \leq k \\ \sum_{s \in\{0,1\}^{k}} f(|s\rangle) \otimes g(\langle s \mid \phi\rangle) & \text { otherwise }\end{cases}
+$$
+
+belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$. We write this $g$ as Skip $[f]$.\\
+Proof. Given a quantum function $f$, we restrict the application of $f$ to the last $k$ qubits of any input $|\phi\rangle$ by setting $f^{\prime}=Q R e c_{k}\left[f, I, I \mid f_{0}, f_{1}\right]$, where $f_{0}$ and $f_{1}$ are $f^{\prime}$. It follows that $f^{\prime}(|\phi\rangle|s\rangle)=|\phi\rangle \otimes f(|s\rangle)$ for any $|\phi\rangle \in \mathcal{H}_{\infty}$ and $s \in\{0,1\}^{k}$.
+
+Let $h=R E P_{k} \circ f^{\prime} \circ R E M O V E_{k}$. This quantum function $h$ satisfies that $h(|s\rangle|\phi\rangle)=f(|s\rangle) \otimes|\phi\rangle$ for any $s \in\{0,1\}^{k}$. We then define $\mathcal{G}_{k}=\left\{g_{s}\right\}_{s \in\{0,1\}^{k}}$ with $g_{s}=g$ for every string $s \in\{0,1\}^{k}$ and set $g^{\prime}=h \circ \operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right]$. It then follows that the desired quantum function $f^{\leq k} \otimes g$ equals $\operatorname{Switch}_{k+1}\left[f, g^{\prime}\right]$.
+
+Next, we present Lemma 3.9, which is useful for the proof of our key lemma (Lemma 4.3) in Section 5. The lemma allows us to skip, before applying a given quantum function, an arbitrary number of 0s until we read a fixed number of 1 s .\\
+Lemma 3.9 Let $f$ be a quantum function in $\widehat{\square_{1}^{\mathrm{QP}}}$ and let $k$ be a constant in $\mathbb{N}^{+}$. There exists a quantum function $g$ in $\widehat{\square_{1}^{\mathrm{QP}}}$ such that $g\left(\left|0^{m} 1^{k}\right\rangle \otimes|\phi\rangle\right)=\left|0^{m} 1^{k}\right\rangle \otimes f(|\phi\rangle)$ and $g\left(\left|0^{m+1}\right\rangle\right)=\left|0^{m+1}\right\rangle$ for any number $m \in \mathbb{N}$ and any quantum state $|\phi\rangle \in \mathcal{H}_{\infty}$. The lemma also holds when $\widehat{\square_{1}^{\mathrm{QP}}}$ is replaced by $\square_{1}^{\mathrm{QP}}$.
+
+Proof. Let $k \geq 2$. Given a quantum function $f \in \widehat{\square_{1}^{\mathrm{QP}}}$, we first expand $f$ to $f^{\prime}$ so that $f^{\prime}\left(\left|1^{k-1}\right\rangle|\phi\rangle\right)= \left|1^{k-1}\right\rangle \otimes f(|\phi\rangle)$ for any $|\phi\rangle \in \mathcal{H}_{\infty}$ and $f^{\prime}\left(\left|0^{m+1}\right\rangle\right)=\left|0^{m+1}\right\rangle$ for any $m \in \mathbb{N}$. This quantum function $f^{\prime}$ can be obtained inductively as follows. We set $f_{k-1}=\operatorname{Branch}[I, f], f_{i}=\operatorname{Branch}\left[I, f_{i+1}\right]$ for each $i \in[k-2]$, and\\
+finally define $f^{\prime}$ to be $f_{1}$. When $k=1$, we simply set $f^{\prime}=f$. The desired quantum function $g$ in the lemma must satisfy
+
+$$
+g(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ |0\rangle \otimes f^{\prime}(g(\langle 0 \mid \phi\rangle))+|1\rangle\langle 1 \mid \phi\rangle & \text { otherwise } .\end{cases}
+$$
+
+This $g$ is formally defined as $g=Q R e c_{1}\left[I, \operatorname{Branch}\left[f^{\prime}, I\right], I \mid g, I\right]$. This completes the proof.\\
+Within our framework, it is possible to construct a "restricted" form of the quantum Fourier transform (QFT). Given a binary string $s=s_{1} s_{2} \cdots s_{k}$ of length $k$ with $s_{i} \in\{0,1\}$, we denote by $n u m(s)$ the integer of the form $\sum_{i=1}^{k} s_{i} 2^{k-i}$. For instance, $\operatorname{num}(011)=1 \cdot 2^{1}+1 \cdot 2^{0}=5$ and $\operatorname{num}(1010)=1 \cdot 2^{3}+1 \cdot 2^{1}=10$. Moreover, let $\omega_{k}=e^{2 \pi i / 2^{k}}$, where $i=\sqrt{-1}$.
+
+Lemma 3.10 Let $k$ be any fixed constant in $\mathbb{N}^{+}$. The following $k$-qubit quantum Fourier transform belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$. For any element $|\phi\rangle$ in $\mathcal{H}_{\infty}$, let
+
+$$
+F_{k}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<k \\ \frac{1}{2^{k / 2}} \sum_{t:|t|=k} \sum_{s:|s|=k} \omega_{k}^{\text {num }(s) \text { num }(t)}|s\rangle\langle t \mid \phi\rangle & \text { otherwise }\end{cases}
+$$
+
+Proof. When $k=1, F_{1}$ coincides with $W H$ and therefore $F_{1}$ belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$ by Lemma 3.3. Next, assume that $k \geq 2$. It is known that, for any $x_{1}, x_{2}, \ldots, x_{k} \in\{0,1\}$,
+
+
+\begin{equation*}
+F_{k}\left(\left|x_{1} x_{2} \cdots x_{k}\right\rangle\right)=\frac{1}{2^{k / 2}}\left(|0\rangle+\omega_{1}^{x_{k}}|1\rangle\right)\left(|0\rangle+\omega_{1}^{x_{k-1}} \omega_{2}^{x_{k}}|1\rangle\right) \cdots\left(|0\rangle+\prod_{i=1}^{k} \omega_{i}^{x_{i}}|1\rangle\right) . \tag{1}
+\end{equation*}
+
+
+For this fact and its proof, refer to, e.g., 25.\\
+Let us recall the special quantum function $S W A P_{i, i+j}$ from the proof of Lemma 3.6(6), which swaps between the $i$ th and the $j$ th qubits. Using $C P H A S E_{\theta}$, for any index pair $i, j$ with $i<j$, we define $C P H A S E_{\theta}^{(i, j)}$ to be $S W A P_{1, i} \circ S W A P_{2, j} \circ C P H A S E_{\theta} \circ S W A P_{2, j} \circ S W A P_{1, i}$, in which we apply $C P H A S E_{\theta}$ to the $i$ th and the $j$ th qubits. We first want to construct $G_{k}^{(1)}=F_{k} \circ R E V E R S E$, which works similarly to $F_{k}$ but takes $\left|\phi^{R}\right\rangle$ as an input instead. To achieve this goal, we define $\left\{G_{j}^{(i)}\right\}_{i, j \in \mathbb{N}^{+}}$inductively as follows. Initially, we set $G_{0}^{(i)}=I$ for any $i \in \mathbb{N}^{+}$. Next, we define $G_{1}^{(i)}$ as $G_{1}^{(i)}=H$ if $i=1$, and $G_{1}^{(i)}= R E P_{i-1} \circ H \circ R E M O V E_{i-1}$ otherwise. For any index $k \geq 2, G_{k}^{(i)}$ is defined to be $G_{k-1}^{(i)} \circ C P H A S E_{\frac{\pi}{2^{k-1}}}^{(i, i+k-1)} \circ \left(G_{k-2}^{(i)}\right)^{-1} \circ G_{k-1}^{(i+1)}$. It is not difficult to show that $G_{k}^{(1)}$ coincides with $F_{k} \circ R E V E R S E$ by Eqn. (1).
+
+Since $G_{k}^{(1)}=F_{k} \circ R E V E R S E$, it suffices to define $F_{k}$ as $G_{k}^{(1)} \circ R E V E R S E$.\\
+A general form of QFT, in which $k$ is not limited to a particular constant, will be discussed in Section 6.1 in connection to our choice of Schemata I-IV that form the function class $\square_{1}^{\mathrm{QP}}$.
+
+\section*{4 Main Contributions}
+In Section 3.1, we have introduced the $\square_{1}^{\mathrm{QP}}$-functions and the $\widehat{\square_{1}^{\mathrm{QP}}}$-functions mapping $\mathcal{H}_{\infty}$ to $\mathcal{H}_{\infty}$ by applying Schemata I-IV for finitely many times. Our main theorem (Theorem 4.1) asserts that $\square_{1}^{\mathrm{QP}}$ can precisely characterize all functions in FBQP mapping $\{0,1\}^{*}$ to $\{0,1\}^{*}$, and therefore characterize all languages in BQP over $\{0,1\}$ by identifying languages with their corresponding characteristic functions. This theorem will be proven by using two key lemmas, Lemmas 4.244 .3 .
+
+\subsection*{4.1 A New Characterization of FBQP}
+Our goal is to demonstrate the power of $\square_{1}^{\mathrm{QP}}$-functions (and thus $\widehat{\square_{1}^{\mathrm{QP}}}$-functions) by showing in Theorem 4.1 that $\square_{1}^{\mathrm{QP}}$-functions (as well as $\widehat{\square_{1}^{\mathrm{QP}}}$-functions) precisely characterize FBQP-functions on $\{0,1\}^{*}$. For this purpose, there are unfortunately two major difficulties to overcome.
+
+The first difficulty arises in dealing with tape symbols of QTMs by qubits alone. Notice that QTMs working over non-binary input alphabets are known to be simulated by QTMs taking the binary input alphabet $\{0,1\}$. Even if we successfully reduce the size of input alphabets down to 2 , in fact, the simulation of such QTMs must require the proper handling of non-binary tape symbols, in particular, the distinguished
+
+
+\end{document}

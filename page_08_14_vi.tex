@@ -1,0 +1,284 @@
+\documentclass[10pt]{article}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{vietnamese}
+\setotherlanguage{english}
+\setmainfont{TeX Gyre Termes}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{bbold}
+\providecommand{\DeclareUnicodeCharacter}[2]{}
+
+%Lệnh mới để hiển thị chú thích cuối trang mà ký hiệu chú thích luôn được ẩn
+\let\svthefootnote\thefootnote
+\newcommand\blfootnotetext[1]{%
+  \let\thefootnote\relax\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \let\thefootnote\svthefootnote%
+}
+
+%Ghi đè lệnh \footnotetext để ẩn ký hiệu nếu giá trị của nó là `0`
+\let\svfootnotetext\footnotetext
+\renewcommand\footnotetext[2][?]{%
+  \if\relax#1\relax%
+    \ifnum\value{footnote}=0\blfootnotetext{#2}\else\svfootnotetext{#2}\fi%
+  \else%
+    \if?#1\ifnum\value{footnote}=0\blfootnotetext{#2}\else\svfootnotetext{#2}\fi%
+    \else\svfootnotetext[#1]{#2}\fi%
+  \fi
+}
+
+\begin{document}
+\subsection*{3.1 Định nghĩa các hàm $\square_{1}^{\mathrm{QP}}$}
+Định nghĩa theo lược đồ của chúng tôi dẫn đến một lớp hàm đặc biệt, gọi là $\square_{1}^{\mathrm{QP}}$ (trong đó $\square$ được đọc là "square"), nắm bắt các hàm lượng tử tính được trong thời gian đa thức ánh xạ từ $\mathcal{H}_{\infty}$ đến $\mathcal{H}_{\infty}$; lớp này gồm một tập nhỏ các hàm lượng tử khởi đầu và bốn quy tắc xây dựng đặc biệt: hợp thành, hoán đổi, phân nhánh và đệ quy lượng tử đa qubit. Định nghĩa 3.1 trình bày hình thức chính thức cho định nghĩa theo lược đồ của chúng tôi.
+
+Sau đây, ta nói rằng một hàm lượng tử $f$ từ $\mathcal{H}_{\infty}$ đến $\mathcal{H}_{\infty}$ là bảo toàn số chiều nếu, với mọi trạng thái lượng tử $|\phi\rangle \in \mathcal{H}_{\infty}$ và mọi số $n \in \mathbb{N}^{+},|\phi\rangle \in \mathcal{H}_{2^{n}}$ kéo theo $f(|\phi\rangle) \in \mathcal{H}_{2^{n}}$ (tức là $\ell(|\phi\rangle)=\ell(f(|\phi\rangle))$ ).
+
+Định nghĩa 3.1 Gọi $\square_{1}^{\text {QP }}$ là tập hợp tất cả các hàm lượng tử thu được từ các hàm lượng tử khởi đầu trong Lược đồ I bằng một số hữu hạn lần (kể cả 0 lần) áp dụng các quy tắc xây dựng II-IV lên các hàm lượng tử đã được xây dựng trước đó, trong đó các Lược đồ I-IV được cho như sau. Gọi $|\phi\rangle$ là một trạng thái lượng tử bất kỳ trong $\mathcal{H}_{\infty}$.\\
+I. Các hàm lượng tử khởi đầu. Cho $\theta \in[0,2 \pi) \cap \tilde{\mathbb{C}}$ và $a \in\{0,1\}$.
+
+\begin{enumerate}
+  \item $I(|\phi\rangle)=|\phi\rangle$. (đồng nhất)
+  \item $P H A S E_{\theta}(|\phi\rangle)=|0\rangle\langle 0 \mid \phi\rangle+e^{i \theta}|1\rangle\langle 1 \mid \phi\rangle$. (dịch pha)
+  \item $R O T_{\theta}(|\phi\rangle)=\cos \theta|\phi\rangle+\sin \theta(|1\rangle\langle 0 \mid \phi\rangle-|0\rangle\langle 1 \mid \phi\rangle)$. (quay quanh trục $x y$ với góc $\theta$ )
+  \item $N O T(|\phi\rangle)=|0\rangle\langle 1 \mid \phi\rangle+|1\rangle\langle 0 \mid \phi\rangle$. (phủ định)
+  \item $S W A P(|\phi\rangle)=\left\{\begin{array}{ll}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ \sum_{a, b \in\{0,1\}}|a b\rangle\langle b a \mid \phi\rangle & \text { otherwise. }\end{array}\right.$ (hoán đổi 2 qubit)
+  \item $M E A S[a](|\phi\rangle)=|a\rangle\langle a \mid \phi\rangle$. (đo chiếu từng phần)\\
+II. Quy tắc hợp thành. Từ $g$ và $h$, ta định nghĩa Compo $[g, h]$ như sau:
+\end{enumerate}
+
+Compo $[g, h](|\phi\rangle)=g \circ h(|\phi\rangle)(=g(h(|\phi\rangle)))$.\\
+III. Quy tắc phân nhánh. Từ $g$ và $h$, ta định nghĩa Branch $[g, h]$ như sau:\\
+(i) Branch $[g, h](|\phi\rangle)=|\phi\rangle \quad$ nếu $\ell(|\phi\rangle) \leq 1$,\\
+(ii) Branch $[g, h](|\phi\rangle)=|0\rangle \otimes g(\langle 0 \mid \phi\rangle)+|1\rangle \otimes h(\langle 1 \mid \phi\rangle) \quad$ ngược lại.\\
+IV. Quy tắc đệ quy lượng tử đa qubit. Từ $g, h$, $p$ bảo toàn số chiều, và $k, t \in \mathbb{N}^{+}$, ta định nghĩa $k Q \operatorname{Rec}_{t}\left[g, h, p \mid \mathcal{F}_{k}\right]$ như sau:\\
+(i) $k Q \operatorname{Rec}_{t}\left[g, h, p \mid \mathcal{F}_{k}\right](|\phi\rangle)=g(|\phi\rangle) \quad$ nếu $\ell(|\phi\rangle) \leq t$,\\
+(ii) $k Q R e c_{t}\left[g, h, p \mid \mathcal{F}_{k}\right](|\phi\rangle)=h\left(\sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\right) \quad$ ngược lại,\\
+trong đó $\left|\psi_{p, \phi}\right\rangle=p(|\phi\rangle)$ và $\mathcal{F}_{k}=\left\{f_{s}\right\}_{s \in\{0,1\}^{k}} \subseteq\left\{k Q \operatorname{Rec}_{t}\left[g, h, p \mid \mathcal{F}_{k}\right], I\right\}$. Để nhấn mạnh " $k$," chúng tôi gọi quy tắc này là đệ quy lượng tử $k$-qubit. Trong trường hợp $k=1$, để ngắn gọn ta viết $Q \operatorname{Rec}_{t}\left[g, h, p \mid f_{0}, f_{1}\right]$ thay cho $1 Q R e c_{t}\left[g, h, p \mid\left\{f_{0}, f_{1}\right\}\right]$.
+
+Trong Lược đồ I, $P H A S E_{\theta}$ và $R O T_{\theta}$ lần lượt tương ứng với các ma trận $Z_{2, \theta}$ và $R_{\theta}$ đã cho ở Mục 2.3. Sau này, chúng tôi sẽ lập luận rằng góc $\theta$ trong $P H A S E_{\theta}$ và $R O T_{\theta}$ có thể cố định thành $\pi / 4$. Hàm lượng tử MEAS gắn với phép đo chiếu từng phần, trong cơ sở tính toán $\{0,1\}$, áp dụng lên qubit đầu tiên của $|\phi\rangle$ khi $\ell(|\phi\rangle) \geq 1$, và hiển nhiên suy ra rằng $\ell($ MEAS $[i](|\phi\rangle)) \leq \ell(|\phi\rangle)$.
+
+Trước khi đi xa hơn, để giúp người đọc hiểu hành vi của các hàm lượng tử khởi đầu liệt kê trong Lược đồ I, chúng tôi minh họa ngắn gọn cách các hàm này biến đổi các qustring cơ bản độ dài 3. Với các bit $a, b, c, d \in\{0,1\}$ với $d \neq a$, ta có $I(|a b c\rangle)=|a b c\rangle, P H A S E_{\theta}\left(|a b c\rangle=e^{i \theta a}|a b c\rangle, R O T_{\theta}(|a b c\rangle)=\right. \cos \theta|a b c\rangle+(-1)^{a} \sin \theta|\bar{a} b c\rangle, N O T(|a b c\rangle)=|\bar{a} b c\rangle, S W A P(|a b c\rangle)=|b a c\rangle, M E A S[a](|a b c\rangle)=|a b c\rangle$, và $M E A S[d](|a b c\rangle)=\mathbf{0}$, trong đó $\bar{a}=1-a$.
+
+Lược đồ IV là lõi của định nghĩa $\square_{1}^{\mathrm{QP}}$. Quy tắc đệ quy chuẩn dùng để định nghĩa một hàm đệ quy nguyên thủy $f$ từ hai hàm $g$ và $h$ có dạng: $f(0, x)=g(x)$ và $f(n+1, x)=h(n, x, f(n, x))$ với mọi $n \in \mathbb{N}$. Quy tắc này cần một bộ đếm nội bộ (ở vị trí đối số thứ nhất của $f$) để điều khiển số lần lặp áp dụng $h$. Tuy nhiên, trong Lược đồ IV, chúng tôi không dùng bộ đếm như vậy. Thay vào đó, chúng tôi dùng chiến lược chia để trị để chia một trạng thái lượng tử đã cho theo từng qubit. Ở mỗi bước quy nạp, chúng tôi xử lý các trạng thái lượng tử ngắn hơn $k$-qubit cho đến khi trạng thái lượng tử có độ dài không quá $t$. Chúng tôi muốn đưa ra hai ví dụ cụ thể về cách Lược đồ IV hoạt động trong các trường hợp $k=1,2$. Lưu ý rằng trong trường hợp $k=1$, Lược đồ IV trở thành quy tắc đệ quy lượng tử 1-qubit (hay đơn qubit) được mô tả như sau:\\
+(i') $Q R e c_{t}\left[g, h, p \mid f_{0}, f_{1}\right](|\phi\rangle)=g(|\phi\rangle) \quad$ nếu $\ell(|\phi\rangle) \leq t$,\\
+(ii') $Q R e c_{t}\left[g, h, p \mid f_{0}, f_{1}\right](|\phi\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{p, \phi}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{p, \phi}\right\rangle\right)\right) \quad$ ngược lại, trong đó mỗi hàm $f_{0}$ và $f_{1}$ phải là $I$ hoặc $Q \operatorname{Rec}_{t}\left[g, h, p \mid f_{0}, f_{1}\right]$.
+
+\footnotetext{${ }^{\text {I }}$ Hình thức hiện tại của các Lược đồ I-IV hiệu chỉnh những sai khác do hình thức ban đầu trong bản tóm tắt mở rộng 39 gây ra.
+}Ví dụ 1. Trước hết xét trường hợp $k=1$. Trong ví dụ này, ta đặt $t=1, g=N O T, h=S W A P$, và $p=N O T$, đồng thời viết ngắn gọn $F$ cho $Q R e c_{1}\left[N O T, S W A P, N O T \mid f_{0}, f_{1}\right]$ với $f_{0}=I$ và $f_{1}=F$. Cần lưu ý rằng $\mathbf{0}$ là một đối tượng đặc biệt và theo Bổ đề 3.4 (1), ta có $g(\mathbf{0})=\mathbf{0}$ với mọi hàm lượng tử $g$. Gọi $|\phi\rangle$ là một trạng thái lượng tử bất kỳ trong $\mathcal{H}_{\infty}$ được đưa vào $F$.\\
+(1) Giả sử $|\phi\rangle$ có độ dài 1 và có dạng tổng quát $\alpha|0\rangle+\beta|1\rangle$. Theo Bổ đề 3.4(2), chỉ cần xét cơ sở tính toán $B_{1}=\{|0\rangle,|1\rangle\}$. Vì $\ell(|\phi\rangle) \leq t$, kết quả của $f$ trên các qubit cơ sở $|0\rangle$ và $|1\rangle$ được tính như sau.\\
+(i) $F(|0\rangle)=g(|0\rangle)=N O T(|0\rangle)=|1\rangle$.\\
+(ii) $F(|1\rangle)=g(|1\rangle)=N O T(|1\rangle)=|0\rangle$.
+
+Hiển nhiên $F(\mathbf{0})=\mathbf{0}$. Vì $|\phi\rangle$ là chồng chập dạng $\alpha|0\rangle+\beta|1\rangle$, các tính toán trên lập tức suy ra
+
+$$
+F(|\phi\rangle)=F(\alpha|0\rangle+\beta|1\rangle)=N O T(\alpha|0\rangle+\beta|1\rangle)=\alpha N O T(|0\rangle)+\beta N O T(|1\rangle)=\alpha|1\rangle+\beta|0\rangle .
+$$
+
+(2) Tiếp theo, giả sử $|\phi\rangle$ có độ dài 2. Trong trường hợp $|\phi\rangle$ là trạng thái lượng tử cơ sở $|00\rangle$ trong $B_{2}=\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}$, ta có $\left|\psi_{p, \phi}\right\rangle=\left|\psi_{N O T, 00}\right\rangle=N O T(|00\rangle)=|10\rangle$. Tương tự, nếu $|\phi\rangle$ lần lượt là $|01\rangle,|10\rangle$, và $|11\rangle$, thì trạng thái lượng tử $\left|\psi_{p, \phi}\right\rangle$ tương ứng là $|11\rangle,|00\rangle$, và $|01\rangle$. Liên quan đến phép đo chiếu từng phần, suy ra rằng với mọi bit $a \in\{0,1\},\langle 1 \mid 1 a\rangle=|a\rangle,\langle 0 \mid 0 a\rangle=|a\rangle,\langle 1 \mid 0 a\rangle=\mathbf{0}$, và $\langle 0 \mid 1 a\rangle=\mathbf{0}$. Cũng lưu ý rằng $I(\mathbf{0})=\mathbf{0}$. Dùng các đẳng thức này cùng với $F(|0\rangle)=|1\rangle$ và $F(|1\rangle)=|0\rangle$ thu được ở (1), ta có thể tính kết quả $F(|\phi\rangle)$ như sau.\\
+(i) $F(|00\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 00}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 00}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 10\rangle)+|1\rangle \otimes F(\langle 1 \mid 10\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|0\rangle))=h(|1\rangle \otimes F(|0\rangle))=S W A P(|1\rangle \otimes|1\rangle)=S W A P(|11\rangle)=|11\rangle$.\\
+(ii) $F(|10\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 10}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 10}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 00\rangle)+|1\rangle \otimes F(\langle 1 \mid 00\rangle))=\right. h(|0\rangle \otimes I(|0\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|0\rangle))=S W A P(|0\rangle \otimes|0\rangle)=S W A P(|00\rangle)=|00\rangle$.\\
+(iii) $F(|01\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 01}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 01}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 11\rangle)+|1\rangle \otimes F(\langle 1 \mid 11\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|1\rangle))=h(|1\rangle \otimes F(|1\rangle))=S W A P(|1\rangle \otimes|0\rangle)=S W A P(|10\rangle)=|01\rangle$.\\
+(iv) $F(|11\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 11}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 11}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 01\rangle)+|1\rangle \otimes F(\langle 1 \mid 01\rangle))=\right. h(|0\rangle \otimes I(|1\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|1\rangle))=S W A P(|0\rangle \otimes|1\rangle)=S A W P(|01\rangle)=|10\rangle$.
+
+Theo Bổ đề 3.4 (2), chẳng hạn khi $|\phi\rangle$ có dạng $\alpha|00\rangle+\beta|10\rangle$, ta được
+
+$$
+F(|\phi\rangle)=F(\alpha|00\rangle+\beta|10\rangle)=\alpha F(|00\rangle)+\beta F(|10\rangle)=\alpha|11\rangle+\beta|00\rangle .
+$$
+
+(3) Xét trường hợp độ dài của $|\phi\rangle$ là 3. Với cơ sở tính toán $B_{3}= \{|000\rangle,|001\rangle,|010\rangle, \ldots,|111\rangle\}$, ta chỉ tính các kết quả $F(|\phi\rangle)$ cho đầu vào $|\phi\rangle$ thuộc $\{|001\rangle,|101\rangle\}$. Lưu ý rằng $\left|\psi_{N O T, 001}\right\rangle=|101\rangle$ và $\left|\psi_{N O T, 101}\right\rangle=|001\rangle$. Nhắc lại từ (1)-(2) rằng $F(|01\rangle)=|01\rangle$ và $F(\mathbf{0})=\mathbf{0}$.\\
+(i) $F(|001\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 001}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 001}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 101\rangle)+|1\rangle \otimes F(\langle 1 \mid 101\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|01\rangle))=h(|1\rangle \otimes F(|01\rangle))=S W A P(|1\rangle \otimes|01\rangle)=S A W P(|101\rangle)=|011\rangle$.\\
+(ii) $F(|101\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 101}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 101}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 001\rangle)+|1\rangle \otimes F(\langle 1 \mid 001\rangle))=\right. h(|0\rangle \otimes I(|01\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|01\rangle))=S W A P(|0\rangle \otimes|01\rangle)=S A W P(|001\rangle)=|001\rangle$.
+
+Chẳng hạn nếu $|\phi\rangle$ có dạng $\alpha|001\rangle+\beta|101\rangle$, Bổ đề 3.4(2) kéo theo $F(|\phi\rangle)=F(\alpha|001\rangle+\beta|101\rangle)= \alpha F(|001\rangle)+\beta F(|101\rangle)=\alpha|011\rangle+\beta|001\rangle$.\\
+Ví dụ 2. Ta xét một ví dụ khác cho trường hợp $k=2$. Chẳng hạn đặt $t=3, g=N O T, h=S W A P$, và $p=N O T$, ta viết $F$ cho $2 Q R e c_{3}\left[N O T, S W A P, N O T \mid f_{00}, f_{01}, f_{10}, f_{11}\right]$ với $f_{00}=I$, $f_{01}=N O T, f_{10}=F$, và $f_{11}=F$. Gọi $|\phi\rangle$ là một trạng thái lượng tử bất kỳ trong $\mathcal{H}_{\infty}$.\\
+(1) Khi độ dài của $|\phi\rangle$ không quá 3, ta lập tức có $F(|\phi\rangle)=g(|\phi\rangle)=N O T(|\phi\rangle)$. Ví dụ, $F(|0\rangle)=|1\rangle, F(|10\rangle)=|00\rangle$, và $F(|101\rangle)=|001\rangle$.\\
+(2) Giả sử độ dài của $|\phi\rangle$ là 4, xét các trạng thái lượng tử cơ sở trong $B_{4}= \{|0000\rangle,|0001\rangle,|0010\rangle, \ldots,|1111\rangle\}$. Ở đây, ta chỉ tập trung vào hai trường hợp: $|\phi\rangle \in\{|0101\rangle,|1011\rangle\}$. Ta lưu ý rằng $\left|\psi_{N O T, 0010}\right\rangle=N O T(|0010\rangle)=|1010\rangle$ và $\left|\psi_{N O T, 1011}\right\rangle=N O T(|1011\rangle)=|0011\rangle$.\\
+(i) $F(|0010\rangle)=h\left(|00\rangle \otimes f_{00}\left(\left\langle 00 \mid \psi_{N O T, 0010}\right\rangle\right)+|01\rangle \otimes f_{01}\left(\left\langle 01 \mid \psi_{N O T, 0010}\right\rangle\right)+|10\rangle \otimes f_{10}\left(\left\langle 10 \mid \psi_{N O T, 0010}\right\rangle\right)+\right. \left.|11\rangle \otimes f_{11}\left(\left\langle 11 \mid \psi_{N O T, 0010}\right\rangle\right)\right)=h(|00\rangle \otimes I(\langle 00 \mid 1010\rangle)+|01\rangle \otimes N O T(\langle 01 \mid 1010\rangle)+|10\rangle \otimes F(\langle 10 \mid 1010\rangle)+|11\rangle \otimes F(\langle 11 \mid 1010\rangle))=h(|00\rangle \otimes I(\mathbf{0})+|01\rangle \otimes N O T(\mathbf{0})+|10\rangle \otimes F(|10\rangle)+|11\rangle \otimes F(\mathbf{0}))=h(|10\rangle \otimes F(|10\rangle))= S W A P(|10\rangle \otimes|00\rangle)=S W A P(|1000\rangle)=|0100\rangle$.\\
+(ii) $F(|1101\rangle)=h\left(|00\rangle \otimes f_{00}\left(\left\langle 00 \mid \psi_{N O T, 1101}\right\rangle\right)+|01\rangle \otimes f_{01}\left(\left\langle 01 \mid \psi_{N O T, 1101}\right\rangle\right)+|10\rangle \otimes f_{10}\left(\left\langle 10 \mid \psi_{N O T, 1101}\right\rangle\right)+\right. \left.|11\rangle \otimes f_{11}\left(\left\langle 11 \mid \psi_{N O T, 1101}\right\rangle\right)\right)=h(|00\rangle \otimes I(\langle 00 \mid 0101\rangle)+|01\rangle \otimes N O T(\langle 01 \mid 0101\rangle)+|10\rangle \otimes F(\langle 10 \mid 0101\rangle)+|11\rangle \otimes F(\langle 11 \mid 0101\rangle))=h(|00\rangle \otimes I(\mathbf{0})+|01\rangle \otimes N O T(|01\rangle)+|10\rangle \otimes F(\mathbf{0})+|11\rangle \otimes F(\mathbf{0}))=h(|01\rangle \otimes N O T(|01\rangle))= S W A P(|01\rangle \otimes|11\rangle)=S W A P(|0111\rangle)=|1011\rangle$.
+
+\subsection*{3.2 Một lớp con của $\square_{1}^{\mathrm{QP}}$ và các tính chất cơ bản}
+Trong sáu hàm lượng tử khởi đầu của Lược đồ I, MEAS có hành vi khá khác biệt. Nó có thể thay đổi chuẩn cũng như số chiều của các trạng thái lượng tử, và điều đó khiến nó về bản chất là không khả nghịch. Vì lý do này, trong thực hành thường có lợi khi giới hạn sự chú ý vào một lớp con của $\square_{1}^{\mathrm{QP}}$, gọi là $\widehat{\square_{1}^{\mathrm{QP}}}$, lớp này cấm hoàn toàn việc sử dụng MEAS.
+
+Định nghĩa 3.2 Ký hiệu $\widehat{\square_{1}^{\mathrm{QP}}}$ chỉ lớp con của $\square_{1}^{\mathrm{QP}}$ được định nghĩa bởi các Lược đồ I-IV ngoại trừ MEAS trong Lược đồ I.
+
+Không dùng MEAS trong Lược đồ I, mọi hàm lượng tử $f$ trong $\widehat{\square_{1}^{\mathrm{QP}}}$ đều bảo toàn số chiều của đầu vào; nói cách khác, $f$ thỏa mãn $\ell(f(|\phi\rangle))=\ell(|\phi\rangle)$ với mọi đầu vào $|\phi\rangle \in \mathcal{H}_{\infty}$.
+
+Tiếp theo, ta minh họa cách xây dựng các cổng đơn vị điển hình bằng định nghĩa theo lược đồ của chúng tôi.\\
+Bổ đề 3.3 Các hàm sau thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$. Gọi $|\phi\rangle$ là một phần tử bất kỳ trong $\mathcal{H}_{\infty}$.
+
+\begin{enumerate}
+  \item $\operatorname{CNOT}(|\phi\rangle)=\left\{\begin{array}{ll}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ |0\rangle\langle 0 \mid \phi\rangle+|1\rangle \otimes N O T(\langle 1 \mid \phi\rangle) & \text { otherwise. }\end{array} \quad\right.$ (controlled-NOT)
+  \item $Z_{1, \theta}(|\theta\rangle)=e^{i \theta}|0\rangle\langle 0 \mid \phi\rangle+|1\rangle\langle 1 \mid \phi\rangle$.
+  \item $z R O T_{\phi}(|\phi\rangle)=e^{i \theta}|0\rangle\langle 0 \mid \phi\rangle+e^{-i \theta}|1\rangle\langle 1 \mid \phi\rangle$. (quay quanh trục $z$)
+  \item $G P S_{\theta}(|\phi\rangle)=e^{i \theta}|\phi\rangle$. (dịch pha toàn cục)
+  \item $W H(|\phi\rangle)=\frac{1}{\sqrt{2}}|0\rangle \otimes(\langle 0 \mid \phi\rangle+\langle 1 \mid \phi\rangle)+\frac{1}{\sqrt{2}}|1\rangle \otimes(\langle 0 \mid \phi\rangle-\langle 1 \mid \phi\rangle)$. (biến đổi Walsh-Hadamard)
+  \item $\operatorname{CPHASE}_{\theta}(|\phi\rangle)= \begin{cases}|\phi\rangle \\ \frac{1}{\sqrt{2}} \sum_{b \in\{0,1\}}\left(|0\rangle\langle b \mid \phi\rangle+e^{i \theta b}|1\rangle\langle b \mid \phi\rangle\right) & \text { if } \ell(|\phi\rangle) \leq 1, \quad \text { (controlled-PHASE) }\end{cases}$
+\end{enumerate}
+
+Chứng minh. Chỉ cần xây dựng từng hàm lượng tử trong bổ đề từ các hàm lượng tử khởi đầu và bằng cách áp dụng các quy tắc xây dựng. Các hàm đích này được xây dựng như sau. (1) CNOT $=$ Branch $[I, N O T]$. Lưu ý rằng khi $\ell(|\phi\rangle) \leq 1$, Lược đồ III $(\mathrm{i})$ suy ra $\operatorname{CNOT}(|\phi\rangle)=|\phi\rangle$, khớp với Mục 1 của $C N O T$. (2) $Z_{1, \theta}=N O T \circ P H A S E_{\theta} \circ N O T$. (3) $z R O T_{\theta}=Z_{1, \theta} \circ P H A S E_{-\theta}$. (4) $G P S_{\theta}= Z_{1, \theta} \circ P H A S E_{\theta}$. (5) $W H=\operatorname{ROT}_{\frac{\pi}{4}} \circ N O T$. (6) $C P H A S E_{\theta}=\operatorname{Branch}[W H, f]$, trong đó $f=\operatorname{Branch}\left[I, G P S_{\theta}\right] \circ W H \circ N O T$.
+
+Vì mọi hàm $\square_{1}^{\mathrm{QP}}$-function $f$ được xây dựng bằng cách áp dụng các Lược đồ I-IV, một lần áp dụng một trong các lược đồ được xem là một bước cơ bản của quá trình xây dựng để sinh ra $f$. Điều này giúp ta định nghĩa độ phức tạp mô tả của $f$ là số lần tối thiểu dùng các lược đồ đó để xây dựng $f$. Ví dụ, mọi hàm khởi đầu đều có độ phức tạp mô tả bằng 1 vì chỉ dùng Lược đồ I một lần. Như đã minh họa trong chứng minh Bổ đề 3.3, các hàm lượng tử $C N O T, Z_{1, \theta}$, và $W H$ có độ phức tạp mô tả nhiều nhất là 3, còn $z R O T_{\theta}$ và $G P S_{\theta}$ nhiều nhất là 4, trong khi $C P H A S E_{\theta}$ có độ phức tạp mô tả nhiều nhất là 15. Thước đo độ phức tạp này là thiết yếu khi chứng minh, chẳng hạn, Bổ đề 3.4 vì bổ đề sẽ được chứng minh bằng quy nạp theo độ phức tạp mô tả của hàm lượng tử đích. Ở Mục 6.2, chúng tôi sẽ thảo luận ngắn về thước đo độ phức tạp này cho nghiên cứu tương lai.
+
+Các tính chất nền tảng của các hàm $\widehat{\square_{1}^{\mathrm{QP}}}$ được nêu trong bổ đề sau. Một hàm lượng tử từ $\mathcal{H}_{\infty}$ đến $\mathcal{H}_{\infty}$ được gọi là bảo toàn chuẩn nếu $\| f(|\phi\rangle)\|=\||\phi\rangle \|$ đúng với mọi trạng thái lượng tử $|\phi\rangle$ trong $\mathcal{H}_{\infty}$.
+
+Bổ đề 3.4 Cho $f$ là một hàm lượng tử bất kỳ trong $\widehat{\square_{1}^{\mathrm{QP}}}$ và cho $|\phi\rangle,|\psi\rangle \in \mathcal{H}_{\infty}$ cùng $\alpha \in \mathbb{C}$.
+
+\begin{enumerate}
+  \item $f(\mathbf{0})=\mathbf{0}$, trong đó $\mathbf{0}$ là vectơ không.
+  \item $f(|\phi\rangle+|\psi\rangle)=f(|\phi\rangle)+f(|\psi\rangle)$.
+  \item $f(\alpha|\phi\rangle)=\alpha \cdot f(|\phi\rangle)$.
+  \item $f$ bảo toàn số chiều và bảo toàn chuẩn.
+\end{enumerate}
+
+Chứng minh. Gọi $f$ là một hàm $\widehat{\square_{1}^{\mathrm{QP}}}$ bất kỳ, gọi $|\phi\rangle,|\psi\rangle \in \mathcal{H}_{\infty}$, và gọi $\alpha \in \mathbb{C}$ cùng $\theta \in[0,2 \pi)$ là các hằng số. Như đã nói trước đó, ta chứng minh bổ đề bằng quy nạp theo độ phức tạp mô tả của $f$. Nếu $f$ là một trong các hàm lượng tử khởi đầu của Lược đồ I, thì dễ kiểm tra rằng nó thỏa các Điều kiện $1-4$ của bổ đề. Đặc biệt, khi $|\phi\rangle$ là vectơ không $\mathbf{0}$, tất cả các biểu thức $e^{i \theta}|\phi\rangle, \cos \theta|\phi\rangle, \sin \theta|\phi\rangle,\langle 0 \mid \phi\rangle,\langle 1 \mid \phi\rangle$, và $\langle b a \mid \phi\rangle$ dùng trong Lược đồ I đều là $\mathbf{0}$; do đó, $|b\rangle \otimes\langle 1 \mid \phi\rangle$ và $|b\rangle \otimes\langle 0 \mid \phi\rangle$ cũng là $\mathbf{0}$ với mỗi bit $b \in\{0,1\}$. Vì vậy Điều kiện 1 được chứng minh.
+
+Trong các Lược đồ II-IV, ta xét Lược đồ IV vì các lược đồ còn lại dễ chứng minh thỏa Điều kiện 1-4. Gọi $g, h$, và $p$ là các hàm lượng tử trong $\widehat{\square_{1}^{\mathrm{QP}}}$ và giả sử $p$ bảo toàn số chiều. Theo giả thuyết quy nạp, giả sử $g, h$, và $p$ thỏa Điều kiện $1-4$. Để dễ đọc, ta viết $f$ cho $k Q R e c_{t}\left[g, h, p \mid \mathcal{F}_{k}\right]$. Trong phần sau, ta chỉ tập trung vào Điều kiện 2 và 4 vì các điều kiện còn lại dễ kiểm tra. Lập luận của ta sẽ dùng quy nạp theo độ dài đầu vào $|\phi\rangle$ đưa vào $f$.\\
+(i) Mục tiêu là chứng minh $f$ thỏa Điều kiện 2. Trước hết, xét trường hợp $\ell(|\phi\rangle) \leq t$. Khi đó suy ra $f(|\phi\rangle+|\xi\rangle)=g(|\phi\rangle+|\xi\rangle)=g(|\phi\rangle)+g(|\xi\rangle)$ vì giả sử $g$ thỏa Điều kiện 2. Tiếp theo xét trường hợp $\ell(|\phi\rangle)>t$. Từ định nghĩa của $f$, ta có $f(|\phi\rangle+|\xi\rangle)=h\left(\sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle\right)\right)$, trong đó $\left|\psi_{p, \phi, \xi}\right\rangle=p(|\phi\rangle+|\xi\rangle)$. Do $p(|\phi\rangle+|\xi\rangle)=p(|\phi\rangle)+p(|\xi\rangle)$ theo giả thuyết quy nạp, ta kết luận $\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle=\left\langle s \mid \psi_{p, \phi}\right\rangle+\left\langle s \mid \psi_{p, \xi}\right\rangle$ với mỗi xâu $s \in\{0,1\}^{k}$. Theo giả thuyết quy nạp, suy ra $f_{s}\left(\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle\right)=f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)+f_{s}\left(\left\langle s \mid \psi_{p, \xi}\right\rangle\right)$, dẫn đến đẳng thức $|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle\right)=|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)+ |s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \xi}\right\rangle\right)$. Dùng Điều kiện 2 cho $h$, ta thu được $h\left(\sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi, \xi}\right\rangle\right)\right)=\sum_{s:|s|=k} h(|s\rangle \otimes \left.f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\right)+\sum_{s:|s|=k} h\left(|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \xi}\right\rangle\right)\right)$. Từ đó kết luận $f(|\phi\rangle+|\xi\rangle)=f(|\phi\rangle)+f(|\xi\rangle)$.\\
+(ii) Ta muốn chứng minh $f$ thỏa Điều kiện 4. Theo giả thuyết quy nạp, với mọi $s \in\{0,1\}^{k}$, ta có $\left\|f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\right\|=\left\|\left\langle s \mid \psi_{p, \phi}\right\rangle\right\|$ và $\| h(|\phi\rangle)\|=\||\phi\rangle \|$. Các đẳng thức này suy ra $\| f(|\phi\rangle) \|^{2}= \| h\left(\sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\right)\left\|^{2}=\right\| \sum_{s:|s|=k}|s\rangle \otimes f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right)\left\|^{2}=\sum_{s:|s|=k}\right\| f_{s}\left(\left\langle s \mid \psi_{p, \phi}\right\rangle\right) \|^{2}$, bằng $\sum_{s:|s|=k}\left\|\left\langle s \mid \psi_{p, \phi}\right\rangle\right\|^{2}$. Hạng cuối cùng trùng với $\|\left|\psi_{p, \phi}\right\rangle \|^{2}$, mà bằng $\| p(|\phi\rangle) \|^{2}$. Điều này suy ra Điều kiện 4 vì $\| p(|\phi\rangle)\|=\||\phi\rangle \|$.
+
+Bổ đề 3.4(4) chỉ ra rằng mọi hàm trong $\widehat{\square_{1}^{\mathrm{QP}}}$ cũng đóng vai trò là các hàm ánh xạ từ $\Phi_{\infty}$ đến $\Phi_{\infty}$ thay vì từ $\mathcal{H}_{\infty}$ đến $\mathcal{H}_{\infty}$.
+
+Cho một hàm lượng tử $g$ bảo toàn số chiều và bảo toàn chuẩn, nghịch đảo của $g$ là một hàm lượng tử duy nhất $f$ thỏa điều kiện rằng với mọi $|\phi\rangle \in \mathcal{H}_{\infty}, f \circ g(|\phi\rangle)=g \circ f(|\phi\rangle)=|\phi\rangle$. Hàm lượng tử đặc biệt này được ký hiệu là $g^{-1}$.
+
+Mệnh đề tiếp theo đảm bảo rằng $\widehat{\square_{1}^{\mathrm{QP}}}$ đóng dưới phép "nghịch đảo" vì $\widehat{\square_{1}^{\mathrm{QP}}}$ không chứa MEAS.\\
+Mệnh đề 3.5 Với mọi hàm lượng tử $g \in \widehat{\square_{1}^{\mathrm{QP}}}, g^{-1}$ tồn tại và thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$.\\
+Chứng minh. Ta chứng minh mệnh đề này bằng quy nạp theo độ phức tạp mô tả của $g$ đã nêu ở trên. Nếu $g$ là một trong các hàm lượng tử khởi đầu, ta định nghĩa nghịch đảo của nó $g^{-1}$ như sau: $I^{-1}=I$, $P H A S E_{\theta}^{-1}=P H A S E_{-\theta}, R O T_{\theta}^{-1}=R O T_{-\theta}, N O T^{-1}=N O T$, và $S W A P^{-1}=S W A P$. Nếu $g$ được tạo từ một hoặc nhiều hàm lượng tử khác bằng một trong các quy tắc xây dựng, thì nghịch đảo của nó được định nghĩa là: $\operatorname{Compo}[g, h]^{-1}=\operatorname{Compo}\left[h^{-1}, g^{-1}\right], \operatorname{Branch}[g, h]^{-1}=\operatorname{Branch}\left[g^{-1}, h^{-1}\right]$, và $k Q R e c_{t}\left[g, h, p \mid\left\{f_{s}\right\}_{s \in\{0,1\}^{k}}\right]^{-1}=k Q R e c_{t}\left[g^{-1}, p^{-1}, h^{-1} \mid\left\{f_{s}^{-1}\right\}_{s \in\{0,1\}^{k}}\right]$.
+
+Việc chúng tôi chọn các Lược đồ I-IV được thúc đẩy bởi một tập cổng lượng tử phổ dụng cụ thể. Lưu ý rằng một lựa chọn khác về các hàm lượng tử khởi đầu và quy tắc xây dựng có thể dẫn đến một tập hàm $\square_{1}^{\mathrm{QP}}$ khác. Lược đồ I dùng góc "tùy ý" $\theta$ trong $[0,2 \pi) \cap \widetilde{\mathbb{C}}$ để đưa vào $P H A S E_{\theta}$ và $R O T_{\theta}$; tuy nhiên, ta có thể giới hạn $\theta$ về giá trị duy nhất $\frac{\pi}{4}$ vì $P H A S E_{\theta}$ và $R O T_{\theta}$ với giá trị tùy ý $\theta \in[0,2 \pi)$ có thể được xấp xỉ với độ chính xác mong muốn bằng $W H$ và $Z_{2, \frac{\pi}{4}}$. Phần cuối này xuất phát từ thực tế là mọi toán tử đơn vị đơn qubit đều có thể được xấp xỉ đến độ chính xác bất kỳ từ các cổng lượng tử $W H$ và $Z_{2, \frac{\pi}{4}}$ 6 (xem thêm 25). Để thảo luận thêm về lựa chọn các lược đồ, xem Mục 6.1.
+
+\subsection*{3.3 Xây dựng các hàm lượng tử phức tạp hơn}
+Trước khi trình bày định lý chính (Định lý 4.1), chúng tôi muốn chuẩn bị các hàm lượng tử hữu ích và các quy tắc xây dựng mới suy ra trực tiếp từ các Lược đồ I-IV. Các hàm lượng tử và quy tắc xây dựng này sẽ được dùng cho chứng minh bổ đề then chốt của chúng tôi (Bổ đề 4.3), bổ đề hỗ trợ định lý chính.
+
+Với mỗi $k \in \mathbb{N}^{+}$, ta giả sử thứ tự từ điển chuẩn $<$ trên $\{0,1\}^{k}$ và mọi phần tử trong $\{0,1\}^{k}$ được liệt kê theo từ điển là $s_{1}<s_{2}<\cdots<s_{2^{k}}$. Ví dụ, khi $k=2$, ta có $00<01<10<11$. Với mỗi xâu $s \in\{0,1\}^{n}$, $s^{R}$ ký hiệu xâu đảo của $s$; tức là $s^{R}=s_{n} s_{n-1} \cdots s_{2} s_{1}$ nếu $s=s_{1} s_{2} \cdots s_{n-1} s_{n}$. Ta mở rộng khái niệm này cho trạng thái lượng tử như sau. Cho trạng thái lượng tử $|\phi\rangle \in \mathcal{H}_{2^{n}}$, xâu đảo của $|\phi\rangle$, ký hiệu $\left|\phi^{R}\right\rangle$, có dạng $\sum_{s:|s|=n}\langle s \mid \phi\rangle \otimes\left|s^{R}\right\rangle$, trong đó $\langle s \mid \phi\rangle$ chỉ là một vô hướng. Chẳng hạn, nếu $|\phi\rangle=\alpha|01\rangle+\beta|10\rangle$, thì $\left|\phi^{R}\right\rangle=\alpha|10\rangle+\beta|01\rangle$.
+
+Bổ đề 3.6 Cho $k \in \mathbb{N}$ với $k \geq 2$, cho $g, h \in \widehat{\square_{1}^{\mathrm{QP}}}$, và cho $\mathcal{G}_{k}=\left\{g_{s} \mid s \in\{0,1\}^{k}\right\}$ là một tập các hàm $\widehat{\square_{1}^{\mathrm{QP}}}$. Các hàm lượng tử sau đều thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$. Bổ đề cũng đúng nếu thay $\widehat{\square_{1}^{\mathrm{QP}}}$ bằng $\square_{1}^{\mathrm{QP}}$.
+
+Gọi $|\phi\rangle$ là một trạng thái lượng tử bất kỳ trong $\mathcal{H}_{\infty}$.
+
+\begin{enumerate}
+  \item Compo $\left[\mathcal{G}_{k}\right](|\phi\rangle)=g_{s_{1}} \circ g_{s_{2}} \circ \cdots \circ g_{s_{2^{k}}}(|\phi\rangle)$. (hợp thành nhiều hàm)
+  \item Switch $_{k}[g, h](|\phi\rangle)=g(|\phi\rangle)$ nếu $\ell(|\phi\rangle)<k$ và Switch ${ }_{k}[g, h](|\phi\rangle)=h(|\phi\rangle)$ ngược lại. (chuyển mạch)
+  \item $L E N G T H_{k}[g](|\phi\rangle)=|\phi\rangle$ nếu $\ell(|\phi\rangle)<k$ và $L E N G T H_{k}[g](|\phi\rangle)=g(|\phi\rangle)$ ngược lại.
+  \item $\operatorname{REMOVE} E_{k}(|\phi\rangle)=|\phi\rangle$ nếu $\ell(|\phi\rangle)<k$ và $\operatorname{REMOVE} E_{k}(|\phi\rangle)=\sum_{s:|s|=k}\langle s \mid \phi\rangle \otimes|s\rangle$ ngược lại.
+  \item $R E P_{k}(|\phi\rangle)=|\phi\rangle$ nếu $\ell(|\phi\rangle)<k$ và $R E P_{k}(|\phi\rangle)=\sum_{s:|s|=n-k}\langle s \mid \phi\rangle \otimes|s\rangle$ ngược lại.
+  \item $S W A P_{k}(|\phi\rangle)=|\phi\rangle$ nếu $\ell(|\phi\rangle)<2 k$ và $S W A P_{k}(|\phi\rangle)=\sum_{s:|s|=k} \sum_{t:|t|=k}|s t\rangle\langle t s \mid \phi\rangle$ ngược lại.
+  \item $\operatorname{REVERSE}(|\phi\rangle)=\left|\phi^{R}\right\rangle$.
+  \item $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle)=|\phi\rangle$ nếu $\ell(|\phi\rangle)<k$ và $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle)=\sum_{s:|s|=k}|s\rangle \otimes g_{s}(\langle s \mid \phi\rangle)$ ngược lại.
+  \item $\operatorname{RevBranch}{ }_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle) \quad=\quad|\phi\rangle \quad$ if $\quad \ell(|\phi\rangle) \quad<\quad k \quad$ and $\operatorname{RevBranch}{ }_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle) \quad= \sum_{s:|s|=k} g_{s}\left(\sum_{u:|u|=n-k}\langle u s \mid \phi\rangle \otimes|u\rangle\right) \otimes|s\rangle$ otherwise, trong đó $n=\ell(|\phi\rangle)$.\\
+Sự khác nhau giữa $R E M O V E_{k}$ và $R E P_{k}$ khá tinh tế nhưng $R E M O V E_{k}$ dời $k$ qubit đầu của đầu vào xuống cuối, còn $R E P_{k}$ dời $k$ qubit cuối lên đầu. Chẳng hạn với các qustring cơ bản độ dài 4, ta có $R E P_{1}\left(\left|a_{1} a_{2} a_{3} a_{4}\right\rangle\right)=\left|a_{4} a_{1} a_{2} a_{3}\right\rangle$ và $R E M O V E_{1}\left(\left|a_{1} a_{2} a_{3} a_{4}\right\rangle\right)=\left|a_{2} a_{3} a_{4} a_{1}\right\rangle$. Tương tự, $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right]$ áp dụng mỗi $g_{s}$ trong $\mathcal{G}_{k}$ lên trạng thái lượng tử thu được từ $|\phi\rangle$ bằng cách loại bỏ $k$ qubit đầu, trong khi $\operatorname{RevBranch}{ }_{k}\left[\mathcal{G}_{k}\right]$ áp dụng $g_{s}$ lên trạng thái lượng tử thu được bằng cách loại bỏ $k$ qubit cuối, bất cứ khi nào $k \leq \ell(|\phi\rangle)$. Ví dụ, nếu $\mathcal{G}_{k}=\{h\}_{s \in\{0,1\}^{k}}$ cho một hàm lượng tử đơn $h$, thì với mọi xâu $s \in\{0,1\}^{k}$, ta có $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right](|s\rangle|\phi\rangle)=|s\rangle \otimes h(|\phi\rangle)$ và $\operatorname{RevBranch}_{k}\left[\mathcal{G}_{k}\right](|\phi\rangle|s\rangle)=h(|\phi\rangle) \otimes|s\rangle$.
+\end{enumerate}
+
+Chứng minh Bổ đề 3.6, Cho $k \in \mathbb{N}^{+}, g \in \widehat{\square_{1}^{\mathrm{QP}}}$, và $\mathcal{G}_{k}=\left\{g_{s} \mid s \in\{0,1\}^{k}\right\} \subseteq \widehat{\square_{1}^{\mathrm{QP}}}$. Với mỗi chỉ số $i \in[k]$, gọi $s_{i}$ là phần tử thứ $i$ theo thứ tự từ điển của $\{0,1\}^{k}$.
+
+\begin{enumerate}
+  \item Trước hết đặt $f_{2^{k}}=g_{s_{2^{k}}}$ và định nghĩa quy nạp $f_{i-1}=\operatorname{Compo}\left[g_{s_{i-1}}, f_{i}\right]$ với mọi chỉ số $i \in\left[2,2^{k}\right]_{\mathbb{Z}}$ để thu được $f_{1}=\operatorname{Compo}\left[\mathcal{G}_{k}\right]$. Hàm lượng tử nhận được $f_{1}$ hiển nhiên thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$ vì $k$ là hằng số cố định độc lập với đầu vào của $f_{1}$.
+  \item Đây là một trường hợp đặc biệt của quy tắc đệ quy lượng tử đơn qubit (hay quy tắc đệ quy lượng tử 1-qubit), trong đó $t=k-1, p=I$, và $f_{0}=f_{1}=I$. Vì vậy, Switch $[g, h]$ thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$.
+  \item Vì $L E N G T H_{k}[g]=$ Switch $_{k}[I, g], L E N G T H_{k}$ thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$.
+  \item Ta bắt đầu với trường hợp $k=1$. Hàm lượng tử cần tìm $R E M O V E_{1}$ được định nghĩa là
+\end{enumerate}
+
+$$
+\operatorname{REMOVE}_{1}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ \sum_{a \in\{0,1\}}|a\rangle \otimes \operatorname{REMOV} E_{1}\left(\left\langle a \mid \psi_{S W A P, \phi}\right\rangle\right) & \text { otherwise },\end{cases}
+$$
+
+Chính thức hơn, ta đặt $R E M O V E_{1}=Q R e c_{1}\left[I, I, S W A P \mid R E M O V E_{1}, R E M O V E_{1}\right]$. Với trường hợp $k=2$, ta định nghĩa $R E M O V E_{2}=R E M O V E_{1} \circ R E M O V E_{1}$. Với mỗi chỉ số $k \geq 3, R E M O V E_{k}$ được thu được như sau. Gọi $h_{k}^{\prime}$ là $k$ phép hợp thành của $R E M O V E_{1}$ và định nghĩa $R E M O V E_{k}$ là $L E N G T H_{k}\left[h_{k}^{\prime}\right]$. Ta lưu ý rằng $L E N G T H_{k}$ là cần thiết trong định nghĩa vì $h_{k}^{\prime}$ không được đảm bảo bằng $R E M O V E_{k}$ khi $\ell(|\phi\rangle) \leq k-1$.\\
+5) Trước tiên, ta định nghĩa $R E P_{1}$ là $R E P_{1}=Q R e c_{1}\left[I, S W A P, I \mid R E P_{1}, R E P_{1}\right]$, tức là,
+
+$$
+R E P_{1}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1 \\ \sum_{a \in\{0,1\}} S W A P\left(|a\rangle \otimes R E P_{1}(\langle a \mid \phi\rangle)\right) & \text { otherwise. }\end{cases}
+$$
+
+Hiển nhiên, $R E P_{1}$ thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$. Với chỉ số tổng quát $k>1$, ta định nghĩa $R E P_{k}$ theo cách sau. Trước hết đặt $h_{k}^{\prime}$ là $k$ phép hợp thành của $R E P_{1}$. Cuối cùng đặt $R E P_{k}=L E N G T H_{k}\left[h_{k}^{\prime}\right]$.\\
+6) Trước hết ta hiện thực một hàm lượng tử $S W A P_{i, i+j}$, hoán đổi qubit thứ $i$ và qubit thứ $(i+j)$ của mọi đầu vào. Mục tiêu này đạt được bằng cách xây dựng quy nạp $S W A P_{i, i+j}$ như sau. Ban đầu đặt $S W A P_{i, i+1}=R E P_{i-1} \circ S W A P \circ R E M O V E_{i-1}$. Với mọi chỉ số $j \in[k-i]$, định nghĩa $S W A P_{i, i+j}= S W A P_{i+j-1, i+j} \circ S W A P_{i, i+j-1} \circ S W A P_{i+j-1, i+j}$. Sau đó đặt $g=S W A P_{k, 2 k} \circ S W A P_{k-1,2 k-1} \circ \cdots \circ S W A P_{2, k+2} \circ S W A P_{1, k+1}$. Cuối cùng, chỉ cần định nghĩa $S W A P_{k}$ là $L E N G T H_{2 k}[g]$.\\
+7) Hàm lượng tử cần tìm REVERSE có thể được định nghĩa là REVERSE = QRec $_{1}\left[I\right.$, REMOV $E_{1}, I \mid$ REVERSE, REVERSE $]$, tức là,
+
+$$
+R E V E R S E(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1 \\ R E M O V E_{1}\left(\sum_{a \in\{0,1\}}(|a\rangle \otimes R E V E R S E(\langle a \mid \phi\rangle))\right) & \text { otherwise. }\end{cases}
+$$
+
+\begin{enumerate}
+  \setcounter{enumi}{7}
+  \item Lưu ý rằng khi $k=2, \operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right]$ trùng với Branch và do đó thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$. Từ đây giả sử $k \geq 3$. Với mỗi xâu $s \in\{0,1\}^{k}$, đặt $g_{s}^{(0)}=g_{s}$. Với mỗi chỉ số $i \in \mathbb{N}$ thỏa $i<k$ và mỗi xâu $s \in\{0,1\}^{*}$ với $|s|=k-i-1$, ta định nghĩa quy nạp $g_{s}^{(i+1)}$ là $\operatorname{Branch}\left[g_{s 0}^{(i)}, g_{s 1}^{(i)}\right]$, tức là,
+\end{enumerate}
+
+$$
+g_{s}^{(i+1)}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle \leq 1, \\ |0\rangle \otimes g_{s 0}^{(i)}(\langle 0 \mid \phi\rangle)+|1\rangle \otimes g_{s 1}^{(i)}(\langle 1 \mid \phi\rangle) & \text { otherwise } .\end{cases}
+$$
+
+Cuối cùng, ta đặt $\operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right]=g_{\lambda}^{(k)}$, trong đó $\lambda$ là xâu rỗng.\\
+9) Giả sử $k \geq 2$, đặt $\operatorname{RevBranch}_{k}\left[\left\{g_{s}\right\}_{s \in\{0,1\}^{k}}\right]=\operatorname{REMOVE} E_{k} \circ \operatorname{Branch}_{k}\left[\left\{g_{s}\right\}_{s \in\{0,1\}^{k}}\right] \circ R E P_{k}$.
+
+Bổ đề kế tiếp cho thấy ta có thể mở rộng mọi song ánh cổ điển trên $\{0,1\}^{k}$ thành hàm $\widehat{\square_{1}^{\mathrm{QP}}}$ liên kết của nó, hàm này hành xử đúng hệt song ánh đó trên $k$ bit đầu của đầu vào.
+
+Bổ đề 3.7 Cho $k$ là một hằng trong $\mathbb{N}^{+}$. Với mọi song ánh $f$ từ $\{0,1\}^{k}$ đến $\{0,1\}^{k}$, tồn tại một hàm $\square_{1}^{\mathrm{QP}}$ $g_{f}$ sao cho, với mọi trạng thái lượng tử $|\phi\rangle \in \mathcal{H}_{\infty}$,
+
+$$
+g_{f}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq k-1, \\ \sum_{s \in\{0,1\}^{k}}|f(s)\rangle\langle s \mid \phi\rangle & \text { otherwise } .\end{cases}
+$$
+
+Chứng minh. Cho một song ánh $f$ trên $\{0,1\}^{k}$, chỉ cần chỉ ra tồn tại hàm $\widehat{\square_{1}^{\mathrm{QP}}}$ $h$ thỏa $h(|s\rangle|\phi\rangle)=|f(s)\rangle|\phi\rangle$ với mọi xâu $s \in\{0,1\}^{k}$ và mọi trạng thái lượng tử $|\phi\rangle \in \mathcal{H}_{\infty}$, vì $g_{f}$ được thu từ $h$ chỉ bằng cách đặt $g_{f}=L E N G T H_{k}[h]$. Lưu ý rằng nếu $h \in \widehat{\square_{1}^{\mathrm{QP}}}, h(\mathbf{0})=\mathbf{0}$ khiến $g_{f}(\mathbf{0})$ bằng $\mathbf{0}$.
+
+Một song ánh trên $\{0,1\}^{k}$ về bản chất là một hoán vị trên $\left\{s_{1}, s_{2}, \ldots, s_{2^{k}}\right\}$, trong đó mỗi $s_{i}$ là xâu thứ $i$ theo thứ tự từ điển trong $\{0,1\}^{k}$, và do đó có thể biểu diễn thành tích của một số hữu hạn phép hoán vị đổi chỗ, mỗi phép đổi chỗ hoán đổi hai số phân biệt. Việc này có thể thực hiện bằng cách áp dụng hợp thành nhiều lần của các $S W A P_{i, i+j}$ tương ứng, được định nghĩa trong chứng minh Bổ đề 3.6(6). Do đó, $h$ thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$.
+
+Cho một trạng thái lượng tử $|\phi\rangle$, ta có thể đồng thời áp dụng một hàm lượng tử $f$ lên $k$ qubit đầu của $|\phi\rangle$ và một hàm lượng tử khác $g$ lên phần còn lại.
+
+Bổ đề 3.8 Với $f, g \in \widehat{\square_{1}^{\mathrm{QP}}}$ và $k \in \mathbb{N}^{+}$, hàm lượng tử $f^{\leq k} \otimes g$, được định nghĩa bởi
+
+$$
+\left(f^{\leq k} \otimes g\right)(|\phi\rangle)= \begin{cases}f(|\phi\rangle) & \text { if } \ell(|\phi\rangle) \leq k \\ \sum_{s \in\{0,1\}^{k}} f(|s\rangle) \otimes g(\langle s \mid \phi\rangle) & \text { otherwise }\end{cases}
+$$
+
+thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$. Ta ký hiệu $g$ này là Skip $[f]$.\\
+Chứng minh. Cho hàm lượng tử $f$, ta giới hạn việc áp dụng $f$ lên $k$ qubit cuối của mọi đầu vào $|\phi\rangle$ bằng cách đặt $f^{\prime}=Q R e c_{k}\left[f, I, I \mid f_{0}, f_{1}\right]$, trong đó $f_{0}$ và $f_{1}$ đều là $f^{\prime}$. Suy ra $f^{\prime}(|\phi\rangle|s\rangle)=|\phi\rangle \otimes f(|s\rangle)$ với mọi $|\phi\rangle \in \mathcal{H}_{\infty}$ và $s \in\{0,1\}^{k}$.
+
+Đặt $h=R E P_{k} \circ f^{\prime} \circ R E M O V E_{k}$. Hàm lượng tử này $h$ thỏa $h(|s\rangle|\phi\rangle)=f(|s\rangle) \otimes|\phi\rangle$ với mọi $s \in\{0,1\}^{k}$. Sau đó ta định nghĩa $\mathcal{G}_{k}=\left\{g_{s}\right\}_{s \in\{0,1\}^{k}}$ với $g_{s}=g$ cho mọi xâu $s \in\{0,1\}^{k}$ và đặt $g^{\prime}=h \circ \operatorname{Branch}_{k}\left[\mathcal{G}_{k}\right]$. Khi đó suy ra hàm lượng tử cần tìm $f^{\leq k} \otimes g$ bằng $\operatorname{Switch}_{k+1}\left[f, g^{\prime}\right]$.
+
+Tiếp theo, ta trình bày Bổ đề 3.9, hữu ích cho chứng minh bổ đề then chốt của chúng tôi (Bổ đề 4.3) ở Mục 5. Bổ đề này cho phép ta bỏ qua, trước khi áp dụng một hàm lượng tử cho trước, một số lượng tùy ý các số 0 cho đến khi đọc được một số lượng cố định các số 1.\\
+Bổ đề 3.9 Cho $f$ là một hàm lượng tử trong $\widehat{\square_{1}^{\mathrm{QP}}}$ và cho $k$ là một hằng trong $\mathbb{N}^{+}$. Tồn tại một hàm lượng tử $g$ trong $\widehat{\square_{1}^{\mathrm{QP}}}$ sao cho $g\left(\left|0^{m} 1^{k}\right\rangle \otimes|\phi\rangle\right)=\left|0^{m} 1^{k}\right\rangle \otimes f(|\phi\rangle)$ và $g\left(\left|0^{m+1}\right\rangle\right)=\left|0^{m+1}\right\rangle$ với mọi số $m \in \mathbb{N}$ và mọi trạng thái lượng tử $|\phi\rangle \in \mathcal{H}_{\infty}$. Bổ đề cũng đúng khi thay $\widehat{\square_{1}^{\mathrm{QP}}}$ bằng $\square_{1}^{\mathrm{QP}}$.
+
+Chứng minh. Cho $k \geq 2$. Với hàm lượng tử $f \in \widehat{\square_{1}^{\mathrm{QP}}}$, trước hết ta mở rộng $f$ thành $f^{\prime}$ sao cho $f^{\prime}\left(\left|1^{k-1}\right\rangle|\phi\rangle\right)= \left|1^{k-1}\right\rangle \otimes f(|\phi\rangle)$ với mọi $|\phi\rangle \in \mathcal{H}_{\infty}$ và $f^{\prime}\left(\left|0^{m+1}\right\rangle\right)=\left|0^{m+1}\right\rangle$ với mọi $m \in \mathbb{N}$. Hàm lượng tử $f^{\prime}$ này có thể thu được theo quy nạp như sau. Ta đặt $f_{k-1}=\operatorname{Branch}[I, f], f_{i}=\operatorname{Branch}\left[I, f_{i+1}\right]$ với mỗi $i \in[k-2]$, và\\
+cuối cùng định nghĩa $f^{\prime}$ là $f_{1}$. Khi $k=1$, ta đơn giản đặt $f^{\prime}=f$. Hàm lượng tử cần tìm $g$ trong bổ đề phải thỏa
+
+$$
+g(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ |0\rangle \otimes f^{\prime}(g(\langle 0 \mid \phi\rangle))+|1\rangle\langle 1 \mid \phi\rangle & \text { otherwise } .\end{cases}
+$$
+
+Hàm $g$ này được định nghĩa hình thức là $g=Q R e c_{1}\left[I, \operatorname{Branch}\left[f^{\prime}, I\right], I \mid g, I\right]$. Điều này hoàn tất chứng minh.\\
+Trong khuôn khổ của chúng tôi, có thể xây dựng một dạng "hạn chế" của biến đổi Fourier lượng tử (QFT). Cho xâu nhị phân $s=s_{1} s_{2} \cdots s_{k}$ độ dài $k$ với $s_{i} \in\{0,1\}$, ta ký hiệu $n u m(s)$ là số nguyên có dạng $\sum_{i=1}^{k} s_{i} 2^{k-i}$. Chẳng hạn, $\operatorname{num}(011)=1 \cdot 2^{1}+1 \cdot 2^{0}=5$ và $\operatorname{num}(1010)=1 \cdot 2^{3}+1 \cdot 2^{1}=10$. Hơn nữa, gọi $\omega_{k}=e^{2 \pi i / 2^{k}}$, trong đó $i=\sqrt{-1}$.
+
+Bổ đề 3.10 Cho $k$ là một hằng cố định bất kỳ trong $\mathbb{N}^{+}$. Biến đổi Fourier lượng tử $k$-qubit sau thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$. Với mọi phần tử $|\phi\rangle$ trong $\mathcal{H}_{\infty}$, gọi
+
+$$
+F_{k}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<k \\ \frac{1}{2^{k / 2}} \sum_{t:|t|=k} \sum_{s:|s|=k} \omega_{k}^{\text {num }(s) \text { num }(t)}|s\rangle\langle t \mid \phi\rangle & \text { otherwise }\end{cases}
+$$
+
+Chứng minh. Khi $k=1, F_{1}$ trùng với $W H$ và do đó $F_{1}$ thuộc $\widehat{\square_{1}^{\mathrm{QP}}}$ theo Bổ đề 3.3. Tiếp theo, giả sử $k \geq 2$. Đã biết rằng, với mọi $x_{1}, x_{2}, \ldots, x_{k} \in\{0,1\}$,
+
+
+\begin{equation*}
+F_{k}\left(\left|x_{1} x_{2} \cdots x_{k}\right\rangle\right)=\frac{1}{2^{k / 2}}\left(|0\rangle+\omega_{1}^{x_{k}}|1\rangle\right)\left(|0\rangle+\omega_{1}^{x_{k-1}} \omega_{2}^{x_{k}}|1\rangle\right) \cdots\left(|0\rangle+\prod_{i=1}^{k} \omega_{i}^{x_{i}}|1\rangle\right) . \tag{1}
+\end{equation*}
+
+
+Về sự kiện này và chứng minh của nó, xem chẳng hạn 25.\\
+Hãy nhắc lại hàm lượng tử đặc biệt $S W A P_{i, i+j}$ trong chứng minh Bổ đề 3.6(6), hàm này hoán đổi giữa qubit thứ $i$ và qubit thứ $j$. Dùng $C P H A S E_{\theta}$, với mọi cặp chỉ số $i, j$ thỏa $i<j$, ta định nghĩa $C P H A S E_{\theta}^{(i, j)}$ là $S W A P_{1, i} \circ S W A P_{2, j} \circ C P H A S E_{\theta} \circ S W A P_{2, j} \circ S W A P_{1, i}$, trong đó ta áp dụng $C P H A S E_{\theta}$ lên qubit thứ $i$ và qubit thứ $j$. Trước hết ta muốn xây dựng $G_{k}^{(1)}=F_{k} \circ R E V E R S E$, hàm này hoạt động tương tự $F_{k}$ nhưng nhận $\left|\phi^{R}\right\rangle$ làm đầu vào. Để đạt mục tiêu đó, ta định nghĩa quy nạp $\left\{G_{j}^{(i)}\right\}_{i, j \in \mathbb{N}^{+}}$ như sau. Ban đầu đặt $G_{0}^{(i)}=I$ với mọi $i \in \mathbb{N}^{+}$. Tiếp theo, định nghĩa $G_{1}^{(i)}$ là $G_{1}^{(i)}=H$ nếu $i=1$, và $G_{1}^{(i)}= R E P_{i-1} \circ H \circ R E M O V E_{i-1}$ ngược lại. Với mọi chỉ số $k \geq 2, G_{k}^{(i)}$ được định nghĩa là $G_{k-1}^{(i)} \circ C P H A S E_{\frac{\pi}{2^{k-1}}}^{(i, i+k-1)} \circ \left(G_{k-2}^{(i)}\right)^{-1} \circ G_{k-1}^{(i+1)}$. Không khó để chỉ ra rằng $G_{k}^{(1)}$ trùng với $F_{k} \circ R E V E R S E$ theo Eqn. (1).
+
+Vì $G_{k}^{(1)}=F_{k} \circ R E V E R S E$, chỉ cần định nghĩa $F_{k}$ là $G_{k}^{(1)} \circ R E V E R S E$.\\
+Dạng QFT tổng quát, trong đó $k$ không bị giới hạn là một hằng số cụ thể, sẽ được bàn ở Mục 6.1 liên hệ với lựa chọn các Lược đồ I-IV tạo thành lớp hàm $\square_{1}^{\mathrm{QP}}$.
+
+\section*{4 Các đóng góp chính}
+Trong Mục 3.1, chúng tôi đã giới thiệu các hàm $\square_{1}^{\mathrm{QP}}$ và các hàm $\widehat{\square_{1}^{\mathrm{QP}}}$ ánh xạ từ $\mathcal{H}_{\infty}$ đến $\mathcal{H}_{\infty}$ bằng cách áp dụng các Lược đồ I-IV hữu hạn lần. Định lý chính của chúng tôi (Định lý 4.1) khẳng định rằng $\square_{1}^{\mathrm{QP}}$ có thể đặc trưng chính xác mọi hàm trong FBQP ánh xạ từ $\{0,1\}^{*}$ đến $\{0,1\}^{*}$, và do đó đặc trưng mọi ngôn ngữ trong BQP trên $\{0,1\}$ bằng cách đồng nhất ngôn ngữ với hàm đặc trưng tương ứng của nó. Định lý này sẽ được chứng minh bằng hai bổ đề then chốt, Bổ đề 4.244 .3 .
+
+\subsection*{4.1 Một đặc trưng mới của FBQP}
+Mục tiêu của chúng tôi là chứng minh sức mạnh của các hàm $\square_{1}^{\mathrm{QP}}$ (và do đó của các hàm $\widehat{\square_{1}^{\mathrm{QP}}}$) bằng cách chỉ ra trong Định lý 4.1 rằng các hàm $\square_{1}^{\mathrm{QP}}$ (cũng như các hàm $\widehat{\square_{1}^{\mathrm{QP}}}$) đặc trưng chính xác các hàm FBQP trên $\{0,1\}^{*}$. Để làm điều này, không may là có hai khó khăn lớn cần vượt qua.
+
+Khó khăn thứ nhất nảy sinh khi xử lý các ký hiệu băng của QTM chỉ bằng qubit. Lưu ý rằng các QTM làm việc trên bảng chữ cái đầu vào không nhị phân đã được biết là có thể mô phỏng bằng các QTM nhận bảng chữ cái đầu vào nhị phân $\{0,1\}$. Ngay cả khi ta giảm thành công kích thước bảng chữ cái đầu vào xuống 2, trên thực tế, mô phỏng các QTM như vậy vẫn phải đòi hỏi xử lý đúng các ký hiệu băng không nhị phân, đặc biệt là ký hiệu phân biệt
+
+
+\end{document}
