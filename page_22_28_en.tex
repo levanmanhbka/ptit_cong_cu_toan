@@ -1,0 +1,277 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{bbold}
+
+\begin{document}
+In general, $g_{5}$ changes $\left|0^{n+1} 1\right\rangle\left|x_{1} x_{2} \cdots x_{n}\right\rangle$ to $\left|\hat{3} \hat{x}_{1} \hat{x_{2}} \cdots \hat{x}_{n}\right\rangle$.\\
+(*) To explain our procedure further, for readability, we include more 0 s to $|00\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3}\right\rangle$, and hereafter we are focused on $\left|(00)^{6}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3}\right\rangle$.\\
+3) We transform the first two bits 00 in $\left|(00)^{6}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3}\right\rangle$ to $11(=\hat{2})$ and then move them to the end of the qustring, resulting in $\left|(00)^{5}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3} \hat{2}\right\rangle$. This transformation is carried out as follows. Similarly to CNOT, we define $k_{1}=N O T \circ S W A P \circ N O T$. Since $k_{1}(|00\rangle)=|11\rangle$, it suffices to define $f_{3}=R E M O V E_{2} \circ k_{1}$.\\
+4) In the beginning, our qustring is of the form $\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3} \hat{2}\right\rangle$ by ignoring the leading bits $(00)^{5}$. We pay our attention to the qustring located between $\hat{3}$ and $\hat{2}$. We place the last two bits $\hat{2}$ into the location immediately right to $\hat{3} \hat{x}_{1}$ together with changing $\hat{2}$ to $\hat{3}$. We then obtain $\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{x}_{3}\right\rangle$. This process is realized by an appropriate $\widehat{\square_{1}^{\mathrm{QP}}}$-function in the following fashion.
+
+Let $k_{2}$ denote a bijection from $\{0,1\}^{6}$ to $\{0,1\}^{6}$ satisfying that $k_{2}(v w \hat{2})=v \hat{2} w$ if $v, w \in\{\hat{0}, \hat{1}\}, k_{2}(\hat{3} w \hat{2})= \hat{3} w \hat{3}$ if $w \in\{\hat{0}, \hat{1}\}, k_{2}(w \hat{3} \hat{2})=w \hat{3} \hat{3}$ if $w \in\{\hat{0}, \hat{1}\}$, and $k_{2}(v w z)=v w z$ if $v, w, z \neq \hat{2}$. With this $k_{2}$, we define $g_{5}$ as
+
+$$
+g_{5}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 6 \\ \sum_{y:|y|=6}\left|k_{2}(y)\right\rangle\langle y \mid \phi\rangle & \text { otherwise }\end{cases}
+$$
+
+By Lemma 3.7, $g_{5}$ belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$. We then define a quantum function $h_{5}$ by setting $h_{5}= 2 Q \operatorname{Rec}_{2}\left[I, g_{5}, I \mid h_{5}, h_{5}, h_{5}, h_{5}\right]$, namely,
+
+$$
+h_{5}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 2, \\ \sum_{y \in\{\hat{0}, \hat{1}, \hat{2}, \hat{3}\}} g_{5}\left(|y\rangle \otimes h_{5}(\langle y \mid \phi\rangle)\right) & \text { otherwise. }\end{cases}
+$$
+
+After placing $\hat{3}$ into the right of $\hat{3} \hat{x}_{1}$, we finally obtain the qustring $\left|(00)^{5}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{x}_{3}\right\rangle$.\\
+5) Let us define $h_{5}^{\prime}=h_{5} \circ f_{3}$, which is the compositions of Steps 3)-4). By applying $h_{5}^{\prime}$ repeatedly, we can generally change $\left|(00)^{n-1}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \cdots \hat{x}_{n}\right\rangle$ to $\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \cdots \hat{3} \hat{x}_{n}\right\rangle$. Furthermore, if we apply $h_{5}^{\prime}$ twice to $\left|(00)^{3}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle$ in our example, then it is possible to append $|\hat{3} \hat{b}\rangle$ to the end of the qustring by consuming $(00)^{3}$, and then we obtain $\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$. Using $\left|0^{2 p(n)-n+1} 1\right\rangle$ in $\left|\phi^{p}\right\rangle$, we repeat Steps 3)-4) $2 p(n)-n+1$ times to encode the content of the first $p(n)+1$ tape cells indexed by nonnegative numbers. Returning to our example, if we take $\left|0^{4} 1\right\rangle$, then this process transforms $\left|0^{4} 1\right\rangle\left|(00)^{6}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3}\right\rangle$ into $\left|0^{4} 1\right\rangle\left|(00)^{2}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x_{3}}\right\rangle|\hat{3} \hat{b}\rangle$. To realize this transform by an appropriate $\widehat{\square_{1}^{\mathrm{QP}}}$-function, since Steps 3)-4) exclude $\left|0^{4} 1\right\rangle$, we first need to extend $h_{5}^{\prime}$ to $H_{1}=\operatorname{Skip}\left[h_{5}^{\prime}\right]$ by Lemma 3.9. The repetition of Steps 3)-4) is done by the following quantum function $f_{5}$ :
+
+$$
+f_{5}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1, \\ H_{1}\left(|0\rangle \otimes f_{5}(\langle 0 \mid \phi\rangle)+|1\rangle\langle 1 \mid \phi\rangle\right) & \text { otherwise } .\end{cases}
+$$
+
+More generally, $f_{5}$ changes $\left|0^{2 p(n)-n+1} 1\right\rangle\left|(00)^{2 p(n)-n+1}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \cdots \hat{x}_{n}\right\rangle \quad$ to $\left|0^{2 p(n)-n+1} 1\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \cdots \hat{3} \hat{x}_{n}\right\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \cdots \hat{3} \hat{b}\rangle$ with $p(n)-n+1$ copies of $\hat{3} \hat{b}$.\\
+6) Suppose that our qustring has the form $\left|(00)^{2}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$ by ignoring $\left|0^{4} 1\right\rangle$. We want to change the leftmost $\hat{3}$ to $\hat{2}$, resulting in $\left|(00)^{2}\right\rangle\left|\hat{2} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$. For our purpose, we first choose a unique bijection $p$ satisfying that $p(\hat{2})=\hat{3}, p(\hat{3})=\hat{2}$, and $p(y)=y$ for all other $y \in\{0,1\}^{2}$. Using Lemma 3.7, we expand this bijection $p$ to its associated quantum function $g_{p}$. The quantum function $f_{6}$ is then defined as
+
+$$
+f_{6}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 2 \\ g_{p}\left(|00\rangle \otimes f_{6}(\langle 00 \mid \phi\rangle)+\sum_{y \in\{0,1\}^{2}-\{00\}}|y\rangle\langle y \mid \phi\rangle\right) & \text { otherwise }\end{cases}
+$$
+
+\begin{enumerate}
+  \setcounter{enumi}{6}
+  \item We then change the series of 00 's in $\left|(00)^{2}\right\rangle\left|\hat{2} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$ into 10 's. To make this change, we prepare $h_{6}=S W A P \circ N O T \circ C N O T \circ N O T$. Note that $h_{6}(|00\rangle)=|10\rangle$ and $h_{6}(|11\rangle)=|11\rangle$. We then set
+\end{enumerate}
+
+$$
+f_{7}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 2, \\ h_{6}\left(|00\rangle \otimes f_{7}(\langle 00 \mid \phi\rangle)+\sum_{y:|y|=2 \wedge y \neq 00}|y\rangle\langle y \mid \phi\rangle\right) & \text { otherwise } .\end{cases}
+$$
+
+This quantum function $f_{7}$ changes $\left|(00)^{2}\right\rangle$ to $\left|(10)^{2}\right\rangle$, which equals $|\hat{3} \hat{b}\rangle$, and thus we obtain $|\hat{3} \hat{b}\rangle\left|\hat{2} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$. To obtain $p(n)$ copies of $|\hat{3} \hat{b}\rangle$ in the left-side region of $|\hat{2}\rangle$ in general, the string $(00)^{2 p(n)}$ is needed to consume.\\
+8) In this final step, we include the term $\left|q_{0}\right\rangle\left(=\left|0^{\ell}\right\rangle\right)$ into our procedure. We combine Steps 1)-7) to transform $\left|0^{\ell}\right\rangle\left|0^{2 p(n)-n+1} 1\right\rangle\left|0^{8 p(n)-n+2} 1\right\rangle|x\rangle$ to $\left|q_{0}\right\rangle|\hat{3} \hat{b} \cdots \hat{3} \hat{b}\rangle\left|\hat{2} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3} \cdots \hat{3} \hat{x}_{n}\right\rangle|\hat{3} \hat{b} \cdots \hat{3} \hat{b}\rangle$ by the quantum function $F_{1}$ defined as $F_{1}=\operatorname{RevBranch} h_{\ell}\left[\left\{g_{s}\right\}_{s \in\{0,1\}^{\ell}}\right]$, where $g_{0^{\ell}}=f_{7}$ and $g_{s}=I$ for any string $s$ different from $0^{\ell}$.
+
+\subsection*{5.3 Simulating a Single Step}
+To simulate an entire computation of $M$ on any given input $x$, we need to simulate all steps of $M$ one by one until $M$ eventually enters the final inner state $q_{f}$. In what follows, we demonstrate how to simulate a single step of $M$ by changing a head position, a tape symbol, and an inner state in a given skew configuration.
+
+Note that $M$ 's step involves only three consecutive cells, one of which is being scanned by the tape head. To describe three consecutive cells together with $M$ 's inner state, in general, we use an expression $r$ of the form $p s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ using $p \in\{0,1\}^{\ell}, \sigma_{i} \in\{0,1, b\}$, and $s_{i} \in\{2,3\}$ for each index $i \in[3]$. Each expression with $s_{i}=2$ indicates that $M$ is in state $q$, scanning the $i$ th cell of the three cells. Note that the length of $r$ is $\ell+6$. Let $T$ be the set of all possible such $r$ 's. Notice that $T$ is a finite set. The code $|\hat{r}\rangle$ of $r=p s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ is $|q\rangle\left|\hat{s}_{1}, \hat{\sigma}_{1}\right\rangle\left|\hat{s}_{2}, \hat{\sigma}_{2}\right\rangle\left|\hat{s}_{3}, \hat{\sigma}_{3}\right\rangle$, which is of length $\ell+12$.
+
+For simplicity, we call $r$ a target if $s_{1}=3, s_{2}=2, s_{3}=3$, and $\delta\left(q, \sigma_{2}\right)$ is defined. For later use, $s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ without $q$ is called a pre-target if $q s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ is a target.
+
+\begin{enumerate}
+  \item Let $r=q s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ be any fixed element in $T$. We prepare a flag qubit $|0\rangle$ in the end of $|\phi\rangle$ to mark that a simulation of $M$ 's single step is in progress or has been already done. Let us define a quantum function $f_{8}$, which transforms $|\tilde{r}\rangle|0\rangle$ to either $|\tilde{r}\rangle|0\rangle$ or $|\tilde{s}\rangle|1\rangle$, where $s$ is an expression obtained from $r$ by applying $\delta$ once if $r$ is a target. Let $A$ denote the set of all targets in $T$ and set $A^{\diamond}=\{\tilde{r} \mid r \in A\}$. Similarly, we define $T^{\diamond}$ from $T$.
+\end{enumerate}
+
+For this purpose, we first define a supporting quantum function $h_{r}(|b\rangle|\psi\rangle)=N O T(|b\rangle) \otimes|\tilde{r}\rangle\langle\tilde{r} \mid \psi\rangle+ \sum_{s \in\{0,1\}^{\ell+12}-A^{\circ}}(|b\rangle \otimes|s\rangle\langle s \mid \psi\rangle)$ for any target $r \in T$ and any $b \in\{0,1\}$. Next, we define $\left\{g_{r}\right\}_{r \in T}$ as follows. If $r$ is a non-target in $T$, then we set $g_{r}=I$. In what follows, we assume that $r$ is a target. Let $g_{r}(|0\rangle|s\rangle|\phi\rangle)=|0\rangle|s\rangle|\phi\rangle$ for any string $s \in\{0,1\}^{\ell+12}$. Since $M$ is plain, $M$ has only two kinds of transitions, shown in (i) and (ii) below.\\
+(i) Consider the case where $\delta\left(q, \sigma_{2}\right)=e^{i \theta}\left|q^{\prime}, \tau, d\right\rangle$. When $d=L$, we set
+
+$$
+g_{r}\left(|1\rangle|q\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle\left|\hat{2}, \hat{\sigma}_{2}\right\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle\right)=e^{i \theta}|1\rangle\left|q^{\prime}\right\rangle\left|\hat{2}, \hat{\sigma}_{1}\right\rangle|\hat{3}, \hat{\tau}\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle .
+$$
+
+When $d=R$, in contrast, we define
+
+$$
+g_{r}\left(|1\rangle|q\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle\left|\hat{2}, \hat{\sigma}_{2}\right\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle\right)=e^{i \theta}|1\rangle\left|q^{\prime}\right\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle|\hat{3}, \hat{\tau}\rangle\left|\hat{2}, \hat{\sigma}_{3}\right\rangle|\phi\rangle .
+$$
+
+(ii) Consider the case where $\delta\left(q, \sigma_{2}\right)=\cos \theta\left|q_{1}, \tau_{1}, d_{1}\right\rangle+\sin \theta\left|q_{2}, \tau_{2}, d_{2}\right\rangle$. If ( $d_{1}, d_{2}$ ) = ( $R, L$ ), then we define $g_{r}$ as
+
+$$
+g_{r}\left(|1\rangle|q\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle\left|\hat{2}, \hat{\sigma}_{2}\right\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle\right)=\cos \theta|1\rangle\left|q_{1}\right\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle\left|\hat{3}, \hat{\tau}_{1}\right\rangle\left|\hat{2}, \hat{\sigma}_{3}\right\rangle|\phi\rangle+\sin \theta|1\rangle\left|q_{2}\right\rangle\left|\hat{2}, \hat{\sigma}_{1}\right\rangle\left|\hat{3}, \hat{\tau}_{2}\right\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle .
+$$
+
+The other values of ( $d_{1}, d_{2}$ ) are similarly handled.\\
+Notice that $\left\{g_{r}(|1\rangle|\tilde{r}\rangle)\right\}_{r \in A}$ forms an orthonormal set because $M$ is well-formed, and thus $\delta$ satisfies all the conditions stated in Section 2.2. Once the flag qubit becomes $|1\rangle$, we do not need to apply $g_{r} \circ h_{r}$. Thus, we further set $g_{r}^{\prime}=\operatorname{Branch}\left[g_{r} \circ h_{r}, I\right]$. By combining all $g_{r}^{\prime}$ 's, we define $g$ as $g=\operatorname{Compo}\left[\left\{g_{r}^{\prime}\right\}_{r \in T}\right]$, which implies
+
+$$
+g(|0\rangle|\phi\rangle)=\sum_{r \in T}\left(g_{r}(|1\rangle|\tilde{r}\rangle\langle\tilde{r} \mid \phi\rangle)\right)+\sum_{s \in\{0,1\}^{\ell+12}-T^{\diamond}}(|0\rangle|s\rangle\langle s \mid \phi\rangle)
+$$
+
+for any quantum state $|\phi\rangle \in \mathcal{H}_{\infty}$. We can claim that $g$ is norm-preserving and it can be constructed from the initial quantum functions in Definition 3.1 by applying the construction rules. From this claim, $g$ falls in $\widehat{\square_{1}^{\mathrm{QP}}}$. Finally, we define $f_{8}=R E M O V E_{1} \circ\left(g^{\leq \ell+13} \otimes I\right)$, where $g^{\leq \ell+13} \otimes I$ is defined as in Lemma 3.8. Intuitively, $f_{8}$ changes the content of three consecutive tape cells whose middle cell is being scanned by a tape head.\\
+2) We want to apply $f_{8}$ to all three consecutive tape cells. Firstly, we find a code of a pre-target $\hat{s}_{1} \hat{\sigma}_{1} \hat{s}_{2} \hat{\sigma}_{2} \hat{s}_{3} \hat{\sigma}_{3}$ (using the quantum recursion), move an inner state $q$ as well as a marker $|0\rangle$ forward (by $\left.R E P_{\ell+1}\right)$ to generate a block of the form $|0\rangle|q\rangle\left|\hat{s}_{1} \hat{\sigma}_{1} \hat{s}_{2} \hat{\sigma}_{2} \hat{s}_{3} \hat{\sigma}_{3}\right\rangle$ and apply $f_{8}$ to this block. This changes $|0\rangle$ to $|1\rangle$ to record the execution of the current procedure. We then move the obtained inner state and the marker back to the end (by $R E M O V E_{\ell+1}$ ). This entire procedure can be executed by an appropriate quantum function, say, $F_{2}$.
+
+To be more formal, we first set another quantum function $p$ to be $R E M O V E_{\ell+1} \circ L E N G T H_{\ell+13}\left[f_{8}\right] \circ R E P_{\ell+1}$. The quantum function $F_{2}^{\prime}$ is then defined as
+
+$$
+F_{2}^{\prime}(|\phi\rangle|0\rangle|q\rangle)= \begin{cases}|\phi\rangle|0\rangle|q\rangle & \text { if } \ell(|\phi\rangle)<\ell+13 \\ p\left(\sum_{s:|s|=4}\left(|s\rangle \otimes F_{2}^{\prime}(\langle s \mid \phi\rangle|0\rangle|q\rangle)\right)\right) & \text { otherwise. }\end{cases}
+$$
+
+To complete the transformation, we further define $F_{2}=R E P_{\ell+1} \circ F_{2}^{\prime} \circ R E M O V E_{\ell+1}$. After the application of $F_{2}$, the first qubit of $|0\rangle|q\rangle|\phi\rangle$ turns to $|1\rangle$, marking an execution of $M$ 's single step. If we want to repeat an application of $F_{2}$, we need to reset $|1\rangle$ back to $|0\rangle$.
+
+\subsection*{5.4 Completing the Entire Simulation}
+We have shown in Section 5.3 how to simulate a single step of $M$ on $x$ by $F_{2}$. Here, we want to simulate all steps of $M$ by applying $F_{2}$ inductively to any input of the form $\left|0^{p(|x|)} 1\right\rangle \otimes|\psi\rangle$, where $|\psi\rangle$ represents a superposition of coded skew configurations of $M$ on $x$. This process is implemented by a new quantum function $F_{3}$, which repeatedly applies $N O T \circ F_{2}$ to $|0\rangle|\psi\rangle, p(|x|)$ times, where NOT resets $|1\rangle$ to $|0\rangle$.
+
+We first take a quantum function $\hat{g}=\operatorname{Skip}\left[N O T \circ F_{2}\right]$ by Using Lemma 3.9. The desired quantum function $F_{3}$ must satisfy
+
+$$
+F_{3}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle) \leq 1 \\ |0\rangle \otimes \hat{g}\left(F_{3}(\langle 0 \mid \phi\rangle)\right)+|1\rangle \otimes I(\langle 1 \mid \phi\rangle) & \text { otherwise. }\end{cases}
+$$
+
+Note that the number of the applications of $\hat{g}$ is exactly $p(|x|)$. This function $F_{3}$ can be realized with a use of the single-qubit quantum recursion of the form $F_{3}=Q R e c_{1}\left[I, \operatorname{Branch}[\hat{g}, I], I \mid F_{3}, I\right]$.
+
+\subsection*{5.5 Preparing an Output}
+Assume that a superposition of coded skew final configurations of $M$ on the given input $x$ of length $n$ has the form $\sum_{r \in F S C_{M}(x)}|\widetilde{M[r]}\rangle\left|\xi_{x, r}\right\rangle$ for a certain series $\left\{\left|\xi_{x, r}\right\rangle\right\}_{r \in F S C_{M, n}}$ of quantum states, where $M[r]$ indicates $M$ 's output string appearing in a skew final configuration $r$ including only an essential tape region of $M$ on $x$.
+
+To show the first part of Lemma 4.3, in the end of the simulation, we need to generate $\widetilde{M[r]}$ in the leftmost portion of the qustring obtained by the simulation. To achieve this goal, we first move the content of the left-side region of the start cell to the right end of the essential tape region.
+
+As an illustrative example, suppose that we have already obtained the quantum state $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{b} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{3} \hat{b}\rangle$ after executing steps in Section 5.4. In this case, the outcome of $M$ in this skew final configuration $r$ is 001, and thus $\widetilde{M[r]}=\hat{0} \hat{0} \hat{1} \hat{2}$ holds. In what follows, we want to transform $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{3} \hat{b}\rangle$ into $|\hat{0} \hat{0} \hat{1} \hat{2}\rangle|\hat{3} \hat{b} \hat{b} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{3}\rangle$, which equals $|\widetilde{M[r]}\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{3}\rangle$, by an appropriate $\widehat{\square_{1}^{\mathrm{QP}}}$-function, say, $F_{4}$.\\
+(i) Starting with $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{3} \hat{b}\rangle$, to mark the end portion of the tape cell, we change the last marker $\hat{3}$ to $\hat{1}$ by applying NOT to $\hat{3}$ and then obtain $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b}\rangle$. This process is referred to as $f_{9}$.\\
+(ii) By moving repeatedly the leftmost $|\hat{3} \hat{b}\rangle$ in $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b}\rangle$ to the end of the qustring, we eventually produce $|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle$. To realize this entire transform, we need to define
+
+$$
+f_{10}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<4, \\ \sum_{a \in\{0,1\}}|\hat{2} \hat{a}\rangle\langle\hat{2} \hat{a} \mid \phi\rangle+\sum_{z \in B_{4}} R E M O V E_{4}\left(|z\rangle \otimes f_{10}(\langle z \mid \phi\rangle)\right) & \text { otherwise },\end{cases}
+$$
+
+where $B_{4}=\{0,1\}^{4}-\{\hat{2} \hat{0}, \hat{2} \hat{1}\}$. More formally, we define $f_{11}$ as $f_{11}=2 Q R e c_{4}\left[I, h^{\prime \prime}, I \mid\left\{f_{z}\right\}_{z \in\{0,1\}^{4}}\right]$, where $h^{\prime \prime}=\operatorname{Branch}\left[\left\{h_{z}^{\prime \prime}\right\}_{z \in\{0,1\}^{4}}\right]$ with $h_{\hat{2} \hat{0}}^{\prime \prime}=h_{\hat{2} \hat{1}}^{\prime \prime}=I$ and $h_{z}^{\prime \prime}=R E M O V E_{4}$ as well as $f_{\hat{2} \hat{0}}=f_{\hat{2} \hat{1}}=I$ and $f_{z}=f_{10}$ for any $z \in B_{4}$.\\
+(iii) The current qustring has the form $|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b}\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle$. We sequentially remove each of the markers $\{\hat{1}, \hat{2}, \hat{3}\}$ in $|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b}\rangle$ to the end of the entire qustring and produce $|\hat{0} \hat{0} \hat{1} \hat{b}\rangle|\hat{3} \hat{b} \hat{b} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{2}\rangle$. To implement this process, we apply $h_{8}$ defined by $h_{8}=2 Q R E C_{3}\left[I, R E M O V E_{2}, I \mid\left\{h_{y}\right\}_{y \in\{0,1\}^{4}}\right]$, where $h_{\hat{1} \hat{b}}=I$ and $h_{y}=h_{8}$ for all $y \in\{0,1\}^{4}-\{\hat{1} \hat{b}\}$; in other words,
+
+$$
+h_{8}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<4, \\ \operatorname{REMOVE} E_{2}\left(|\hat{1} \hat{b}\rangle\langle\hat{1} \hat{b} \mid \phi\rangle+\sum_{y \in\{0,1\}^{4}-\{\hat{1} \hat{b}\}}|y\rangle \otimes h_{8}(\langle y \mid \phi\rangle)\right) & \text { otherwise. }\end{cases}
+$$
+
+(iv) At last, we change the rightmost $\hat{b}$ in $|\hat{0} \hat{0} \hat{1} \hat{b}\rangle$ to $\hat{2}$ and then obtain $|\hat{0} \hat{0} \hat{1} \hat{2}\rangle(=|\widetilde{001}\rangle)$. To produce such a qustring, we apply the quantum function $h_{6}$ defined by
+
+$$
+h_{9}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<2 \\ \sum_{y \in\{\hat{0}, \hat{1}\}}|y\rangle \otimes h_{9}(\langle y \mid \phi\rangle)+|\hat{b}\rangle\langle\hat{2} \mid \phi\rangle+|\hat{2}\rangle\langle\hat{b} \mid \phi\rangle & \text { otherwise }\end{cases}
+$$
+
+Formally, we set $h_{9}=2 Q \operatorname{Rec}_{1}\left[I, h_{9}^{\prime}, I \mid\left\{h_{y}\right\}_{y \in\{0,1\}^{2}}\right]$, where $h_{9}^{\prime}=\operatorname{Branch}\left[\left\{h_{y}^{\prime \prime}\right\}_{y \in\{0,1\}^{2}}\right]$ with $h_{\hat{2}}^{\prime \prime}=h_{\hat{b}}^{\prime \prime}= S W A P \circ N O T \circ S W A P$ and $h_{y}^{\prime \prime}=I$ together with $h_{\hat{2}}=h_{\hat{b}}=I$ and $h_{y}=h_{9}$ for any $y \in\{\hat{0}, \hat{1}\}$.\\
+(vi) To perform Steps (i)-(v) at once, we combine all quantum functions used in Steps (i)-(v) and define a single quantum function $F_{4}=h_{9} \circ h_{8} \circ f_{10} \circ f_{9}$. Overall, the resulted qustring is $|\hat{0} \hat{0} \hat{1} \hat{2}\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{2}\rangle$.
+
+The quantum state $\left|\phi_{F_{4}}^{p}(x)\right\rangle$ can be expressed as $\sum_{r \in F S C_{M, n}}|\widetilde{M[r]}\rangle\left|\widehat{\xi}_{x, r}\right\rangle$ for certain quantum states $\left\{\left|\widehat{\xi}_{x, r}\right\rangle\right\}_{r}$. Since we deal with an essential tape region of $M$, it instantly follows that, for every $x, x^{\prime} \in\{0,1\}^{n}$ and $r, r^{\prime} \in F S C_{M, n},\left\|\left\langle\xi_{x, r} \mid \xi_{x^{\prime}, r^{\prime}}\right\rangle\right\|=\left\|\left\langle\widehat{\xi}_{x, r} \mid \widehat{\xi}_{x^{\prime}, r^{\prime}}\right\rangle\right\|$ and $\left\langle\hat{\xi}_{x, r} \mid \hat{\xi}_{x, r^{\prime}}\right\rangle=0$ if $r \neq r^{\prime}$. Therefore, $F_{4}$ satisfies the condition of the first part of the lemma.
+
+For the second part of the lemma, we further need to retrieve $|M[r]\rangle$ from the coded qustring $\mid \widetilde{M[r]\rangle}$. From the previous illustrative example $|\hat{0} \hat{0} \hat{1} \hat{2}\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{2}\rangle$, we need to produce $|001\rangle|1\rangle|\hat{3} \hat{b} \hat{b} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{2}\rangle|1000\rangle$. For this purpose, we define the quantum function $g_{7}$ by setting $g_{7}=2 Q R e c_{1}\left[I, R E M O V E_{1}, I \mid\left\{g_{z}^{\prime}\right\}_{z \in\{0,1\}^{2}}\right]$; namely,
+
+$$
+g_{7}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<2 \\ R E M O V E_{1}\left(\sum_{y \in\{0,1\}}\left(|0 y\rangle \otimes g_{7}(\langle 0 y \mid \phi\rangle)+|1 y\rangle\langle 1 y \mid \phi\rangle\right)\right) & \text { otherwise }\end{cases}
+$$
+
+Using $g_{7}$, we finally set $F_{5}=g_{7} \circ F_{4}$ to obtain the second part of the lemma.\\
+This completes the proof of Lemma 4.3.
+
+\subsection*{5.6 Simple Applications of the Simulation Procedures}
+The proof of Lemma 4.3 provides useful procedures not only for the construction of the desired quantum function $g$ but also for other special-purpose quantum functions. Hereafter, as simple applications of the simulation procedures given in Steps 1)-6) of Section 5.2, we will explain how to encode/decode classical strings and how to duplicate classical information by $\widehat{\square_{1}^{\mathrm{QP}}}$-functions.
+
+Steps 1)-8) in Section 5.2 describe a transformation between classical strings and their encodings. A slight modification of Step 2) introduces an encoder Encode, which properly encodes binary strings $s$ to $\tilde{s}$.
+
+Lemma 5.1 There exists a quantum function Encode in $\widehat{\square_{1}^{\mathrm{QP}}}$ that satisfies Encode $\left(\left|0^{k+1} 1\right\rangle \otimes|\phi\rangle\right)= \sum_{s \in\{0,1\}^{k}}(|\tilde{s}\rangle \otimes|s\rangle\langle s \mid \phi\rangle)$ for any number $k \in \mathbb{N}$ and any quantum state $|\phi\rangle \in \mathcal{H}_{\infty}$. Moreover, the quantum function Decode $=$ Encode $^{-1}$ is also in $\widehat{\square_{1}^{\mathrm{QP}}}$.
+
+Given extra bits $0^{k} 1$, the first $k$ qubits of $|\phi\rangle$ is properly encoded by Encode by consuming $0^{k} 1$. For example, Encode changes $\left|0^{3} 1\right\rangle\left|a_{1} a_{2}\right\rangle$ to $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle$ and Decode returns $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle$ back to $\left|0^{3} 1\right\rangle\left|a_{1} a_{2}\right\rangle$. Notice that Proposition 3.5 ensures Decode $\in \widehat{\square_{1}^{\mathrm{QP}}}$ from Encode $\in \widehat{\square_{1}^{\mathrm{QP}}}$.
+
+Quantum mechanics in general prohibits us from duplicating unknown quantum states; however, it is possible to copy each classical string quantumly. We thus have the following quantum function $C O P Y_{2}$, which copies the content of the first $k$ qubits of any input.
+
+Lemma 5.2 There exists a quantum function $C O P Y_{2}$ in $\widehat{\square_{1}^{\mathrm{QP}}}$ that satisfies the following condition: for any $k \in \mathbb{N}^{+}$and any $|\phi\rangle \in \mathcal{H}_{\infty}$,
+
+$$
+C O P Y_{2}\left(\left|\widetilde{0^{k}}\right\rangle \otimes|\phi\rangle\right)=\sum_{s \in\{0,1\}^{k}}(|\tilde{s}\rangle \otimes|\tilde{s}\rangle\langle\tilde{s} \mid \phi\rangle)
+$$
+
+The encoding $\widetilde{0^{k}}$ of $0^{k}$ is needed to distinguish $0^{k}$ from any part of $|\phi\rangle$ because $k$ is not a fixed constant. When $|\phi\rangle$ has the form $|x\rangle|\psi\rangle$, the quantum function $C O P Y_{2}$ works as $C O P Y_{2}\left(\left|\widetilde{0^{k}}\right\rangle \otimes|\tilde{x}\rangle|\psi\rangle\right)=|\tilde{x}\rangle \otimes|\tilde{x}\rangle|\psi\rangle$.
+
+Proof of Lemma 5.2. We wish to construct the desired quantum function $C O P Y_{2}$ as follows. To make our construction process readable, we use an illustrative example of $\left|\widetilde{0^{k}}\right\rangle|\phi\rangle=\left|\widetilde{0^{2}}\right\rangle\left|\widetilde{a_{1} a_{2}}\right\rangle\left(=|\hat{0} \hat{0} \hat{2}\rangle\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle\right)$ to show how each constructed quantum function works.
+
+\begin{enumerate}
+  \item Steps 1)-6) of Section 5.2 transform $|\hat{0} \hat{0} \hat{1}\rangle\left|\hat{a}_{1} \hat{a}_{2}\right\rangle$ to $\left|\hat{2} \hat{a}_{1} \hat{3} \hat{a}_{2}\right\rangle|\hat{3}\rangle$. By a slight modification of these steps, it is possible to transform $|\hat{0} \hat{0} \hat{2}\rangle\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle$ to $\left|\hat{3} \hat{a}_{1} \hat{3} \hat{a}_{2} \hat{2}\right\rangle|\hat{2}\rangle$. We denote by $f_{1}$ a quantum function that realizes this transformation.
+  \item By copying $\hat{a}_{i}$ in $\hat{3} \hat{a}_{i}$ onto $\hat{3}$ for each $i \in\{1,2\}$, we change $\hat{3} \hat{a}_{i}$ to $\hat{a}_{i} \hat{a}_{i}$ and then obtain $\left|\hat{a}_{1} \hat{a}_{1} \hat{a}_{2} \hat{a}_{2} \hat{2}\right\rangle|\hat{2}\rangle$. This step can be formally made in the following way. Firstly, we define a quantum function $h_{2}$ that satisfies $h_{2}\left(\left|b_{1} b_{2}\right\rangle\left|b_{3} b_{4}\right\rangle \otimes|\phi\rangle\right)=\left|b_{4} b_{2} b_{1} b_{3}\right\rangle \otimes|\phi\rangle$ for any $\phi \in \mathcal{H}_{\infty}$. Such a quantum function actually exists by Lemma 3.7. Secondly, we set $D U P$ to be $h_{2}^{-1} \circ(S W A P \circ N O T \circ S W A P \circ C N O T) \circ h_{2} \circ N O T$. It then follows that\\
+$D U P(|\hat{3}\rangle|\hat{a}\rangle \otimes|\phi\rangle)=|\hat{a}\rangle|\hat{a}\rangle \otimes|\phi\rangle$ for any bit $a \in\{0,1\}$ and any quantum state $|\phi\rangle \in \mathcal{H}_{\infty}$. With this DUP, we further define $f_{2}$ by the 4 -qubit quantum recursion as
+\end{enumerate}
+
+$$
+f_{2}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<4, \\ D U P\left(\sum_{a \in\{0,1\}}|\hat{3} \hat{a}\rangle \otimes f_{2}(\langle\hat{3} \hat{a} \mid \phi\rangle)+\sum_{y \in B_{4}^{\prime}}|y\rangle\langle y \mid \phi\rangle\right. & \text { otherwise },\end{cases}
+$$
+
+where $B_{4}^{\prime}=\{0,1\}^{4}-\{\hat{3} \hat{0}, \hat{3} \hat{1}\}$.\\
+3) Next, we transform $\left|\hat{a}_{1} \hat{a}_{1} \hat{a}_{2} \hat{a}_{2} \hat{2}\right\rangle|\hat{2}\rangle$ to $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle\left|\hat{2} \hat{a}_{2} \hat{a}_{1}\right\rangle$. This transformation can be done by $f_{3}$ defined as
+
+$$
+f_{3}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<4, \\ R E M O V E_{2}\left(\sum_{y \in\{0,1\}^{4}-\{\hat{2} \hat{2}\}}|y\rangle \otimes f_{3}(\langle y \mid \phi\rangle)+|\hat{2} \hat{2}\rangle\langle\hat{2} \hat{2} \mid \phi\rangle\right) & \text { otherwise. }\end{cases}
+$$
+
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item We then change $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle\left|\hat{2} \hat{a}_{2} \hat{a}_{1}\right\rangle$ to $\left|\hat{2} \hat{a}_{2} \hat{a}_{1}\right\rangle\left|\hat{2} \hat{a}_{2} \hat{a}_{1}\right\rangle$ by removing each two qubits in the first part to the end. This process is precisely realized by $f_{4}$ defined as
+\end{enumerate}
+
+$$
+f_{4}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { if } \ell(|\phi\rangle)<4, \\ \operatorname{REMOV} E_{2}\left(\sum_{y \in\{0,1\}^{2}-\{\hat{2}\}}\left(|y\rangle \otimes f_{5}(\langle y \mid \phi\rangle)\right)+|\hat{2}\rangle\langle\hat{2} \mid \phi\rangle\right) & \text { otherwise } .\end{cases}
+$$
+
+\begin{enumerate}
+  \setcounter{enumi}{4}
+  \item Finally, we reverse the whole qustring to obtain $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle$ by applying REVERSE.
+\end{enumerate}
+
+This completes the proof of the lemma.
+
+\section*{6 Future Challenges}
+In Definition 3.1, we have defined $\square_{1}^{\mathrm{QP}}$-functions on $\mathcal{H}_{\infty}$ and we have given in Theorem 4.1 a new characterization of FBQP-functions in terms of these $\square_{1}^{\mathrm{QP}}$-functions. To point out the directions of future research, we wish to raise a challenging open question in Section 6.1 and to present in Sections 6.26 .3 three possible implications of our schematic definition to the subjects of descriptional complexity, firt-order theories, and higher-type functionals. In Section 6.4, we will remark a practical application to the designing of quantum programming languages.
+
+\subsection*{6.1 Seeking a More Reasonable Schematic Definition}
+Our schematic definition (Definition 3.1) is composed of the initial quantum functions, which are derived from natural, simple quantum gates, and the construction rules, including the multi-qubit quantum recursion, which significantly enriches the scope of constructed quantum functions. The choice of initial functions and construction rules that we have used in this paper directly affects the richness of $\square_{1}^{\text {QP }}$-functions. Although our $\square_{1}^{\mathrm{QP}}$ is sufficient to characterize FBQP, if we seek for enriching the $\square_{1}^{\mathrm{QP}}$-functions, one way is to supplement additional initial quantum functions. As a concrete example, let us consider the quantum Fourier transform (QFT), which plays an important role in, e.g., Shor's factoring quantum algorithm 30. We have demonstrated in Lemma 3.10 how to implement a restricted form of QFT working on a fixed number of qubits, and thus it belongs to $\widehat{\square_{1}^{\mathrm{QP}}}$. Nonetheless, a more general form of QFT, acting on an "arbitrary" number of qubits, may not be realized precisely by $\widehat{\square_{1}^{\mathrm{QP}}}$-functions although it can be approximated to any desired accuracy by the $\widehat{\square_{1}^{\mathrm{QP}}}$-functions. To remedy the exclusion of QFT from our function class $\square_{1}^{\mathrm{QP}}$, for instance, we can expand the current $\widehat{\square_{1}^{\mathrm{QP}}}$ by including as an initial quantum function the quantum function defined as
+
+$$
+C R O T\left(|\phi\rangle\left|0^{j}\right\rangle\right)=|0\rangle\langle 0 \mid \phi\rangle\left|0^{j}\right\rangle+\omega_{j}|1\rangle\langle 1 \mid \phi\rangle\left|0^{j}\right\rangle \text { (controlled rotation), }
+$$
+
+where $\omega_{j}=e^{2 \pi i / 2^{j}}$, with an extra term $0^{j}$. It is not difficult to construct QFT from quantum functions in this expanded $\widehat{\square_{1}^{\mathrm{QP}}}$ obtained by adding CROT. As this example shows, it remains important to seek for a simpler, more reasonable schematic definition of quantum functions, which are capable of precisely characterizing both BQP and FBQP and also simplifying the proof of Theorem 4.1.
+
+From the minimalist's viewpoint, on the contrary, we may be able to eliminate certain schemata or replace them by simpler ones but still ensure the characterization result of BQP and FBQP in terms of $\square_{1}^{\mathrm{QP}}$-functions. As a concrete example, we may ask whether our multi-qubit quantum recursion can be replaced by 1 -qubit quantum recursion at the cost of adding extra initial quantum functions.
+
+\subsection*{6.2 Introduction of Descriptional Complexity and First-Order Theories}
+As noted in Section 3.1, our schematic definition of $\square_{1}^{\mathrm{QP}}$-functions provides us with a natural means of assigning the descriptional complexity-a new complexity measure - to each of those quantum functions in $\square_{1}^{\mathrm{QP}}$. This complexity measure has been used to prove, for instance, Lemma 3.4. As a consequence of our main theorem, this complexity measure concept also transfers to languages in BQP and functions in FBQP, and thus it naturally helps us introduce the notion of the descriptional complexities of such languages and functions.
+
+It is further possible for us to extend this complexity measure to "arbitrary" languages and functions on $\{0,1\}^{*}$, which are not necessarily limited to FBQP and BQP, and to discuss their "relative" complexity to $\square_{1}^{\mathrm{QP}}$. More formally, given a function $f$ on $\{0,1\}^{*}$, the $\square_{1}^{\mathrm{QP}}$-descriptional complexity of $f$ at length $n$ is the minimal number of times we use initial quantum functions and construction rules to build a $\square_{1}^{\text {QP }}$-function $g$ for which $\ell\left(\left|\phi_{g}^{p}(x)\right\rangle\right)=|f(x)|$ and $\left|\left\langle f(x) \mid \phi_{g}^{p}(x)\right\rangle\right|^{2} \geq 2 / 3$ hold for a certain polynomial $p$ with $|f(x)| \leq p(|x|)$ for all strings $x$ of length exactly $n$. We write $d c(f)[n]$ to denote the $\square_{1}^{\mathrm{QP}}$-descriptional complexity of $f$ at length $n$. Obviously, every $\square_{1}^{\mathrm{QP}}$-function has constant $\square_{1}^{\mathrm{QP}}$-descriptional complexity at every length. In a similar spirit but based on quantum finite automata, Villagra and Yamakami 33 discussed the quantum state complexity restricted to inputs of length exactly $n$ (as well as length at most $n$ ). It has turned out that such complexity measure is quire useful. Refer to 33 for the detailed definitions. Our new complexity measure $d c(f)[n]$ is also expected to be a useful tool in classifying languages and functions in descriptional power in a way that is quite different from what QTMs and quantum circuits do.
+
+In a much wider perspective, our schematic definition of polynomial-time quantum computability may lead to the future development of an appropriate form of first-order theories over quantum states in Hilbert spaces or first-order quantum theories, for short. In the literature, first-order theories and their natural subtheories have become a fruitful research subject in mathematical logic and recursion theory and they have also found numerous applications in other fields as well. A weak form of their subtheories has been studied in quantum complexity theory. For instance, using bounded quantifiers over quantum states in Hilbert spaces, quantum analogues of NP and the Meyer-Stockmeyer polynomial(-time) hierarchy have been discussed in 37. Unfortunately, we are still far away from obtaining well-accepted first-order theories and useful subtheories for quantum computing.
+
+\subsection*{6.3 Extension to Type-2 Quantum Functionals}
+Conventionally, functions mapping $\Sigma^{*}$ to $\Sigma^{*}$ are categorized as type-1 functionals, whereas type-2 functionals are functions taking inputs from $\Sigma^{*}$ together with type-1 functionals. In computational complexity theory, such type-2 functionals have been extensively discussed in, e.g., $8,9,24,31,35$.
+
+In analogy to the classical case, we call $\square_{1}^{\mathrm{QP}}$-functions on $\mathcal{H}_{\infty}$ type-1 quantum functionals. To introduce type-2 quantum functionals, we start with an arbitrary quantum function $O$ mapping $\mathcal{H}_{\infty}$ to $\mathcal{H}_{\infty}$, which is treated as a function oracle (an oracle function or simply an oracle) in the following formulation. From such an oracle $O$, we define a new linear operator $\tilde{O}$ as $\tilde{O}(|\tilde{x}\rangle)=\sum_{s:|s|=|x|} \alpha_{s}|\tilde{s}\rangle$ if $O(|x\rangle)$ is of the form $\sum_{s:|s|=|x|} \alpha_{s}|s\rangle$ for any string $x \in\{0,1\}^{*}$, where $\tilde{s}$ is a code of $s$, defined in Section 4.1. Note that $\tilde{O}(|\tilde{x}\rangle)= \widetilde{O(|x\rangle) \text { and } \ell(\tilde{O}(|\tilde{x}\rangle))=2 \ell(O(|x\rangle))+2 \text {. }}$
+
+Firstly, we expand our initial functions and construction rules given in Definition 3.1 by replacing any quantum function, say, $f(|\phi\rangle)$ in each scheme of the definition with $f(|\phi\rangle, O)$. Secondly, we introduce another initial quantum function, called the query function QUERY. For any two qustrings $|\phi\rangle$ and $|\psi\rangle$ of length $n$, let $|\phi\rangle \oplus|\psi\rangle=\sum_{s:|s|=n} \sum_{t:|t|=n}\langle s \mid \phi\rangle\langle t \mid \psi\rangle|s \oplus t\rangle$, where $s \oplus t$ means the bitwise $X O R$ of $s$ and $t$. As a special case, it follows that $\tilde{O}(|\tilde{x}\rangle) \oplus \tilde{O}(|\tilde{x}\rangle)=\left|0^{2|x|+2}\right\rangle$ for any $x \in\{0,1\}^{*}$. The query function is then defined as
+
+$$
+\begin{aligned}
+& Q U E R Y(|\phi\rangle, O) \\
+& \qquad=\sum_{n \in[t]} \sum_{x \in \Sigma^{n}} \sum_{s \in \Sigma^{n}}\left(|\tilde{x}\rangle \otimes(\tilde{O}(|\tilde{x}\rangle) \oplus|\tilde{s}\rangle) \otimes\langle\tilde{x} \tilde{s} \mid \phi\rangle+\sum_{y \in \Sigma^{4 n+4} \wedge y \neq \tilde{x} \tilde{s}}|y\rangle\langle y \mid \phi\rangle\right)
+\end{aligned}
+$$
+
+for all $|\phi\rangle \in \mathcal{H}_{\infty}$, where $t=\lfloor(\ell(|\phi\rangle)-4) / 4\rfloor$. In particular, $Q U E R Y(|\tilde{x}\rangle|\tilde{s}\rangle|\phi\rangle)$ equals $|\tilde{x}\rangle \otimes(\tilde{O}(|\tilde{x}\rangle \oplus|\tilde{s}\rangle) \otimes|\phi\rangle$. It also follows that $Q U E R Y \circ Q U E R Y(|\phi\rangle, O)=I(|\phi\rangle)$ since $\tilde{O}(|\tilde{x}\rangle) \oplus \tilde{O}(|\tilde{x}\rangle)=\left|0^{2|x|+2}\right\rangle$.
+
+Notice that if $O$ is in $\square_{1}^{\mathrm{QP}}$ then the function $Q_{O}(|\phi\rangle)={ }_{\text {def }} \operatorname{QUERY}(|\phi\rangle, O)$ also belongs to $\square_{1}^{\mathrm{QP}}$. It is also possible to show similar results discussed in the previous sections. These basic results can open a door to a rich field of higher-type quantum computability and we expect fruitful results to be discovered in this new field.
+
+\subsection*{6.4 Application to Quantum Programming Languages}
+A practical application of our schematic definition can be found in the area of quantum programming languages. Since the early days of quantum computing research, a significant effort has been made physicists, computer scientists, and computer engineers to draw a pragmatic road map to a real-life quantum computer.
+
+Toward the realization of such quantum computers, most research has focused on their hardware construction. For the building of "multi-purpose" quantum computers, however, it is more desirable to make them "programmable" in such a way that a run of an appropriate "quantum program" freely alters computing processes for different target problems without remodeling their hardware each time. A quantum program here refers to a finite series of instructions on how to operate the quantum computer step by step. To write such a quantum program, nevertheless, we need to develop well-structured programming languages for the quantum computer (dubbed as quantum programming languages). Various quantum programming languages have been discussed over two decades in due course of developing real-life quantum computers. Refer to surveys, e.g., 13 for a necessary background.
+
+Our schematic definition provides a description of how to define a given $\square_{1}^{\mathrm{QP}}$-function. This description can be viewed as a set of instructions, each of which instructs how to apply each scheme to construct the desired quantum function and it thus resembles a program that dictates how to construct the quantum function. Therefore, our schematic description of a construction process of quantum functions may help us design appropriate quantum programming languages in the future.
+
+\section*{References}
+[1] L. M. Adleman, J. DeMarrais, and M. A. Huang, Quantum computability, SIAM J. Comput. 26 (1997) 1524-1540.\\[0pt]
+[2] A. Barenco, C. H. Bennett, R. Cleve, D. DiVicenzo, N. Margolus, P. Shor, T. Sleator, J. Smolin, and H. Weinfurter, Elementary gates for quantum computation, Phys. Rev., A, 52 (1995) 3457-3467.\\[0pt]
+[3] P. Benioff, The computer as a physical system: a microscopic quantum mechanical Hamiltonian model of computers represented by Turing machines. J. Statist. Phys. 22 (1980) 563-591.\\[0pt]
+[4] C. H. Bennett, E. Bernstein, G. Brassard, and U. Vazirani, Strengths and weaknesses of quantum computing, SIAM J. Comput. 26 (1997) 1510-1523.\\[0pt]
+[5] E. Bernstein and U. Vazirani, Quantum complexity theory, SIAM J. Comput. 26 (1997) 1411-1473.\\[0pt]
+[6] P. O. Boykin, T. Mor, M. Pulver, V. Roychowdhury, and F. Vatan, On universal and fault-tolerant quantum computing. arXiv:quant-ph/9906054, 1999.\\[0pt]
+[7] A. Cobham, The intrinsic computational difficulty of functions, in the Proceedings of the 1964 Congress for Logic, Mathematics, and Philosophy of Science, pp. 24-30, North-Holland, 1964.\\[0pt]
+[8] R. L. Constable, Type two computational complexity, in the Proceedings of the 5th ACM Symposium on Theory of Computing (STOC'73), pp. 108-121, 1973.\\[0pt]
+[9] S. Cook and B. M. Kapron, Characterizations of the basic feasible functionals of finite type, in the Proceedings of the 30th IEEE Conference on Foundations of Computer Science (STOC'89), pp. 154-159, 1989.\\[0pt]
+[10] M. Davis, (ed.) The Unidecidable. Basic Papers on Undecidable Propositions, Unsolvable Problems, and Computable Functions, Raven Press, Hewlett, New York, 1965.\\[0pt]
+[11] D. Deutsch, Quantum theory, the Church-Turing principle, and the universal quantum computer, Proceedings Royal Society London, Ser. A, 400 (1985) 97-117.\\[0pt]
+[12] D. Deutsch, Quantum computational networks, Proceedings Royal Society London, Ser. A, 425 (1989) 73-90.\\[0pt]
+[13] S. J. Gay. Quantum programming languages: survey and bibliography. Math. Struct. in Comp. Science 16 (2006) 581-600.\\[0pt]
+[14] L. K. Grover, A fast quantum mechanical algorithm for database search, in the Proceedings of the 28th Annual ACM Symposium on the Theory of Computing (STOC'96), pp. 212-219, 1996.\\[0pt]
+[15] L. Grover. Quantum mechanics in searching for a needle in a haystack. Physical Review Letters 79:325 (1997).\\[0pt]
+[16] J. Hopcroft and J. Ullman, An Introduction to Automata Theory, Languages and Computation, AddisonWesley, Reading MA, 1979.\\[0pt]
+[17] A. Kitaev. Quantum computations: algorithms and error correction. Russian Math. Surveys 52 (1997) 1191-1249.\\[0pt]
+[18] A. Y. Kitaev, A. H. Shen, and M. N. Vyalyi. Classical and Quantum Computation (Graduate Studies in Mathematics), American Mathematical Society, 2002.\\[0pt]
+[19] S. C. Kleene, General recursive functions of natural numbers, Math. Ann. 112 (1936) 727-742.\\[0pt]
+[20] S. C. Kleene, Recursive predicates and quantifiers, Trans. A. M. S. 53 (1943) 41-73.
+
+
+\end{document}
