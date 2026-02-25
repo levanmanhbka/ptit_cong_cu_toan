@@ -1,0 +1,294 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{bbold}
+
+\begin{document}
+Trong trường hợp tổng quát, $g_{5}$ biến đổi $\left|0^{n+1} 1\right\rangle\left|x_{1} x_{2} \cdots x_{n}\right\rangle$ thành $\left|\hat{3} \hat{x}_{1} \hat{x_{2}} \cdots \hat{x}_{n}\right\rangle$.\\
+(*) Để giải thích quy trình của chúng ta thêm nữa, vì lý do dễ đọc, chúng ta bao gồm thêm các số 0 vào $|00\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3}\right\rangle$, và ở đây về sau chúng ta tập trung vào $\left|(00)^{6}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3}\right\rangle$.\\
+3) Chúng ta biến đổi hai bit đầu tiên 00 trong $\left|(00)^{6}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3}\right\rangle$ thành $11(=\hat{2})$ và sau đó di chuyển chúng đến cuối chuỗi lượng tử, dẫn đến $\left|(00)^{5}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3} \hat{2}\right\rangle$. Biến đổi này được thực hiện như sau. Tương tự như CNOT, chúng ta định nghĩa $k_{1}=N O T \circ S W A P \circ N O T$. Vì $k_{1}(|00\rangle)=|11\rangle$, nên đủ để định nghĩa $f_{3}=R E M O V E_{2} \circ k_{1}$.\\
+4) Ban đầu, chuỗi lượng tử của chúng ta có dạng $\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3} \hat{2}\right\rangle$ bằng cách bỏ qua các bit hàng đầu $(00)^{5}$. Chúng ta tập trung vào chuỗi lượng tử nằm giữa $\hat{3}$ và $\hat{2}$. Chúng ta đặt hai bit cuối cùng $\hat{2}$ vào vị trí ngay bên phải $\hat{3} \hat{x}_{1}$ cùng với việc thay đổi $\hat{2}$ thành $\hat{3}$. Chúng ta sau đó nhận được $\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{x}_{3}\right\rangle$. Quá trình này được thực hiện bởi một hàm lượng tử $\widehat{\square_{1}^{\mathrm{QP}}}$ phù hợp theo cách sau.
+
+Cho $k_{2}$ là một song ánh từ $\{0,1\}^{6}$ đến $\{0,1\}^{6}$ thỏa mãn rằng $k_{2}(v w \hat{2})=v \hat{2} w$ nếu $v, w \in\{\hat{0}, \hat{1}\}, k_{2}(\hat{3} w \hat{2})= \hat{3} w \hat{3}$ nếu $w \in\{\hat{0}, \hat{1}\}, k_{2}(w \hat{3} \hat{2})=w \hat{3} \hat{3}$ nếu $w \in\{\hat{0}, \hat{1}\}$, và $k_{2}(v w z)=v w z$ nếu $v, w, z \neq \hat{2}$. Với $k_{2}$ này, chúng ta định nghĩa $g_{5}$ là
+
+$$
+g_{5}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle) \leq 6 \\ \sum_{y:|y|=6}\left|k_{2}(y)\right\rangle\langle y \mid \phi\rangle & \text { ngược lại }\end{cases}
+$$
+
+Theo Bổ đề 3.7, $g_{5}$ thuộc về $\widehat{\square_{1}^{\mathrm{QP}}}$. Sau đó, chúng ta định nghĩa một hàm lượng tử $h_{5}$ bằng cách đặt $h_{5}= 2 Q \operatorname{Rec}_{2}\left[I, g_{5}, I \mid h_{5}, h_{5}, h_{5}, h_{5}\right]$, cụ thể là,
+
+$$
+h_{5}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle) \leq 2, \\ \sum_{y \in\{\hat{0}, \hat{1}, \hat{2}, \hat{3}\}} g_{5}\left(|y\rangle \otimes h_{5}(\langle y \mid \phi\rangle)\right) & \text { ngược lại. }\end{cases}
+$$
+
+Sau khi đặt $\hat{3}$ vào bên phải của $\hat{3} \hat{x}_{1}$, cuối cùng chúng ta nhận được chuỗi lượng tử $\left|(00)^{5}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{x}_{3}\right\rangle$.\\
+5) Hãy định nghĩa $h_{5}^{\prime}=h_{5} \circ f_{3}$, là sự kết hợp của các Bước 3)-4). Bằng cách áp dụng $h_{5}^{\prime}$ lặp lại, chúng ta có thể nói chung biến đổi $\left|(00)^{n-1}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \cdots \hat{x}_{n}\right\rangle$ thành $\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \cdots \hat{3} \hat{x}_{n}\right\rangle$. Hơn nữa, nếu chúng ta áp dụng $h_{5}^{\prime}$ hai lần cho $\left|(00)^{3}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle$ trong ví dụ của chúng ta, thì có thể nối thêm $|\hat{3} \hat{b}\rangle$ vào cuối chuỗi lượng tử bằng cách tiêu thụ $(00)^{3}$, và sau đó chúng ta nhận được $\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$. Sử dụng $\left|0^{2 p(n)-n+1} 1\right\rangle$ trong $\left|\phi^{p}\right\rangle$, chúng ta lặp lại các Bước 3)-4) $2 p(n)-n+1$ lần để mã hóa nội dung của $p(n)+1$ ô băng đầu tiên được đánh chỉ số bởi các số không âm. Quay trở lại ví dụ của chúng ta, nếu chúng ta lấy $\left|0^{4} 1\right\rangle$, thì quá trình này biến đổi $\left|0^{4} 1\right\rangle\left|(00)^{6}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \hat{x}_{3}\right\rangle$ thành $\left|0^{4} 1\right\rangle\left|(00)^{2}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x_{3}}\right\rangle|\hat{3} \hat{b}\rangle$. Để hiện thực hóa biến đổi này bằng một hàm lượng tử $\widehat{\square_{1}^{\mathrm{QP}}}$ phù hợp, vì các Bước 3)-4) loại trừ $\left|0^{4} 1\right\rangle$, trước tiên chúng ta cần mở rộng $h_{5}^{\prime}$ thành $H_{1}=\operatorname{Skip}\left[h_{5}^{\prime}\right]$ bằng Bổ đề 3.9. Việc lặp lại các Bước 3)-4) được thực hiện bởi hàm lượng tử $f_{5}$ sau:
+
+$$
+f_{5}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle) \leq 1, \\ H_{1}\left(|0\rangle \otimes f_{5}(\langle 0 \mid \phi\rangle)+|1\rangle\langle 1 \mid \phi\rangle\right) & \text { ngược lại } .\end{cases}
+$$
+
+Nói chung hơn, $f_{5}$ biến đổi $\left|0^{2 p(n)-n+1} 1\right\rangle\left|(00)^{2 p(n)-n+1}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{x}_{2} \cdots \hat{x}_{n}\right\rangle \quad$ thành $\left|0^{2 p(n)-n+1} 1\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \cdots \hat{3} \hat{x}_{n}\right\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \cdots \hat{3} \hat{b}\rangle$ với $p(n)-n+1$ bản sao của $\hat{3} \hat{b}$.\\
+6) Giả sử rằng chuỗi lượng tử của chúng ta có dạng $\left|(00)^{2}\right\rangle\left|\hat{3} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$ bằng cách bỏ qua $\left|0^{4} 1\right\rangle$. Chúng ta muốn thay đổi $\hat{3}$ ngoài cùng bên trái thành $\hat{2}$, dẫn đến $\left|(00)^{2}\right\rangle\left|\hat{2} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$. Vì mục đích này, trước tiên chúng ta chọn một song ánh duy nhất $p$ thỏa mãn rằng $p(\hat{2})=\hat{3}, p(\hat{3})=\hat{2}$, và $p(y)=y$ cho tất cả các $y \in\{0,1\}^{2}$ khác. Sử dụng Bổ đề 3.7, chúng ta mở rộng song ánh $p$ này thành hàm lượng tử liên kết $g_{p}$. Hàm lượng tử $f_{6}$ sau đó được định nghĩa là
+
+$$
+f_{6}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle) \leq 2 \\ g_{p}\left(|00\rangle \otimes f_{6}(\langle 00 \mid \phi\rangle)+\sum_{y \in\{0,1\}^{2}-\{00\}}|y\rangle\langle y \mid \phi\rangle\right) & \text { ngược lại }\end{cases}
+$$
+
+\begin{enumerate}
+  \setcounter{enumi}{6}
+  \item Sau đó, chúng ta thay đổi chuỗi các 00 trong $\left|(00)^{2}\right\rangle\left|\hat{2} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$ thành 10. Để thực hiện thay đổi này, chúng ta chuẩn bị $h_{6}=S W A P \circ N O T \circ C N O T \circ N O T$. Lưu ý rằng $h_{6}(|00\rangle)=|10\rangle$ và $h_{6}(|11\rangle)=|11\rangle$. Sau đó, chúng ta đặt
+\end{enumerate}
+
+$$
+f_{7}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle) \leq 2, \\ h_{6}\left(|00\rangle \otimes f_{7}(\langle 00 \mid \phi\rangle)+\sum_{y:|y|=2 \wedge y \neq 00}|y\rangle\langle y \mid \phi\rangle\right) & \text { ngược lại } .\end{cases}
+$$
+
+Hàm lượng tử $f_{7}$ này biến đổi $\left|(00)^{2}\right\rangle$ thành $\left|(10)^{2}\right\rangle$, bằng với $|\hat{3} \hat{b}\rangle$, và do đó chúng ta nhận được $|\hat{3} \hat{b}\rangle\left|\hat{2} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3}\right\rangle|\hat{3} \hat{b}\rangle$. Để có được $p(n)$ bản sao của $|\hat{3} \hat{b}\rangle$ ở vùng bên trái của $|\hat{2}\rangle$ nói chung, chuỗi $(00)^{2 p(n)}$ cần được tiêu thụ.\\
+8) Trong bước cuối cùng này, chúng ta bao gồm thuật ngữ $\left|q_{0}\right\rangle\left(=\left|0^{\ell}\right\rangle\right)$ vào quy trình của chúng ta. Chúng ta kết hợp các Bước 1)-7) để biến đổi $\left|0^{\ell}\right\rangle\left|0^{2 p(n)-n+1} 1\right\rangle\left|0^{8 p(n)-n+2} 1\right\rangle|x\rangle$ thành $\left|q_{0}\right\rangle|\hat{3} \hat{b} \cdots \hat{3} \hat{b}\rangle\left|\hat{2} \hat{x}_{1} \hat{3} \hat{x}_{2} \hat{3} \hat{x}_{3} \cdots \hat{3} \hat{x}_{n}\right\rangle|\hat{3} \hat{b} \cdots \hat{3} \hat{b}\rangle$ bằng hàm lượng tử $F_{1}$ được định nghĩa là $F_{1}=\operatorname{RevBranch} h_{\ell}\left[\left\{g_{s}\right\}_{s \in\{0,1\}^{\ell}}\right]$, nơi $g_{0^{\ell}}=f_{7}$ và $g_{s}=I$ cho bất kỳ chuỗi $s$ nào khác với $0^{\ell}$.
+
+\subsection*{5.3 Mô phỏng một bước đơn lẻ}
+Để mô phỏng toàn bộ quá trình tính toán của $M$ trên bất kỳ đầu vào $x$ nào, chúng ta cần mô phỏng từng bước của $M$ một cách tuần tự cho đến khi $M$ cuối cùng đi vào trạng thái nội $q_{f}$. Trong phần tiếp theo, chúng ta sẽ trình bày cách mô phỏng một bước đơn lẻ của $M$ bằng cách thay đổi vị trí đầu đọc, ký hiệu băng và trạng thái nội tại trong một cấu hình xiên đã cho.
+
+Lưu ý rằng bước của $M$ chỉ liên quan đến ba ô liên tiếp, một trong số đó đang được đầu đọc quét. Để mô tả ba ô liên tiếp cùng với trạng thái nội tại của $M$, nói chung, chúng ta sử dụng biểu thức $r$ có dạng $p s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ sử dụng $p \in\{0,1\}^{\ell}, \sigma_{i} \in\{0,1, b\}$, và $s_{i} \in\{2,3\}$ cho mỗi chỉ số $i \in[3]$. Mỗi biểu thức với $s_{i}=2$ cho biết $M$ đang ở trạng thái $q$, quét ô thứ $i$ trong ba ô. Lưu ý rằng độ dài của $r$ là $\ell+6$. Cho $T$ là tập hợp tất cả các $r$ có thể có như vậy. Lưu ý rằng $T$ là một tập hợp hữu hạn. Mã $|\hat{r}\rangle$ của $r=p s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ là $|q\rangle\left|\hat{s}_{1}, \hat{\sigma}_{1}\right\rangle\left|\hat{s}_{2}, \hat{\sigma}_{2}\right\rangle\left|\hat{s}_{3}, \hat{\sigma}_{3}\right\rangle$, có độ dài $\ell+12$.
+
+Để tiện lợi, chúng ta gọi $r$ là mục tiêu nếu $s_{1}=3, s_{2}=2, s_{3}=3$, và $\delta\left(q, \sigma_{2}\right)$ được xác định. Để sử dụng về sau, $s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ không có $q$ được gọi là tiền mục tiêu nếu $q s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ là một mục tiêu.
+
+\begin{enumerate}
+  \item Cho $r=q s_{1} \sigma_{1} s_{2} \sigma_{2} s_{3} \sigma_{3}$ là bất kỳ phần tử cố định nào trong $T$. Chúng ta chuẩn bị một qubit đánh dấu $|0\rangle$ ở cuối $|\phi\rangle$ để đánh dấu rằng việc mô phỏng một bước đơn lẻ của $M$ đang được thực hiện hoặc đã được hoàn thành. Hãy định nghĩa một hàm lượng tử $f_{8}$, biến đổi $|\tilde{r}\rangle|0\rangle$ thành $|\tilde{r}\rangle|0\rangle$ hoặc $|\tilde{s}\rangle|1\rangle$, nơi $s$ là biểu thức thu được từ $r$ bằng cách áp dụng $\delta$ một lần nếu $r$ là một mục tiêu. Cho $A$ là tập hợp tất cả các mục tiêu trong $T$ và đặt $A^{\diamond}=\{\tilde{r} \mid r \in A\}$. Tương tự, chúng ta định nghĩa $T^{\diamond}$ từ $T$.
+\end{enumerate}
+
+Vì mục đích này, trước tiên chúng ta định nghĩa một hàm lượng tử hỗ trợ $h_{r}(|b\rangle|\psi\rangle)=N O T(|b\rangle) \otimes|\tilde{r}\rangle\langle\tilde{r} \mid \psi\rangle+ \sum_{s \in\{0,1\}^{\ell+12}-A^{\circ}}(|b\rangle \otimes|s\rangle\langle s \mid \psi\rangle)$ cho bất kỳ mục tiêu $r \in T$ nào và bất kỳ $b \in\{0,1\}$. Tiếp theo, chúng ta định nghĩa $\left\{g_{r}\right\}_{r \in T}$ như sau. Nếu $r$ là một phi mục tiêu trong $T$, thì chúng ta đặt $g_{r}=I$. Trong phần tiếp theo, chúng ta giả định rằng $r$ là một mục tiêu. Cho $g_{r}(|0\rangle|s\rangle|\phi\rangle)=|0\rangle|s\rangle|\phi\rangle$ cho bất kỳ chuỗi $s \in\{0,1\}^{\ell+12}$. Vì $M$ là dạng chuẩn, $M$ chỉ có hai loại chuyển đổi, được thể hiện trong (i) và (ii) dưới đây.\\
+(i) Xét trường hợp $\delta\left(q, \sigma_{2}\right)=e^{i \theta}\left|q^{\prime}, \tau, d\right\rangle$. Khi $d=L$, chúng ta đặt
+
+$$
+g_{r}\left(|1\rangle|q\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle\left|\hat{2}, \hat{\sigma}_{2}\right\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle\right)=e^{i \theta}|1\rangle\left|q^{\prime}\right\rangle\left|\hat{2}, \hat{\sigma}_{1}\right\rangle|\hat{3}, \hat{\tau}\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle .
+$$
+
+Khi $d=R$, ngược lại, chúng ta định nghĩa
+
+$$
+g_{r}\left(|1\rangle|q\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle\left|\hat{2}, \hat{\sigma}_{2}\right\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle\right)=e^{i \theta}|1\rangle\left|q^{\prime}\right\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle|\hat{3}, \hat{\tau}\rangle\left|\hat{2}, \hat{\sigma}_{3}\right\rangle|\phi\rangle .
+$$
+
+(ii) Xét trường hợp $\delta\left(q, \sigma_{2}\right)=\cos \theta\left|q_{1}, \tau_{1}, d_{1}\right\rangle+\sin \theta\left|q_{2}, \tau_{2}, d_{2}\right\rangle$. Nếu ( $d_{1}, d_{2}$ ) = ( $R, L$ ), thì chúng ta định nghĩa $g_{r}$ là
+
+$$
+g_{r}\left(|1\rangle|q\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle\left|\hat{2}, \hat{\sigma}_{2}\right\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle\right)=\cos \theta|1\rangle\left|q_{1}\right\rangle\left|\hat{3}, \hat{\sigma}_{1}\right\rangle\left|\hat{3}, \hat{\tau}_{1}\right\rangle\left|\hat{2}, \hat{\sigma}_{3}\right\rangle|\phi\rangle+\sin \theta|1\rangle\left|q_{2}\right\rangle\left|\hat{2}, \hat{\sigma}_{1}\right\rangle\left|\hat{3}, \hat{\tau}_{2}\right\rangle\left|\hat{3}, \hat{\sigma}_{3}\right\rangle|\phi\rangle .
+$$
+
+Các giá trị khác của ( $d_{1}, d_{2}$ ) được xử lý tương tự.\\
+Lưu ý rằng $\left\{g_{r}(|1\rangle|\tilde{r}\rangle)\right\}_{r \in A}$ tạo thành một tập hợp trực chuẩn vì $M$ được hình thành tốt, và do đó $\delta$ thỏa mãn tất cả các điều kiện được nêu trong Mục 2.2. Một khi qubit đánh dấu trở thành $|1\rangle$, chúng ta không cần áp dụng $g_{r} \circ h_{r}$. Do đó, chúng ta tiếp tục đặt $g_{r}^{\prime}=\operatorname{Branch}\left[g_{r} \circ h_{r}, I\right]$. Bằng cách kết hợp tất cả các $g_{r}^{\prime}$, chúng ta định nghĩa $g$ là $g=\operatorname{Compo}\left[\left\{g_{r}^{\prime}\right\}_{r \in T}\right]$, ngụ ý rằng
+
+$$
+g(|0\rangle|\phi\rangle)=\sum_{r \in T}\left(g_{r}(|1\rangle|\tilde{r}\rangle\langle\tilde{r} \mid \phi\rangle)\right)+\sum_{s \in\{0,1\}^{\ell+12}-T^{\diamond}}(|0\rangle|s\rangle\langle s \mid \phi\rangle)
+$$
+
+cho bất kỳ trạng thái lượng tử $|\phi\rangle \in \mathcal{H}_{\infty}$. Chúng ta có thể khẳng định rằng $g$ bảo toàn chuẩn và có thể được xây dựng từ các hàm lượng tử ban đầu trong Định nghĩa 3.1 bằng cách áp dụng các quy tắc xây dựng. Từ khẳng định này, $g$ thuộc về $\widehat{\square_{1}^{\mathrm{QP}}}$. Cuối cùng, chúng ta định nghĩa $f_{8}=R E M O V E_{1} \circ\left(g^{\leq \ell+13} \otimes I\right)$, nơi $g^{\leq \ell+13} \otimes I$ được định nghĩa như trong Bổ đề 3.8. Về trực giác, $f_{8}$ thay đổi nội dung của ba ô băng liên tiếp mà ô ở giữa đang được quét bởi đầu đọc băng.\\
+2) Chúng ta muốn áp dụng $f_{8}$ cho tất cả ba ô băng liên tiếp. Trước tiên, chúng ta tìm một mã của một tiền mục tiêu $\hat{s}_{1} \hat{\sigma}_{1} \hat{s}_{2} \hat{\sigma}_{2} \hat{s}_{3} \hat{\sigma}_{3}$ (sử dụng phép đệ quy lượng tử), di chuyển một trạng thái nội $q$ cũng như một dấu hiệu $|0\rangle$ về phía trước (bằng $\left.R E P_{\ell+1}\right)$ để tạo ra một khối có dạng $|0\rangle|q\rangle\left|\hat{s}_{1} \hat{\sigma}_{1} \hat{s}_{2} \hat{\sigma}_{2} \hat{s}_{3} \hat{\sigma}_{3}\right\rangle$ và áp dụng $f_{8}$ cho khối này. Điều này thay đổi $|0\rangle$ thành $|1\rangle$ để ghi lại việc thực hiện quy trình hiện tại. Sau đó, chúng ta di chuyển trạng thái nội và dấu hiệu đã thu được trở lại cuối (bằng $R E M O V E_{\ell+1}$ ). Toàn bộ quy trình này có thể được thực hiện bởi một hàm lượng tử phù hợp, ví dụ, $F_{2}$.
+
+Một cách chính thức hơn, trước tiên chúng ta đặt một hàm lượng tử khác $p$ là $R E M O V E_{\ell+1} \circ L E N G T H_{\ell+13}\left[f_{8}\right] \circ R E P_{\ell+1}$. Hàm lượng tử $F_{2}^{\prime}$ sau đó được định nghĩa là
+
+$$
+F_{2}^{\prime}(|\phi\rangle|0\rangle|q\rangle)= \begin{cases}|\phi\rangle|0\rangle|q\rangle & \text { nếu } \ell(|\phi\rangle)<\ell+13 \\ p\left(\sum_{s:|s|=4}\left(|s\rangle \otimes F_{2}^{\prime}(\langle s \mid \phi\rangle|0\rangle|q\rangle)\right)\right) & \text { ngược lại. }\end{cases}
+$$
+
+Để hoàn thành biến đổi, chúng ta tiếp tục định nghĩa $F_{2}=R E P_{\ell+1} \circ F_{2}^{\prime} \circ R E M O V E_{\ell+1}$. Sau khi áp dụng $F_{2}$, qubit đầu tiên của $|0\rangle|q\rangle|\phi\rangle$ chuyển thành $|1\rangle$, đánh dấu việc thực hiện một bước đơn lẻ của $M$. Nếu chúng ta muốn lặp lại việc áp dụng $F_{2}$, chúng ta cần đặt lại $|1\rangle$ về $|0\rangle$.
+
+\subsection*{5.4 Hoàn thành toàn bộ mô phỏng}
+Chúng ta đã chỉ ra trong Mục 5.3 cách mô phỏng một bước đơn lẻ của $M$ trên $x$ bằng $F_{2}$. Ở đây, chúng ta muốn mô phỏng tất cả các bước của $M$ bằng cách áp dụng $F_{2}$ một cách quy nạp cho bất kỳ đầu vào nào có dạng $\left|0^{p(|x|)} 1\right\rangle \otimes|\psi\rangle$, nơi $|\psi\rangle$ biểu thị một chồng chất của các cấu hình xiên được mã hóa của $M$ trên $x$. Quá trình này được thực hiện bởi một hàm lượng tử mới $F_{3}$, lặp lại việc áp dụng $N O T \circ F_{2}$ cho $|0\rangle|\psi\rangle, p(|x|)$ lần, nơi NOT đặt lại $|1\rangle$ về $|0\rangle$.
+
+Trước tiên, chúng ta lấy một hàm lượng tử $\hat{g}=\operatorname{Skip}\left[N O T \circ F_{2}\right]$ bằng cách sử dụng Bổ đề 3.9. Hàm lượng tử mong muốn $F_{3}$ phải thỏa mãn
+
+$$
+F_{3}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle) \leq 1 \\ |0\rangle \otimes \hat{g}\left(F_{3}(\langle 0 \mid \phi\rangle)\right)+|1\rangle \otimes I(\langle 1 \mid \phi\rangle) & \text { ngược lại. }\end{cases}
+$$
+
+Lưu ý rằng số lần áp dụng $\hat{g}$ chính xác là $p(|x|)$. Hàm $F_{3}$ này có thể được hiện thực hóa bằng cách sử dụng phép đệ quy lượng tử một qubit có dạng $F_{3}=Q R e c_{1}\left[I, \operatorname{Branch}[\hat{g}, I], I \mid F_{3}, I\right]$.
+
+\subsection*{5.5 Chuẩn bị đầu ra}
+Giả sử rằng một chồng chất của các cấu hình xiên được mã hóa cuối cùng của $M$ trên đầu vào đã cho $x$ có độ dài $n$ có dạng $\sum_{r \in F S C_{M}(x)}|\widetilde{M[r]}\rangle\left|\xi_{x, r}\right\rangle$ cho một chuỗi nhất định $\left\{\left|\xi_{x, r}\right\rangle\right\}_{r \in F S C_{M, n}}$ của các trạng thái lượng tử, nơi $M[r]$ biểu thị chuỗi đầu ra của $M$ xuất hiện trong một cấu hình xiên cuối cùng $r$ bao gồm chỉ vùng băng thiết yếu của $M$ trên $x$.
+
+Để chỉ ra phần đầu tiên của Bổ đề 4.3, ở cuối mô phỏng, chúng ta cần tạo ra $\widetilde{M[r]}$ ở phần ngoài cùng bên trái của chuỗi lượng tử thu được bằng mô phỏng. Để đạt được mục tiêu này, trước tiên chúng ta cần di chuyển nội dung của vùng bên trái của ô bắt đầu đến cuối vùng băng thiết yếu.
+
+Là một ví dụ minh họa, giả sử rằng chúng ta đã nhận được trạng thái lượng tử $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{b} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{3} \hat{b}\rangle$ sau khi thực hiện các bước trong Mục 5.4. Trong trường hợp này, kết quả của $M$ trong cấu hình xiên cuối cùng này $r$ là 001, và do đó $\widetilde{M[r]}=\hat{0} \hat{0} \hat{1} \hat{2}$ giữ. Trong phần tiếp theo, chúng ta muốn biến đổi $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{3} \hat{b}\rangle$ thành $|\hat{0} \hat{0} \hat{1} \hat{2}\rangle|\hat{3} \hat{b} \hat{b} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{3}\rangle$, bằng với $|\widetilde{M[r]}\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{3}\rangle$, bằng một hàm lượng tử $\widehat{\square_{1}^{\mathrm{QP}}}$ phù hợp, ví dụ, $F_{4}$.\\
+(i) Bắt đầu với $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{3} \hat{b}\rangle$, để đánh dấu phần cuối của ô băng, chúng ta thay đổi dấu hiệu cuối cùng $\hat{3}$ thành $\hat{1}$ bằng cách áp dụng NOT cho $\hat{3}$ và sau đó nhận được $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b}\rangle$. Quá trình này được gọi là $f_{9}$.\\
+(ii) Bằng cách lặp lại di chuyển $|\hat{3} \hat{b}\rangle$ ngoài cùng bên trái trong $|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b}\rangle$ đến cuối chuỗi lượng tử, cuối cùng chúng ta tạo ra $|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle$. Để hiện thực hóa toàn bộ biến đổi này, chúng ta cần định nghĩa
+
+$$
+f_{10}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle)<4, \\ \sum_{a \in\{0,1\}}|\hat{2} \hat{a}\rangle\langle\hat{2} \hat{a} \mid \phi\rangle+\sum_{z \in B_{4}} R E M O V E_{4}\left(|z\rangle \otimes f_{10}(\langle z \mid \phi\rangle)\right) & \text { ngược lại },\end{cases}
+$$
+
+nơi $B_{4}=\{0,1\}^{4}-\{\hat{2} \hat{0}, \hat{2} \hat{1}\}$. Chính thức hơn, chúng ta định nghĩa $f_{11}$ là $f_{11}=2 Q R e c_{4}\left[I, h^{\prime \prime}, I \mid\left\{f_{z}\right\}_{z \in\{0,1\}^{4}}\right]$, nơi $h^{\prime \prime}=\operatorname{Branch}\left[\left\{h_{z}^{\prime \prime}\right\}_{z \in\{0,1\}^{4}}\right]$ với $h_{\hat{2} \hat{0}}^{\prime \prime}=h_{\hat{2} \hat{1}}^{\prime \prime}=I$ và $h_{z}^{\prime \prime}=R E M O V E_{4}$ cũng như $f_{\hat{2} \hat{0}}=f_{\hat{2} \hat{1}}=I$ và $f_{z}=f_{10}$ cho bất kỳ $z \in B_{4}$.\\
+(iii) Chuỗi lượng tử hiện tại có dạng $|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b}\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle$. Chúng ta lần lượt loại bỏ từng dấu hiệu $\{\hat{1}, \hat{2}, \hat{3}\}$ trong $|\hat{2} \hat{0} \hat{3} \hat{0} \hat{3} \hat{1}\rangle|\hat{1} \hat{b}\rangle$ đến cuối toàn bộ chuỗi lượng tử và tạo ra $|\hat{0} \hat{0} \hat{1} \hat{b}\rangle|\hat{3} \hat{b} \hat{b} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{2}\rangle$. Để thực hiện quá trình này, chúng ta áp dụng $h_{8}$ được định nghĩa bởi $h_{8}=2 Q R E C_{3}\left[I, R E M O V E_{2}, I \mid\left\{h_{y}\right\}_{y \in\{0,1\}^{4}}\right]$, nơi $h_{\hat{1} \hat{b}}=I$ và $h_{y}=h_{8}$ cho tất cả $y \in\{0,1\}^{4}-\{\hat{1} \hat{b}\}$; nói cách khác,
+
+$$
+h_{8}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle)<4, \\ \operatorname{REMOVE} E_{2}\left(|\hat{1} \hat{b}\rangle\langle\hat{1} \hat{b} \mid \phi\rangle+\sum_{y \in\{0,1\}^{4}-\{\hat{1} \hat{b}\}}|y\rangle \otimes h_{8}(\langle y \mid \phi\rangle)\right) & \text { ngược lại. }\end{cases}
+$$
+
+(iv) Cuối cùng, chúng ta thay đổi $\hat{b}$ ngoài cùng bên phải trong $|\hat{0} \hat{0} \hat{1} \hat{b}\rangle$ thành $\hat{2}$ và sau đó nhận được $|\hat{0} \hat{0} \hat{1} \hat{2}\rangle(=|\widetilde{001}\rangle)$. Để tạo ra một chuỗi lượng tử như vậy, chúng ta áp dụng hàm lượng tử $h_{6}$ được định nghĩa là
+
+$$
+h_{9}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle)<2 \\ \sum_{y \in\{\hat{0}, \hat{1}\}}|y\rangle \otimes h_{9}(\langle y \mid \phi\rangle)+|\hat{b}\rangle\langle\hat{2} \mid \phi\rangle+|\hat{2}\rangle\langle\hat{b} \mid \phi\rangle & \text { ngược lại }\end{cases}
+$$
+
+Chính thức, chúng ta đặt $h_{9}=2 Q \operatorname{Rec}_{1}\left[I, h_{9}^{\prime}, I \mid\left\{h_{y}\right\}_{y \in\{0,1\}^{2}}\right]$, nơi $h_{9}^{\prime}=\operatorname{Branch}\left[\left\{h_{y}^{\prime \prime}\right\}_{y \in\{0,1\}^{2}}\right]$ với $h_{\hat{2}}^{\prime \prime}=h_{\hat{b}}^{\prime \prime}= S W A P \circ N O T \circ S W A P$ và $h_{y}^{\prime \prime}=I$ cùng với $h_{\hat{2}}=h_{\hat{b}}=I$ và $h_{y}=h_{9}$ cho bất kỳ $y \in\{\hat{0}, \hat{1}\}$.\\
+(vi) Để thực hiện các Bước (i)-(v) cùng một lúc, chúng ta kết hợp tất cả các hàm lượng tử được sử dụng trong các Bước (i)-(v) và định nghĩa một hàm lượng tử đơn $F_{4}=h_{9} \circ h_{8} \circ f_{10} \circ f_{9}$. Tổng thể, chuỗi lượng tử kết quả là $|\hat{0} \hat{0} \hat{1} \hat{2}\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{2}\rangle$.
+
+Trạng thái lượng tử $\left|\phi_{F_{4}}^{p}(x)\right\rangle$ có thể được biểu thị là $\sum_{r \in F S C_{M, n}}|\widetilde{M[r]}\rangle\left|\widehat{\xi}_{x, r}\right\rangle$ cho các trạng thái lượng tử nhất định $\left\{\left|\widehat{\xi}_{x, r}\right\rangle\right\}_{r}$. Vì chúng ta xử lý một vùng băng thiết yếu của $M$, nó ngay lập tức theo sau rằng, cho mọi $x, x^{\prime} \in\{0,1\}^{n}$ và $r, r^{\prime} \in F S C_{M, n},\left\|\left\langle\xi_{x, r} \mid \xi_{x^{\prime}, r^{\prime}}\right\rangle\right\|=\left\|\left\langle\widehat{\xi}_{x, r} \mid \widehat{\xi}_{x^{\prime}, r^{\prime}}\right\rangle\right\|$ và $\left\langle\hat{\xi}_{x, r} \mid \hat{\xi}_{x, r^{\prime}}\right\rangle=0$ nếu $r \neq r^{\prime}$. Do đó, $F_{4}$ thỏa mãn điều kiện của phần đầu tiên của bổ đề.
+
+Đối với phần thứ hai của bổ đề, chúng ta cần thêm nữa truy xuất $|M[r]\rangle$ từ chuỗi lượng tử được mã hóa $\mid \widetilde{M[r]\rangle}$. Từ ví dụ minh họa trước đó $|\hat{0} \hat{0} \hat{1} \hat{2}\rangle|\hat{3} \hat{b} \hat{3} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{2}\rangle$, chúng ta cần tạo ra $|001\rangle|1\rangle|\hat{3} \hat{b} \hat{b} \hat{b} \hat{3} \hat{b}\rangle|\hat{1} \hat{3} \hat{3} \hat{2}\rangle|1000\rangle$. Vì mục đích này, chúng ta định nghĩa hàm lượng tử $g_{7}$ bằng cách đặt $g_{7}=2 Q R e c_{1}\left[I, R E M O V E_{1}, I \mid\left\{g_{z}^{\prime}\right\}_{z \in\{0,1\}^{2}}\right]$; cụ thể là,
+
+$$
+g_{7}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle)<2 \\ R E M O V E_{1}\left(\sum_{y \in\{0,1\}}\left(|0 y\rangle \otimes g_{7}(\langle 0 y \mid \phi\rangle)+|1 y\rangle\langle 1 y \mid \phi\rangle\right)\right) & \text { ngược lại }\end{cases}
+$$
+
+Sử dụng $g_{7}$, cuối cùng chúng ta đặt $F_{5}=g_{7} \circ F_{4}$ để có được phần thứ hai của bổ đề.\\
+Điều này hoàn thành chứng minh của Bổ đề 4.3.
+
+\subsection*{5.6 Các ứng dụng đơn giản của các quy trình mô phỏng}
+Chứng minh của Bổ đề 4.3 cung cấp các quy trình hữu ích không chỉ để xây dựng hàm lượng tử mong muốn $g$ mà còn cho các hàm lượng tử chuyên dụng khác. Ở đây, như các ứng dụng đơn giản của các quy trình mô phỏng được đưa ra trong các Bước 1)-6) của Mục 5.2, chúng ta sẽ giải thích cách mã hóa/giải mã các chuỗi cổ điển và cách nhân bản thông tin cổ điển bằng các hàm lượng tử $\widehat{\square_{1}^{\mathrm{QP}}}$.
+
+Các Bước 1)-8) trong Mục 5.2 mô tả một biến đổi giữa các chuỗi cổ điển và mã hóa của chúng. Một sự sửa đổi nhỏ của Bước 2) giới thiệu một bộ mã hóa Encode, mã hóa đúng các chuỗi nhị phân $s$ thành $\tilde{s}$.
+
+Bổ đề 5.1 Tồn tại một hàm lượng tử Encode trong $\widehat{\square_{1}^{\mathrm{QP}}}$ thỏa mãn Encode $\left(\left|0^{k+1} 1\right\rangle \otimes|\phi\rangle\right)= \sum_{s \in\{0,1\}^{k}}(|\tilde{s}\rangle \otimes|s\rangle\langle s \mid \phi\rangle)$ cho bất kỳ số $k \in \mathbb{N}$ và bất kỳ trạng thái lượng tử $|\phi\rangle \in \mathcal{H}_{\infty}$. Hơn nữa, hàm lượng tử Decode $=$ Encode $^{-1}$ cũng nằm trong $\widehat{\square_{1}^{\mathrm{QP}}}$.
+
+Cho các bit bổ sung $0^{k} 1$, $k$ qubit đầu tiên của $|\phi\rangle$ được mã hóa đúng bởi Encode bằng cách tiêu thụ $0^{k} 1$. Ví dụ, Encode biến đổi $\left|0^{3} 1\right\rangle\left|a_{1} a_{2}\right\rangle$ thành $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle$ và Decode trả lại $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle$ về $\left|0^{3} 1\right\rangle\left|a_{1} a_{2}\right\rangle$. Lưu ý rằng Mệnh đề 3.5 đảm bảo Decode $\in \widehat{\square_{1}^{\mathrm{QP}}}$ từ Encode $\in \widehat{\square_{1}^{\mathrm{QP}}}$.
+
+Cơ học lượng tử nói chung cấm chúng ta sao chép các trạng thái lượng tử chưa biết; tuy nhiên, có thể sao chép mỗi chuỗi cổ điển lượng tử. Do đó, chúng ta có hàm lượng tử $C O P Y_{2}$ sau, sao chép nội dung của $k$ qubit đầu tiên của bất kỳ đầu vào nào.
+
+Bổ đề 5.2 Tồn tại một hàm lượng tử $C O P Y_{2}$ trong $\widehat{\square_{1}^{\mathrm{QP}}}$ thỏa mãn điều kiện sau: cho bất kỳ $k \in \mathbb{N}^{+}$và bất kỳ $|\phi\rangle \in \mathcal{H}_{\infty}$,
+
+$$
+C O P Y_{2}\left(\left|\widetilde{0^{k}}\right\rangle \otimes|\phi\rangle\right)=\sum_{s \in\{0,1\}^{k}}(|\tilde{s}\rangle \otimes|\tilde{s}\rangle\langle\tilde{s} \mid \phi\rangle)
+$$
+
+Việc mã hóa $\widetilde{0^{k}}$ của $0^{k}$ là cần thiết để phân biệt $0^{k}$ với bất kỳ phần nào của $|\phi\rangle$ vì $k$ không phải là một hằng số cố định. Khi $|\phi\rangle$ có dạng $|x\rangle|\psi\rangle$, hàm lượng tử $C O P Y_{2}$ hoạt động như $C O P Y_{2}\left(\left|\widetilde{0^{k}}\right\rangle \otimes|\tilde{x}\rangle|\psi\rangle\right)=|\tilde{x}\rangle \otimes|\tilde{x}\rangle|\psi\rangle$.
+
+Chứng minh Bổ đề 5.2. Chúng ta muốn xây dựng hàm lượng tử mong muốn $C O P Y_{2}$ như sau. Để làm cho quá trình xây dựng của chúng ta dễ đọc, chúng ta sử dụng một ví dụ minh họa của $\left|\widetilde{0^{k}}\right\rangle|\phi\rangle=\left|\widetilde{0^{2}}\right\rangle\left|\widetilde{a_{1} a_{2}}\right\rangle\left(=|\hat{0} \hat{0} \hat{2}\rangle\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle\right)$ để chỉ ra cách mỗi hàm lượng tử được xây dựng hoạt động.
+
+\begin{enumerate}
+  \item Các Bước 1)-6) của Mục 5.2 biến đổi $|\hat{0} \hat{0} \hat{1}\rangle\left|\hat{a}_{1} \hat{a}_{2}\right\rangle$ thành $\left|\hat{2} \hat{a}_{1} \hat{3} \hat{a}_{2}\right\rangle|\hat{3}\rangle$. Bằng một sự sửa đổi nhỏ của các bước này, có thể biến đổi $|\hat{0} \hat{0} \hat{2}\rangle\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle$ thành $\left|\hat{3} \hat{a}_{1} \hat{3} \hat{a}_{2} \hat{2}\right\rangle|\hat{2}\rangle$. Chúng ta ký hiệu $f_{1}$ là một hàm lượng tử thực hiện biến đổi này.
+  \item Bằng cách sao chép $\hat{a}_{i}$ trong $\hat{3} \hat{a}_{i}$ lên $\hat{3}$ cho mỗi $i \in\{1,2\}$, chúng ta thay đổi $\hat{3} \hat{a}_{i}$ thành $\hat{a}_{i} \hat{a}_{i}$ và sau đó nhận được $\left|\hat{a}_{1} \hat{a}_{1} \hat{a}_{2} \hat{a}_{2} \hat{2}\right\rangle|\hat{2}\rangle$. Bước này có thể được thực hiện chính thức theo cách sau. Trước tiên, chúng ta định nghĩa một hàm lượng tử $h_{2}$ thỏa mãn $h_{2}\left(\left|b_{1} b_{2}\right\rangle\left|b_{3} b_{4}\right\rangle \otimes|\phi\rangle\right)=\left|b_{4} b_{2} b_{1} b_{3}\right\rangle \otimes|\phi\rangle$ cho bất kỳ $\phi \in \mathcal{H}_{\infty}$. Một hàm lượng tử như vậy thực sự tồn tại theo Bổ đề 3.7. Thứ hai, chúng ta đặt $D U P$ là $h_{2}^{-1} \circ(S W A P \circ N O T \circ S W A P \circ C N O T) \circ h_{2} \circ N O T$. Khi đó, theo sau rằng\\
+$D U P(|\hat{3}\rangle|\hat{a}\rangle \otimes|\phi\rangle)=|\hat{a}\rangle|\hat{a}\rangle \otimes|\phi\rangle$ cho bất kỳ bit $a \in\{0,1\}$ và bất kỳ trạng thái lượng tử $|\phi\rangle \in \mathcal{H}_{\infty}$. Với DUP này, chúng ta tiếp tục định nghĩa $f_{2}$ bằng phép đệ quy lượng tử 4 qubit như
+
+$$
+f_{2}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle)<4, \\ D U P\left(\sum_{a \in\{0,1\}}|\hat{3} \hat{a}\rangle \otimes f_{2}(\langle\hat{3} \hat{a} \mid \phi\rangle)+\sum_{y \in B_{4}^{\prime}}|y\rangle\langle y \mid \phi\rangle\right. & \text { ngược lại },\end{cases}
+$$
+
+nơi $B_{4}^{\prime}=\{0,1\}^{4}-\{\hat{3} \hat{0}, \hat{3} \hat{1}\}$.\\
+3) Tiếp theo, chúng ta biến đổi $\left|\hat{a}_{1} \hat{a}_{1} \hat{a}_{2} \hat{a}_{2} \hat{2}\right\rangle|\hat{2}\rangle$ thành $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle\left|\hat{2} \hat{a}_{2} \hat{a}_{1}\right\rangle$. Biến đổi này có thể được thực hiện bởi $f_{3}$ được định nghĩa là
+
+$$
+f_{3}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle)<4, \\ R E M O V E_{2}\left(\sum_{y \in\{0,1\}^{4}-\{\hat{2} \hat{2}\}}|y\rangle \otimes f_{3}(\langle y \mid \phi\rangle)+|\hat{2} \hat{2}\rangle\langle\hat{2} \hat{2} \mid \phi\rangle\right) & \text { ngược lại. }\end{cases}
+$$
+
+\begin{enumerate}
+  \setcounter{enumi}{3}
+  \item Sau đó, chúng ta thay đổi $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle\left|\hat{2} \hat{a}_{2} \hat{a}_{1}\right\rangle$ thành $\left|\hat{2} \hat{a}_{2} \hat{a}_{1}\right\rangle\left|\hat{2} \hat{a}_{2} \hat{a}_{1}\right\rangle$ bằng cách loại bỏ từng hai qubit trong phần đầu tiên đến cuối. Quá trình này được hiện thực hóa chính xác bởi $f_{4}$ được định nghĩa là
+\end{enumerate}
+
+$$
+f_{4}(|\phi\rangle)= \begin{cases}|\phi\rangle & \text { nếu } \ell(|\phi\rangle)<4, \\ \operatorname{REMOV} E_{2}\left(\sum_{y \in\{0,1\}^{2}-\{\hat{2}\}}\left(|y\rangle \otimes f_{5}(\langle y \mid \phi\rangle)\right)+|\hat{2}\rangle\langle\hat{2} \mid \phi\rangle\right) & \text { ngược lại } .\end{cases}
+$$
+
+\begin{enumerate}
+  \setcounter{enumi}{4}
+  \item Cuối cùng, chúng ta đảo ngược toàn bộ chuỗi lượng tử để nhận được $\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle\left|\hat{a}_{1} \hat{a}_{2} \hat{2}\right\rangle$ bằng cách áp dụng REVERSE.
+\end{enumerate}
+
+Điều này hoàn thành chứng minh của bổ đề.
+
+\section*{6 Những thách thức trong tương lai}
+Trong Định nghĩa 3.1, chúng ta đã định nghĩa các hàm lượng tử $\square_{1}^{\mathrm{QP}}$ trên $\mathcal{H}_{\infty}$ và chúng ta đã đưa ra trong Định lý 4.1 một đặc trưng mới của các hàm FBQP theo các hàm lượng tử $\square_{1}^{\mathrm{QP}}$ này. Để chỉ ra các hướng nghiên cứu trong tương lai, chúng ta muốn nêu một câu hỏi mở thách thức trong Mục 6.1 và trình bày trong các Mục 6.26 .3 ba hệ quả có thể có của định nghĩa sơ đồ của chúng ta đối với các chủ đề về độ phức tạp mô tả, lý thuyết bậc nhất và các hàm bậc cao. Trong Mục 6.4, chúng ta sẽ đề cập một ứng dụng thực tiễn cho việc thiết kế các ngôn ngữ lập trình lượng tử.
+
+\subsection*{6.1 Tìm kiếm một định nghĩa sơ đồ hợp lý hơn}
+Định nghĩa sơ đồ của chúng ta (Định nghĩa 3.1) được tạo thành từ các hàm lượng tử ban đầu, được suy ra từ các cổng lượng tử tự nhiên, đơn giản, và các quy tắc xây dựng, bao gồm phép đệ quy lượng tử nhiều qubit, làm phong phú đáng kể phạm vi các hàm lượng tử được xây dựng. Việc lựa chọn các hàm lượng tử ban đầu và các quy tắc xây dựng mà chúng ta đã sử dụng trong bài viết này trực tiếp ảnh hưởng đến sự phong phú của các hàm lượng tử $\square_{1}^{\text {QP }}$. Mặc dù $\square_{1}^{\mathrm{QP}}$ hiện tại của chúng ta là đủ để đặc trưng hóa FBQP, nếu chúng ta tìm cách làm phong phú thêm các hàm lượng tử $\square_{1}^{\mathrm{QP}}$, một cách là bổ sung thêm các hàm lượng tử ban đầu. Là một ví dụ cụ thể, hãy xem xét phép biến đổi Fourier lượng tử (QFT), đóng vai trò quan trọng trong, ví dụ, thuật toán lượng tử phân tích thừa số của Shor 30. Chúng ta đã minh họa trong Bổ đề 3.10 cách thực hiện một dạng QFT bị hạn chế hoạt động trên một số lượng qubit cố định, và do đó nó thuộc về $\widehat{\square_{1}^{\mathrm{QP}}}$. Tuy nhiên, một dạng QFT tổng quát hơn, hoạt động trên một số lượng "bất kỳ" của các qubit, có thể không được hiện thực hóa chính xác bởi các hàm lượng tử $\widehat{\square_{1}^{\mathrm{QP}}}$ mặc dù nó có thể được xấp xỉ đến bất kỳ độ chính xác mong muốn nào bởi các hàm lượng tử $\widehat{\square_{1}^{\mathrm{QP}}}$. Để khắc phục việc loại trừ QFT khỏi lớp hàm lượng tử $\square_{1}^{\mathrm{QP}}$ của chúng ta, ví dụ, chúng ta có thể mở rộng $\widehat{\square_{1}^{\mathrm{QP}}}$ hiện tại bằng cách bổ sung vào các hàm lượng tử ban đầu hàm lượng tử được định nghĩa là
+
+$$
+C R O T\left(|\phi\rangle\left|0^{j}\right\rangle\right)=|0\rangle\langle 0 \mid \phi\rangle\left|0^{j}\right\rangle+\omega_{j}|1\rangle\langle 1 \mid \phi\rangle\left|0^{j}\right\rangle \text { (phép quay có điều khiển), }
+$$
+
+nơi $\omega_{j}=e^{2 \pi i / 2^{j}}$, với một thuật ngữ bổ sung $0^{j}$. Không khó để xây dựng QFT từ các hàm lượng tử trong $\widehat{\square_{1}^{\mathrm{QP}}}$ đã được mở rộng này bằng cách bổ sung CROT. Như ví dụ này cho thấy, vẫn còn quan trọng để tìm kiếm một định nghĩa sơ đồ đơn giản, hợp lý hơn cho các hàm lượng tử, có khả năng đặc trưng chính xác cả BQP và FBQP và cũng đơn giản hóa chứng minh Định lý 4.1.
+
+Từ quan điểm của chủ nghĩa tối giản, ngược lại, chúng ta có thể loại bỏ một số sơ đồ nhất định hoặc thay thế chúng bằng các sơ đồ đơn giản hơn nhưng vẫn đảm bảo kết quả đặc trưng của BQP và FBQP theo các hàm lượng tử $\square_{1}^{\mathrm{QP}}$. Là một ví dụ cụ thể, chúng ta có thể hỏi liệu phép đệ quy lượng tử nhiều qubit của chúng ta có thể được thay thế bằng phép đệ quy lượng tử 1 qubit với chi phí bổ sung các hàm lượng tử ban đầu.
+
+\subsection*{6.2 Giới thiệu độ phức tạp mô tả và các lý thuyết bậc nhất}
+Như đã lưu ý trong Mục 3.1, định nghĩa sơ đồ của chúng ta về các hàm lượng tử $\square_{1}^{\mathrm{QP}}$ cung cấp cho chúng ta một phương tiện tự nhiên để gán độ phức tạp mô tả - một thước đo độ phức tạp mới - cho từng hàm lượng tử trong $\square_{1}^{\mathrm{QP}}$. Thước đo độ phức tạp này đã được sử dụng để chứng minh, ví dụ, Bổ đề 3.4. Là một hệ quả của định lý chính của chúng ta, thước đo độ phức tạp này cũng chuyển sang "độ phức tạp mô tả" của các ngôn ngữ và hàm trong BQP và FBQP, và do đó nó tự nhiên giúp chúng ta giới thiệu khái niệm về độ phức tạp mô tả của các ngôn ngữ và hàm đó.
+
+Hơn nữa, có thể mở rộng thước đo độ phức tạp này cho "bất kỳ" ngôn ngữ và hàm nào trên $\{0,1\}^{*}$, không nhất thiết bị giới hạn trong FBQP và BQP, và thảo luận về "độ phức tạp tương đối" của chúng đối với $\square_{1}^{\mathrm{QP}}$. Chính thức hơn, cho một hàm $f$ trên $\{0,1\}^{*}$, độ phức tạp mô tả $\square_{1}^{\mathrm{QP}}$ của $f$ tại độ dài $n$ là số lượng tối thiểu các lần chúng ta sử dụng các hàm lượng tử ban đầu và các quy tắc xây dựng để xây dựng một hàm lượng tử $\square_{1}^{\text {QP }}$ $g$ mà $\ell\left(\left|\phi_{g}^{p}(x)\right\rangle\right)=|f(x)|$ và $\left|\left\langle f(x) \mid \phi_{g}^{p}(x)\right\rangle\right|^{2} \geq 2 / 3$ giữ cho một đa thức $p$ nhất định với $|f(x)| \leq p(|x|)$ cho tất cả các chuỗi $x$ có độ dài chính xác $n$. Chúng ta viết $d c(f)[n]$ để biểu thị độ phức tạp mô tả $\square_{1}^{\mathrm{QP}}$ của $f$ tại độ dài $n$. Rõ ràng, mọi hàm lượng tử $\square_{1}^{\mathrm{QP}}$ đều có độ phức tạp mô tả $\square_{1}^{\mathrm{QP}}$ không đổi tại mọi độ dài. Theo tinh thần tương tự nhưng dựa trên các máy hữu hạn lượng tử, Villagra và Yamakami 33 đã thảo luận về độ phức tạp trạng thái lượng tử được giới hạn ở các đầu vào có độ dài chính xác $n$ (cũng như độ dài tối đa $n$). Hóa ra thước đo độ phức tạp như vậy rất hữu ích. Tham khảo 33 để biết các định nghĩa chi tiết. Thước đo độ phức tạp mới của chúng ta $d c(f)[n]$ cũng được kỳ vọng là một công cụ hữu ích trong việc phân loại các ngôn ngữ và hàm theo sức mạnh mô tả theo cách khá khác biệt so với những gì QTMs và các mạch lượng tử làm.
+
+Trong một quan điểm rộng hơn, định nghĩa sơ đồ của chúng ta về khả năng tính toán lượng tử trong thời gian đa thức có thể dẫn đến sự phát triển trong tương lai của một dạng lý thuyết bậc nhất phù hợp trên các trạng thái lượng tử trong không gian Hilbert hoặc các lý thuyết lượng tử bậc nhất, nói ngắn gọn. Trong tài liệu, các lý thuyết bậc nhất và các lý thuyết con tự nhiên của chúng đã trở thành một chủ đề nghiên cứu phong phú trong logic toán học và lý thuyết đệ quy và chúng cũng đã tìm thấy nhiều ứng dụng trong các lĩnh vực khác. Một dạng yếu của các lý thuyết con của chúng đã được thảo luận trong lý thuyết độ phức tạp lượng tử. Ví dụ, sử dụng các lượng tử bị chặn trên các trạng thái lượng tử trong không gian Hilbert, các dạng lượng tử của NP và phân cấp đa thức (thời gian) Meyer-Stockmeyer đã được thảo luận trong 37. Thật không may, chúng ta vẫn còn xa mới có được các lý thuyết bậc nhất được chấp nhận rộng rãi và các lý thuyết con hữu ích cho máy tính lượng tử.
+
+\subsection*{6.3 Mở rộng sang các hàm bậc 2}
+Thông thường, các hàm ánh xạ $\Sigma^{*}$ tới $\Sigma^{*}$ được phân loại là các hàm bậc 1, trong khi các hàm bậc 2 là các hàm nhận đầu vào từ $\Sigma^{*}$ cùng với các hàm bậc 1. Trong lý thuyết độ phức tạp tính toán, các hàm bậc 2 như vậy đã được thảo luận rộng rãi trong, ví dụ, $8,9,24,31,35$.
+
+Theo cách tương tự như trường hợp cổ điển, chúng ta gọi các hàm lượng tử $\square_{1}^{\mathrm{QP}}$ trên $\mathcal{H}_{\infty}$ là các hàm bậc 1. Để giới thiệu các hàm bậc 2, trước tiên chúng ta bắt đầu với một hàm lượng tử tùy ý $O$ ánh xạ $\mathcal{H}_{\infty}$ tới $\mathcal{H}_{\infty}$, được xử lý như một hàm oracle (một oracle hàm hoặc đơn giản là một oracle) trong công thức sau. Từ một oracle như vậy, chúng ta định nghĩa một toán tử tuyến tính mới $\tilde{O}$ là $\tilde{O}(|\tilde{x}\rangle)=\sum_{s:|s|=|x|} \alpha_{s}|\tilde{s}\rangle$ nếu $O(|x\rangle)$ có dạng $\sum_{s:|s|=|x|} \alpha_{s}|s\rangle$ cho bất kỳ chuỗi $x \in\{0,1\}^{*}$, nơi $\tilde{s}$ là mã của $s$, được định nghĩa trong Mục 4.1. Lưu ý rằng $\tilde{O}(|\tilde{x}\rangle)= \widetilde{O(|x\rangle) \text { và } \ell(\tilde{O}(|\tilde{x}\rangle))=2 \ell(O(|x\rangle))+2 \text {. }}$
+
+Trước tiên, chúng ta mở rộng các hàm lượng tử ban đầu và các quy tắc xây dựng được đưa ra trong Định nghĩa 3.1 bằng cách thay thế bất kỳ hàm lượng tử nào, ví dụ, $f(|\phi\rangle)$ trong mỗi sơ đồ của định nghĩa bằng $f(|\phi\rangle, O)$. Thứ hai, chúng ta giới thiệu một hàm lượng tử ban đầu khác, gọi là hàm truy vấn QUERY. Cho bất kỳ hai chuỗi lượng tử $|\phi\rangle$ và $|\psi\rangle$ có độ dài $n$, cho $|\phi\rangle \oplus|\psi\rangle=\sum_{s:|s|=n} \sum_{t:|t|=n}\langle s \mid \phi\rangle\langle t \mid \psi\rangle|s \oplus t\rangle$, nơi $s \oplus t$ biểu thị XOR bit-wise của $s$ và $t$. Là một trường hợp đặc biệt, theo sau rằng $\tilde{O}(|\tilde{x}\rangle) \oplus \tilde{O}(|\tilde{x}\rangle)=\left|0^{2|x|+2}\right\rangle$ cho bất kỳ $x \in\{0,1\}^{*}$. Hàm truy vấn sau đó được định nghĩa là
+
+$$
+\begin{aligned}
+& Q U E R Y(|\phi\rangle, O) \\
+& \qquad=\sum_{n \in[t]} \sum_{x \in \Sigma^{n}} \sum_{s \in \Sigma^{n}}\left(|\tilde{x}\rangle \otimes(\tilde{O}(|\tilde{x}\rangle) \oplus|\tilde{s}\rangle) \otimes\langle\tilde{x} \tilde{s} \mid \phi\rangle+\sum_{y \in \Sigma^{4 n+4} \wedge y \neq \tilde{x} \tilde{s}}|y\rangle\langle y \mid \phi\rangle\right)
+\end{aligned}
+$$
+
+cho tất cả $|\phi\rangle \in \mathcal{H}_{\infty}$, nơi $t=\lfloor(\ell(|\phi\rangle)-4) / 4\rfloor$. Đặc biệt, $Q U E R Y(|\tilde{x}\rangle|\tilde{s}\rangle|\phi\rangle)$ bằng $|\tilde{x}\rangle \otimes(\tilde{O}(|\tilde{x}\rangle \oplus|\tilde{s}\rangle) \otimes|\phi\rangle)$. Nó cũng theo sau rằng $Q U E R Y \circ Q U E R Y(|\phi\rangle, O)=I(|\phi\rangle)$ vì $\tilde{O}(|\tilde{x}\rangle) \oplus \tilde{O}(|\tilde{x}\rangle)=\left|0^{2|x|+2}\right\rangle$.
+
+Lưu ý rằng nếu $O$ nằm trong $\square_{1}^{\mathrm{QP}}$ thì hàm $Q_{O}(|\phi\rangle)={ }_{\text {def }} \operatorname{QUERY}(|\phi\rangle, O)$ cũng thuộc về $\square_{1}^{\mathrm{QP}}$. Cũng có thể chứng minh các kết quả cơ bản tương tự được thảo luận trong các phần trước. Những kết quả cơ bản này có thể mở ra một lĩnh vực phong phú về khả năng tính toán lượng tử bậc cao và chúng ta mong đợi những kết quả phong phú sẽ được khám phá trong lĩnh vực mới này.
+
+\subsection*{6.4 Ứng dụng cho các ngôn ngữ lập trình lượng tử}
+Một ứng dụng thực tiễn của định nghĩa sơ đồ của chúng ta có thể được tìm thấy trong lĩnh vực các ngôn ngữ lập trình lượng tử. Kể từ những ngày đầu của nghiên cứu máy tính lượng tử, một nỗ lực đáng kể đã được thực hiện bởi các nhà vật lý, nhà khoa học máy tính và kỹ sư máy tính để vẽ ra một bản đồ nghiên cứu thực tiễn cho một máy tính lượng tử thực sự.
+
+Hướng tới việc hiện thực hóa một máy tính lượng tử "đa năng" như vậy, tuy nhiên, điều quan trọng hơn là làm cho chúng "có thể lập trình" theo cách mà việc chạy một "chương trình lượng tử" phù hợp tự do thay đổi các quá trình tính toán cho các bài toán mục tiêu khác nhau mà không cần mô hình lại phần cứng của chúng mỗi lần. Một chương trình lượng tử ở đây đề cập đến một chuỗi hữu hạn các hướng dẫn về cách vận hành máy tính lượng tử từng bước. Để viết một chương trình lượng tử như vậy, tuy nhiên, chúng ta cần phát triển các ngôn ngữ lập trình được cấu trúc tốt cho máy tính lượng tử (gọi là các ngôn ngữ lập trình lượng tử). Các ngôn ngữ lập trình lượng tử khác nhau đã được thảo luận trong hai thập kỷ qua trong quá trình phát triển các máy tính lượng tử thực tế. Tham khảo các khảo sát, ví dụ, 13 để biết nền tảng cần thiết.
+
+Định nghĩa sơ đồ của chúng ta cung cấp một mô tả về cách định nghĩa một hàm lượng tử $\square_{1}^{\mathrm{QP}}$ đã cho. Mô tả này có thể được xem như một tập hợp các hướng dẫn, mỗi hướng dẫn chỉ dẫn cách áp dụng từng sơ đồ để xây dựng hàm lượng tử mong muốn và do đó nó giống như một chương trình chỉ đạo cách xây dựng hàm lượng tử. Do đó, mô tả sơ đồ của chúng ta về quá trình xây dựng các hàm lượng tử có thể giúp chúng ta thiết kế các ngôn ngữ lập trình lượng tử phù hợp trong tương lai.
+
+\section*{Tài liệu tham khảo}
+[1] L. M. Adleman, J. DeMarrais, và M. A. Huang, Khả năng tính toán lượng tử, SIAM J. Comput. 26 (1997) 1524-1540.\\[0pt]
+[2] A. Barenco, C. H. Bennett, R. Cleve, D. DiVicenzo, N. Margolus, P. Shor, T. Sleator, J. Smolin, và H. Weinfurter, Các cổng cơ bản cho tính toán lượng tử, Phys. Rev., A, 52 (1995) 3457-3467.\\[0pt]
+[3] P. Benioff, Máy tính như một hệ thống vật lý: một mô hình Hamiltonian lượng tử vi mô của máy tính được biểu diễn bằng máy Turing. J. Statist. Phys. 22 (1980) 563-591.\\[0pt]
+[4] C. H. Bennett, E. Bernstein, G. Brassard, và U. Vazirani, Điểm mạnh và điểm yếu của máy tính lượng tử, SIAM J. Comput. 26 (1997) 1510-1523.\\[0pt]
+[5] E. Bernstein và U. Vazirani, Lý thuyết độ phức tạp lượng tử, SIAM J. Comput. 26 (1997) 1411-1473.\\[0pt]
+[6] P. O. Boykin, T. Mor, M. Pulver, V. Roychowdhury, và F. Vatan, Về máy tính lượng tử phổ quát và chịu lỗi. arXiv:quant-ph/9906054, 1999.\\[0pt]
+[7] A. Cobham, Độ khó tính toán nội tại của các hàm, trong Kỷ yếu Hội nghị Toán học, Logic học và Triết học Khoa học năm 1964, trang 24-30, North-Holland, 1964.\\[0pt]
+[8] R. L. Constable, Độ phức tạp tính toán loại hai, trong Kỷ yếu Hội nghị lần thứ 5 về Khoa học Máy tính (STOC'73), trang 108-121, 1973.\\[0pt]
+[9] S. Cook và B. M. Kapron, Đặc trưng hóa các hàm khả thi cơ bản loại hữu hạn, trong Kỷ yếu Hội nghị lần thứ 30 của IEEE về Cơ sở Khoa học Máy tính (STOC'89), trang 154-159, 1989.\\[0pt]
+[10] M. Davis, (chủ biên) The Unidecidable. Các bài viết cơ bản về các mệnh đề không thể quyết định, các bài toán không thể giải và các hàm có thể tính được, Raven Press, Hewlett, New York, 1965.\\[0pt]
+[11] D. Deutsch, Lý thuyết lượng tử, nguyên lý Church-Turing và máy tính lượng tử phổ quát, Proceedings Royal Society London, Ser. A, 400 (1985) 97-117.\\[0pt]
+[12] D. Deutsch, Các mạng tính toán lượng tử, Proceedings Royal Society London, Ser. A, 425 (1989) 73-90.\\[0pt]
+[13] S. J. Gay. Các ngôn ngữ lập trình lượng tử: khảo sát và tài liệu tham khảo. Math. Struct. in Comp. Science 16 (2006) 581-600.\\[0pt]
+[14] L. K. Grover, Một thuật toán cơ học lượng tử nhanh để tìm kiếm cơ sở dữ liệu, trong Kỷ yếu Hội nghị lần thứ 28 của ACM về Khoa học Máy tính (STOC'96), trang 212-219, 1996.\\[0pt]
+[15] L. Grover. Cơ học lượng tử trong việc tìm kiếm một cây kim trong một đống rơm. Physical Review Letters 79:325 (1997).\\[0pt]
+[16] J. Hopcroft và J. Ullman, Giới thiệu về Lý thuyết Automata, Ngôn ngữ và Máy tính, AddisonWesley, Reading MA, 1979.\\[0pt]
+[17] A. Kitaev. Các tính toán lượng tử: thuật toán và sửa lỗi. Russian Math. Surveys 52 (1997) 1191-1249.\\[0pt]
+[18] A. Y. Kitaev, A. H. Shen, và M. N. Vyalyi. Tính toán cổ điển và lượng tử (Graduate Studies in Mathematics), American Mathematical Society, 2002.\\[0pt]
+[19] S. C. Kleene, Các hàm đệ quy tổng quát của các số tự nhiên, Math. Ann. 112 (1936) 727-742.\\[0pt]
+[20] S. C. Kleene, Các vị từ và lượng tử đệ quy, Trans. A. M. S. 53 (1943) 41-73.
+
+
+\end{document} <environment_details>
+# Visual Studio Code Visible Files
+page_22_28_vi.tex
+
+# Visual Studio Code Open Tabs
+page_15_21_vi.pdf
+page_15_21_vi.tex
+page_22_28_vi.tex
+page_22_28_vi.pdf
+
+# Current Time
+2/25/2026, 9:20:15 PM (Asia/Bangkok, UTC+7:00)
+
+# Context Window Usage
+134,363 / 256K tokens used (52%)
+
+# Current Mode
+ACT MODE
+</environment_details>
