@@ -1,0 +1,156 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{lmodern}
+\usepackage[a4paper,top=2.2cm,bottom=2.5cm,left=2.2cm,right=2.2cm]{geometry}
+
+\tolerance=2000
+\emergencystretch=2em
+\sloppy
+
+\title{Phần 2: Phân tích đánh giá\\[0.5em]
+{\large Bài báo: Định nghĩa sơ đồ về Tính toán Đa thức Lượng tử}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%=============================================================================
+\section*{2.1 Giải thích chi tiết các thuật ngữ và khái niệm}
+%=============================================================================
+
+\subsection*{Bối cảnh và các mô hình tính toán lượng tử}
+
+\subsubsection*{Máy Turing lượng tử (QTM)}
+Máy Turing lượng tử (QTM) là mở rộng cơ học của máy Turing cổ điển (hoặc xác suất), cho phép \emph{giao thoa lượng tử} trong quá trình tính toán. Một QTM $k$-băng được định nghĩa chính thức là bộ sáu $(Q,\Sigma,\Gamma_1\times\cdots\times\Gamma_k,\delta,q_0,Q_f)$, trong đó $Q$ là tập trạng thái trong (gồm trạng thái đầu $q_0$ và tập trạng thái kết thúc $Q_f$), $\Gamma_i$ là bảng chữ cái băng (có ký hiệu trống $\#$), và $\delta$ là \emph{hàm chuyển tiếp lượng tử} từ $Q\times\tilde{\Gamma}^{(k)}\times Q\times\tilde{\Gamma}^{(k)}\times\{L,N,R\}^k$ vào $\mathbb{C}$. Toán tử tiến hóa theo thời gian $U_\delta$ tác động lên không gian cấu hình: $U_\delta|p,h,z\rangle=\sum_{q,w,d}\delta(p,z_h,q,z_h',d)|q,h_d,z'\rangle$. Cơ học lượng tử đòi hỏi $U_\delta$ phải là \emph{unita} (bảo toàn chuẩn $\ell_2$).
+
+\emph{Điều kiện hình thành tốt} (well-formedness) của QTM gồm ba điều kiện cục bộ: (1) \textbf{độ dài đơn vị}: $\|\delta(p,\sigma)\|=1$ với mọi $(p,\sigma)$; (2) \textbf{trực giao}: $\delta(p_1,\sigma_1)\cdot\delta(p_2,\sigma_2)=0$ với mọi cặp phân biệt; (3) \textbf{tách biệt}: các vectơ $\delta[p,\sigma,\tau\mid\epsilon]$ trực giao theo $\epsilon$. Định lý hình thành tốt (Bernstein–Vazirani, Yamakami) khẳng định QTM thỏa ba điều kiện này khi và chỉ khi $U_\delta$ bảo toàn chuẩn. Đây là điều kiện kỹ thuật phức tạp mà định nghĩa sơ đồ của bài báo \emph{tránh được}.
+
+\subsubsection*{Mạch lượng tử}
+Mạch lượng tử là tích của một số hữu hạn các ``lớp'', mỗi lớp là tích Kronecker của các \emph{cổng lượng tử} (phép biến đổi unita trên $\mathcal{H}_{2^k}$). Cổng $k$-qubit áp dụng lên trạng thái $|\phi\rangle$ cho trạng thái mới $U|\phi\rangle$. Các cổng điển hình: Walsh–Hadamard (WH), CNOT (controlled-NOT), $Z_{1,\theta}$, $Z_{2,\theta}$, $R_\theta$. Một \emph{họ mạch} $\{C_n\}_{n\in\mathbb{N}}$ được gọi là \emph{đồng nhất P} (P-uniform) nếu tồn tại máy Turing tất định mà trên đầu vào $1^n$ sinh ra mã của $C_n$ trong thời gian đa thức theo $n$. Nishimura–Ozawa chứng minh điều kiện đồng nhất là \emph{cần thiết} để đặc trưng chính xác tính toán đa thức lượng tử; định nghĩa sơ đồ cũng không cần nêu rõ điều kiện này.
+
+\subsubsection*{BQP và FBQP}
+\begin{itemize}[noitemsep]
+  \item \textbf{BQP} (Bounded-error Quantum Polynomial time): tập tất cả các ngôn ngữ $L\subseteq\Sigma^*$ được nhận diện bởi một QTM đa băng, thời gian đa thức, \emph{hình thành tốt}, với biên độ trong tập $K$ (thường $K=\tilde{\mathbb{C}}$: số phức có phần thực/ảo xấp xỉ được trong thời gian đa thức), sao cho với mọi $x$, máy xuất $L(x)$ với xác suất ít nhất $2/3$. Xác suất lỗi có thể khuếch đại tùy ý (ví dụ $\le 1/3$).
+  \item \textbf{FBQP}: tập tất cả các \emph{hàm} đơn trị $f:\Sigma^*\to\Sigma^*$ tính được trong thời gian đa thức với lỗi bị chặn bởi QTM đa băng hình thành tốt (xuất $f(x)$ với xác suất $\ge 2/3$). Tương đương với họ mạch lượng tử P-đồng nhất kích thước đa thức.
+\end{itemize}
+Adleman–DeMarrais–Huang chứng minh $\mathrm{BQP}_{\mathbb{C}}$ chứa mọi ngôn ngữ (không đệ quy), nên người ta thường giới hạn biên độ trong $\tilde{\mathbb{C}}$ hoặc thậm chí $\{0,\pm1,\pm\frac{3}{5},\pm\frac{4}{5}\}$ (vẫn đặc trưng BQP).
+
+\subsection*{Định nghĩa sơ đồ và lớp $\square_1^{\mathrm{QP}}$}
+
+\subsubsection*{Định nghĩa sơ đồ (schematic definition)}
+Định nghĩa sơ đồ (quy nạp/xây dựng) của một lớp hàm: xuất phát từ một tập \emph{hàm ban đầu} nhỏ và áp dụng hữu hạn lần các \emph{quy tắc xây dựng} để tạo hàm mới. Peano đã dùng sơ đồ cho hàm đệ quy nguyên thủy (hằng số, hàm kế tiếp, phép chiếu; hợp thành và đệ quy nguyên thủy). Bài báo đưa ra sơ đồ tương tự cho \emph{hàm lượng tử}: ánh xạ $\mathcal{H}_\infty\to\mathcal{H}_\infty$, với $\mathcal{H}_\infty=\bigcup_{n\in\mathbb{N}^+}\mathcal{H}_{2^n}$. Khác với QTM và mạch: (i) hàm nhận số qubit \emph{tùy ý}; (ii) hành vi được xác định bởi chính quá trình xây dựng, không cần ``mô tả thuật toán'' hay điều kiện hình thành tốt/đồng nhất.
+
+\subsubsection*{Lớp $\square_1^{\mathrm{QP}}$}
+Ký hiệu $\square_1^{\mathrm{QP}}$ (đọc ``square one QP'') chỉ tập tất cả các hàm lượng tử thu được từ \emph{các hàm lượng tử ban đầu} (Lược đồ I) bằng một số hữu hạn lần áp dụng các \emph{quy tắc xây dựng} (Lược đồ II--IV). \textbf{Định lý chính (Định lý 4.1)}: một hàm $f:\{0,1\}^*\to\{0,1\}^*$ có giới hạn đa thức thuộc FBQP khi và chỉ khi tồn tại đa thức $p$ và $g\in\widehat{\square_1^{\mathrm{QP}}}$ sao cho $|f(x)|\le p(|x|)$ và $\|\langle f(x)\mid\phi_g^p(x)\rangle\|^2\ge 1-\varepsilon$ với mọi $x$ (với $\varepsilon\in[0,1/2)$ tùy ý). Ở đây $|\phi^p(x)\rangle=|0^{|x|}1\rangle|0^{p(|x|)}10^{11p(|x|)+6}1\rangle|x\rangle$ và $|\phi_g^p(x)\rangle=g(|\phi^p(x)\rangle)$; phần ``có nghĩa'' của đầu ra là $|f(x)\rangle$, phần còn lại là ``rác''. Như vậy $\square_1^{\mathrm{QP}}$ \emph{đặc trưng chính xác} FBQP (và do đó BQP).
+
+\subsubsection*{Lớp $\widehat{\square_1^{\mathrm{QP}}}$}
+$\widehat{\square_1^{\mathrm{QP}}}$ là lớp con của $\square_1^{\mathrm{QP}}$ khi \emph{không sử dụng} MEAS (đo chiếu từng phần) trong Lược đồ I. Mọi phần tử của $\widehat{\square_1^{\mathrm{QP}}}$ đều bảo toàn số chiều và bảo toàn chuẩn (Bổ đề 3.4), tức là ánh xạ unita trên từng $\mathcal{H}_{2^n}$; tương ứng với mạch lượng tử thuần (không đo). Mệnh đề 3.5: mọi $g\in\widehat{\square_1^{\mathrm{QP}}}$ có nghịch đảo $g^{-1}\in\widehat{\square_1^{\mathrm{QP}}}$ (ví dụ $\mathrm{ROT}_\theta^{-1}=\mathrm{ROT}_{-\theta}$, $\mathrm{Compo}[g,h]^{-1}=\mathrm{Compo}[h^{-1},g^{-1}]$).
+
+\subsection*{Hàm lượng tử ban đầu (Lược đồ I)}
+Với $\theta\in[0,2\pi)\cap\tilde{\mathbb{C}}$ và $a\in\{0,1\}$:
+\begin{itemize}[noitemsep]
+  \item \textbf{I}: đồng nhất $I(|\phi\rangle)=|\phi\rangle$.
+  \item \textbf{PHASE}$_\theta$: dịch pha $|0\rangle\langle 0|\phi\rangle+e^{i\theta}|1\rangle\langle 1|\phi\rangle$ (tương ứng ma trận $Z_{2,\theta}$).
+  \item \textbf{ROT}$_\theta$: quay quanh trục $xy$: $\cos\theta|\phi\rangle+\sin\theta(|1\rangle\langle 0|\phi\rangle-|0\rangle\langle 1|\phi\rangle)$ (ma trận $R_\theta$).
+  \item \textbf{NOT}: phủ định qubit: $|0\rangle\langle 1|\phi\rangle+|1\rangle\langle 0|\phi\rangle$.
+  \item \textbf{SWAP}: hoán đổi hai qubit đầu (khi $\ell(|\phi\rangle)\ge 2$): $\sum_{a,b}|ab\rangle\langle ba|\phi\rangle$.
+  \item \textbf{MEAS}[a]: đo chiếu từng phần lên qubit đầu: $|a\rangle\langle a|\phi\rangle$; có thể giảm chuẩn và số chiều, không khả nghịch.
+\end{itemize}
+Góc $\theta$ có thể cố định thành $\pi/4$ vì mọi toán tử unita một qubit đều xấp xỉ được bằng WH và $Z_{2,\pi/4}$.
+
+\subsection*{Quy tắc xây dựng (Lược đồ II--IV)}
+\begin{itemize}[noitemsep]
+  \item \textbf{Compo}[$g$,$h$]: hợp thành $(g\circ h)(|\phi\rangle)=g(h(|\phi\rangle))$.
+  \item \textbf{Branch}[$g$,$h$]: phân nhánh theo qubit đầu: nếu $\ell(|\phi\rangle)\le 1$ thì $|\phi\rangle$; ngược lại $|0\rangle\otimes g(\langle 0|\phi\rangle)+|1\rangle\otimes h(\langle 1|\phi\rangle)$. Từ đó xây dựng được CNOT = Branch[I, NOT].
+  \item \textbf{$k$QRec} (đệ quy lượng tử $k$-qubit): với ngưỡng $t$, hàm ``tiền xử lý'' $p$ bảo toàn chiều, và họ $\mathcal{F}_k=\{f_s\}_{s\in\{0,1\}^k}$ (mỗi $f_s$ là $I$ hoặc chính $k$QRec). Nếu $\ell(|\phi\rangle)\le t$ thì áp dụng $g$; ngược lại tính $|\psi_{p,\phi}\rangle=p(|\phi\rangle)$ rồi $h\bigl(\sum_{s:|s|=k}|s\rangle\otimes f_s(\langle s|\psi_{p,\phi}\rangle)\bigr)$. Khác với đệ quy nguyên thủy cổ điển (dùng bộ đếm), ở đây dùng chiến lược \emph{chia để trị} theo số qubit.
+\end{itemize}
+Các cổng unita điển hình được xây dựng trong $\widehat{\square_1^{\mathrm{QP}}}$: WH, CNOT, CPHASE$_\theta$, GPS$_\theta$, $z$ROT$_\theta$, và QFT $k$-qubit cố định (Bổ đề 3.3, 3.10). Các công cụ phụ: REMOVE$_k$, REP$_k$, SWAP$_k$, REVERSE, Branch$_k$, RevBranch$_k$, Switch$_k$, LENGTH$_k$, Compo[$\mathcal{G}_k$] (Bổ đề 3.6).
+
+\subsection*{Độ phức tạp mô tả}
+\emph{Độ phức tạp mô tả} của một hàm $\square_1^{\mathrm{QP}}$ là số lần tối thiểu sử dụng các Lược đồ I--IV để xây dựng hàm đó (mỗi hàm ban đầu có độ phức tạp 1). Dùng trong chứng minh quy nạp (ví dụ Bổ đề 3.4). Bài báo mở rộng thành \emph{độ phức tạp mô tả $\square_1^{\mathrm{QP}}$} của hàm $f$ trên $\{0,1\}^*$ tại độ dài $n$: ký hiệu $dc(f)[n]$, là số bước sơ đồ tối thiểu để có $g\in\square_1^{\mathrm{QP}}$ và đa thức $p$ thỏa $|\langle f(x)|\phi_g^p(x)\rangle|^2\ge 2/3$ với mọi $x$ độ dài $n$ (Mục 6.2).
+
+\subsection*{Mã hóa và cấu hình lệch}
+Để mô phỏng QTM bằng hàm $\widehat{\square_1^{\mathrm{QP}}}$, bài báo dùng \emph{sơ đồ mã hóa}: $\hat{0}=00$, $\hat{1}=01$, $\hat{b}=10$ (ký hiệu trống), $\hat{2}=11$ (dấu kết thúc). Mã của chuỗi $s=s_1\cdots s_n$ là $\tilde{s}=\hat{s}_1\cdots\hat{s}_n\hat{2}$; độ dài $|\tilde{s}|=2|s|+2$. \emph{Cấu hình lệch} của QTM: dạng $(z_2,z_1,h,q)$ (nội dung băng phải/trái của ô bắt đầu, vị trí đầu đọc, trạng thái trong), được mã hóa thành qustring $|q\rangle\otimes|s_1,\hat{\sigma}_1\rangle\otimes\cdots$ với $s_i\in\{\hat{2},\hat{3}\}$ đánh dấu vị trí đầu đọc. Toán tử tiến hóa \emph{lệch} $\widehat{U}_\delta$ tác động lên không gian cấu hình lệch. Bổ đề 5.1--5.2: Encode, Decode và COPY$_2$ (sao chép chuỗi cổ điển lượng tử) nằm trong $\widehat{\square_1^{\mathrm{QP}}}$.
+
+\subsection*{Định lý dạng chuẩn lượng tử}
+Định lý 4.4 (tương tự định lý dạng chuẩn Kleene): tồn tại hàm \emph{phổ quát} $f\in\square_1^{\mathrm{QP}}$ sao cho với mọi $g\in\square_1^{\mathrm{QP}}$ và $\varepsilon\in(0,1/2)$, có chuỗi $e$ và đa thức $p$ thỏa $\||\psi_{g,x}\rangle\langle\psi_{g,x}|-\mathrm{tr}_n(|\eta_{f,x}\rangle\langle\eta_{f,x}|)\|_{\mathrm{tr}}\le\varepsilon$, trong đó $|\psi_{g,x}\rangle=g(|x\rangle)$ và $|\eta_{f,x}\rangle=f(|\tilde{e}\rangle|0^{p(|x|)}1\rangle|x\rangle)$. Chứng minh dựa trên QTM phổ quát (Bernstein–Vazirani, Nishimura–Ozawa): có QTM $U$ mô phỏng mọi QTM hình thành tốt với độ chính xác $\varepsilon$ và độ trễ đa thức theo $t$ và $\log(1/\varepsilon)$.
+
+\subsection*{Số xấp xỉ được trong thời gian đa thức và tập $\tilde{\mathbb{C}}$}
+Số thực $\alpha$ \emph{xấp xỉ được trong thời gian đa thức} nếu có máy Turing tất định đa băng chạy thời gian đa thức mà trên đầu vào $1^n$ xuất phân số nhị phân $M(1^n)$ với $|M(1^n)-\alpha|\le 2^{-n}$. $\tilde{\mathbb{C}}$ là tập số phức có phần thực và phần ảo đều xấp xỉ được trong thời gian đa thức; dùng cho góc $\theta$ trong PHASE$_\theta$, ROT$_\theta$ và cho biên độ của QTM/mạch.
+
+\subsection*{Qubit, qustring, bra-ket}
+\emph{Qubit}: vectơ đơn vị trong $\mathcal{H}_2$, dạng $\alpha_0|0\rangle+\alpha_1|1\rangle$ với $|\alpha_0|^2+|\alpha_1|^2=1$. \emph{Qustring} độ dài $n$: vectơ đơn vị trong $\mathcal{H}_{2^n}$, $\sum_{s\in\{0,1\}^n}\alpha_s|s\rangle$. Ký hiệu bra $\langle\phi|$, tích vô hướng $\langle\phi|\psi\rangle$, chuẩn $\||\phi\rangle\|=\sqrt{\langle\phi|\phi\rangle}$. Phép đo chiếu từng phần: $\langle s|\phi\rangle$ là qustring (hoặc vô hướng khi $|s|=n$); $|\phi\rangle=\sum_{s:|s|=k}|s\rangle\langle s|\phi\rangle$. Vectơ null $\mathbf{0}$ có chuẩn 0; với mọi $g\in\widehat{\square_1^{\mathrm{QP}}}$, $g(\mathbf{0})=\mathbf{0}$.
+
+%=============================================================================
+\section*{2.2 Các lĩnh vực có thể áp dụng phương pháp/hệ thống trong bài báo}
+%=============================================================================
+
+\subsection*{Lý thuyết tính toán và độ phức tạp}
+
+\subsubsection*{Độ phức tạp mô tả}
+Định nghĩa sơ đồ cung cấp thước đo \emph{độ phức tạp mô tả} $dc(f)[n]$ cho hàm/ngôn ngữ (Mục 6.2): số bước sơ đồ tối thiểu để biểu diễn xấp xỉ $f$ bằng hàm $\square_1^{\mathrm{QP}}$ trên đầu vào độ dài $n$. Thước đo này khác với độ phức tạp thời gian/không gian; có thể dùng để phân loại bài toán theo ``sức mạnh mô tả'' và so sánh với độ phức tạp trạng thái lượng tử (Villagra–Yamakami). Ứng dụng: chứng minh các tính chất cơ bản của $\widehat{\square_1^{\mathrm{QP}}}$ (Bổ đề 3.4), và trong tương lai có thể nghiên cứu độ phức tạp tương đối so với $\square_1^{\mathrm{QP}}$ cho các hàm ngoài FBQP.
+
+\subsubsection*{Hàm lượng tử bậc cao (type-2)}
+Bài báo mở rộng sang \emph{hàm lượng tử bậc 2} (Mục 6.3): oracle $O:\mathcal{H}_\infty\to\mathcal{H}_\infty$, toán tử $\tilde{O}$ trên mã $\tilde{x}$, và hàm truy vấn QUERY cho phép ``gọi'' oracle. Các hàm ban đầu và quy tắc xây dựng được mở rộng tham số hóa bởi $O$; QUERY thỏa QUERY$\circ$QUERY$=I$ khi dùng $\tilde{O}(|\tilde{x}\rangle)\oplus\tilde{O}(|\tilde{x}\rangle)=|0^{2|x|+2}\rangle$. Hướng này mở ra lý thuyết \emph{khả năng tính toán lượng tử bậc cao}, tương tự hàm đệ quy type-2 (Kleene) và độ phức tạp type-2 trong tài liệu [8,9,24,31,35].
+
+\subsubsection*{Lý thuyết bậc nhất và logic lượng tử}
+Định nghĩa sơ đồ có thể làm nền cho \emph{lý thuyết bậc nhất} trên trạng thái lượng tử trong không gian Hilbert (Mục 6.2). Trong tài liệu đã có lượng tử hóa NP và phân cấp đa thức (Meyer–Stockmeyer) dùng lượng từ bị chặn trên trạng thái lượng tử [37]. $\square_1^{\mathrm{QP}}$ có thể đóng vai trò lớp ``hàm cơ bản'' trong các lý thuyết như vậy, tương tự vai trò của hàm đệ quy nguyên thủy trong logic cổ điển.
+
+\subsection*{Thiết kế phần mềm và ngôn ngữ lập trình lượng tử}
+
+\subsubsection*{Ngôn ngữ lập trình lượng tử}
+Một định nghĩa sơ đồ của hàm $\square_1^{\mathrm{QP}}$ có thể xem như \emph{chương trình}: chuỗi hướng dẫn về việc áp dụng sơ đồ nào tại mỗi bước (Mục 6.4). Điều này gợi ý thiết kế \emph{ngôn ngữ lập trình lượng tử} ngắn gọn, trong đó chương trình mô tả cách xây dựng hàm lượng tử từ các khối cơ bản (I, NOT, PHASE, ROT, SWAP, MEAS, Compo, Branch, $k$QRec) thay vì mô tả QTM hay mạch cụ thể. Các ngôn ngữ lượng tử hiện có (xem survey [13]) có thể tham khảo cấu trúc sơ đồ để chuẩn hóa cú pháp và ngữ nghĩa.
+
+\subsubsection*{Mô tả thuật toán và đặc tả}
+Định nghĩa sơ đồ cung cấp cách mô tả thuật toán lượng tử \emph{không phụ thuộc} điều kiện hình thành tốt (QTM) hay điều kiện đồng nhất (mạch). Phù hợp cho giảng dạy (trực quan, quy nạp) và cho đặc tả hình thức: mỗi hàm được đặc trưng bởi cây xây dựng hữu hạn từ các sơ đồ, dễ phân tích và chứng minh tính chất (bảo toàn chuẩn, nghịch đảo, v.v.).
+
+\subsection*{Mật mã và an toàn thông tin}
+
+\subsubsection*{Mật mã hậu lượng tử}
+Hiểu rõ lớp BQP/FBQP qua cấu trúc sơ đồ giúp đánh giá bài toán nào ``khó'' đối với máy tính lượng tử. Trong mật mã hậu lượng tử, cần ước lượng độ khó của bài toán (ví dụ learning with errors, lattice) đối với thuật toán lượng tử; đặc trưng $\square_1^{\mathrm{QP}}=\mathrm{FBQP}$ cung cấp một cách tiếp cận chuẩn hóa để so sánh mô hình (QTM, mạch, sơ đồ) và tin tưởng vào tính ổn định của lớp.
+
+\subsubsection*{Chuẩn hóa và chứng minh tương đương}
+Bài báo chứng minh ba mô hình (QTM hình thành tốt, mạch P-đồng nhất, sơ đồ $\square_1^{\mathrm{QP}}$) đặc trưng cùng lớp FBQP/BQP. Điều này hỗ trợ việc chọn \emph{định nghĩa chuẩn} cho ``tính được trong thời gian đa thức lượng tử'' khi viết chuẩn, tài liệu kỹ thuật hoặc chứng minh bảo mật.
+
+\subsection*{Vật lý và mô phỏng lượng tử}
+
+\subsubsection*{Mô phỏng hệ lượng tử}
+Các hàm trong $\widehat{\square_1^{\mathrm{QP}}}$ tương ứng 1-1 với mạch lượng tử unita (bảo toàn chiều và chuẩn). Có thể dùng sơ đồ làm \emph{ngôn ngữ mô tả} cho mô phỏng: biểu diễn thuật toán lượng tử dưới dạng REMOVE, REP, REVERSE, Branch$_k$, $k$QRec, v.v., rồi biên dịch sang mạch hoặc mã cho máy lượng tử thực tế.
+
+\subsubsection*{QFT và thuật toán Shor}
+Bài báo thảo luận (Mục 6.1) QFT tổng quát: với $k$ cố định, QFT $k$-qubit nằm trong $\widehat{\square_1^{\mathrm{QP}}}$ (Bổ đề 3.10), nhưng QFT trên số qubit \emph{tùy ý} có thể không biểu diễn chính xác trong $\square_1^{\mathrm{QP}}$ hiện tại (chỉ xấp xỉ được). Mở rộng bằng cách thêm hàm ban đầu \textbf{CROT} (controlled rotation $\omega_j=e^{2\pi i/2^j}$) cho phép tính chính xác QFT tổng quát và do đó liên quan trực tiếp đến thuật toán Shor và tối ưu mạch lượng tử.
+
+\subsection*{Giáo dục và truyền thụ kiến thức}
+
+\subsubsection*{Giảng dạy tính toán lượng tử}
+Định nghĩa sơ đồ \emph{đơn giản và trực quan} hơn QTM (không cần ba điều kiện hình thành tốt) và hơn mạch (không cần P-uniform). Có thể dùng để giới thiệu khái niệm ``tính được trong thời gian đa thức lượng tử'' mà không đi sâu kỹ thuật; ví dụ Ví dụ 1--2 (Mục 3.1) minh họa $k$QRec với $k=1,2$ rất rõ ràng.
+
+\subsubsection*{Nghiên cứu so sánh mô hình}
+So sánh có hệ thống ba cách đặc trưng (QTM, mạch, sơ đồ) hỗ trợ nghiên cứu tính \emph{ổn định} của BQP/FBQP khi thay đổi chi tiết mô hình (ví dụ biên độ trong $\tilde{\mathbb{C}}$ hay tập hữu hạn, đa thức thời gian chạy, v.v.) và mở rộng (ví dụ oracle, type-2).
+
+\subsection*{Tóm tắt bảng ứng dụng}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Lĩnh vực} & \textbf{Ứng dụng cụ thể} \\
+\hline
+Độ phức tạp & $dc(f)[n]$, phân loại bài toán, độ phức tạp tương đối \\
+Hàm bậc cao & Type-2, oracle, QUERY (Mục 6.3) \\
+Logic & Lý thuyết bậc nhất lượng tử, lượng từ trên trạng thái [37] \\
+Lập trình & Ngôn ngữ lượng tử, chương trình = chuỗi sơ đồ (Mục 6.4) \\
+Đặc tả & Mô tả thuật toán không phụ thuộc QTM/mạch \\
+Mật mã & Đánh giá độ khó với BQP, chuẩn hóa định nghĩa \\
+Mô phỏng & Mạch unita, QFT, CROT, thuật toán Shor (Mục 6.1) \\
+Giảng dạy & Trực quan, ví dụ $k$QRec, không cần điều kiện kỹ thuật \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
