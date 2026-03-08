@@ -1,0 +1,172 @@
+PHAN TICH THUAT NGU VA KHAI NIEM - page_22_28
+
+Tai lieu nay giai thich cac thuat ngu, ky hieu, va y tuong chinh trong page_22_28 (phan cuoi Muc 5.2, cac Muc 5.3-5.6, va cac huong mo rong o Muc 6).
+
+1) MUC TIEU CHUNG CUA DOAN 22-28
+- Tiep tuc chung minh Bo de 4.3 bang cach hien thuc hoa cac buoc mo phong QTM.
+- Hoan tat chuoi thao tac:
+  + Tao cau hinh ban dau da ma hoa.
+  + Mo phong 1 buoc QTM.
+  + Lap lai de mo phong toan bo tinh toan.
+  + Chuan hoa va trich xuat output.
+- Sau do trinh bay ung dung phu (Encode/Decode/COPY_2) va cac huong nghien cuu tuong lai (Muc 6).
+
+2) PHAN CUOI MUC 5.2: XAY MA CAU HINH BAN DAU
+- Cac ham then chot duoc dung tiep:
+  + f3, g5, h5, h5', H1, f5, f6, f7, F1.
+- Y nghia thao tac:
+  + Bien chuoi bit bo sung (00)^k thanh marker va ky hieu bang da ma hoa (hat(2), hat(3), hat(b), ...).
+  + Chen cac marker hat(3) xen ke giua cac ky hieu du lieu hat(x_i).
+  + Tao du khong gian ben trai/phai vung bat dau bang cac cap hat(3)hat(b).
+- Ket qua cuoi cua buoc 8:
+  + Dung RevBranch_ell de chi tac dong khi trang thai noi = q0 = 0^ell.
+  + Thu duoc trang thai ma hoa cau hinh ban dau cua may trong dang qustring.
+
+3) MUC 5.3: "SIMULATING A SINGLE STEP"
+- Muc tieu:
+  + Mo phong chinh xac 1 buoc chuyen tiep cua QTM M tren cau hinh da ma hoa.
+
+3.1) Bieu dien dia phuong 3 o bang
+- r = p s1 sigma1 s2 sigma2 s3 sigma3:
+  + p: trang thai noi.
+  + sigma_i: ky hieu bang o 3 o lien tiep.
+  + s_i in {2,3}: marker vi tri dau doc (2 = dang quet o i, 3 = khong quet).
+- Target:
+  + r la target neu (s1,s2,s3)=(3,2,3) va delta(p,sigma2) duoc dinh nghia.
+- Pre-target:
+  + Bo p di, chi giu s1 sigma1 s2 sigma2 s3 sigma3.
+
+3.2) Flag qubit va ham f8
+- Them 1 qubit co |0> lam co bao:
+  + |0>: chua mo phong buoc nay.
+  + |1>: da mo phong buoc nay.
+- f8 co y tuong:
+  + Neu khoi hien tai la target: ap dung transition delta va bat flag thanh |1>.
+  + Neu khong: giu nguyen.
+- g_r va h_r:
+  + h_r nhan biet mau target |tilde(r)>.
+  + g_r thuc thi bien doi noi dung 3 o + trang thai noi theo delta.
+- Vi sao hop le:
+  + Do M well-formed nen cac anh xa tren cac target tao he truc chuan, giu duoc norm.
+- Ket hop:
+  + g = Compo[{g_r'}_{r in T}], voi g_r' = Branch[g_r o h_r, I].
+  + f8 = REMOVE_1 o (g^{<=ell+13} otimes I).
+
+3.3) Ham F2 quet toan bo bang
+- Van de:
+  + f8 xu ly 1 khoi cuc bo, can ap dung tren moi cua so 3-o.
+- Cach lam:
+  + Dung REP_{ell+1} de dua (flag, q) len dau khoi can xu ly.
+  + Ap dung f8 co dieu kien do dai.
+  + Dung REMOVE_{ell+1} dua ve vi tri cu.
+- F2':
+  + De quy theo khoi 4 bit de duyet het bang.
+- F2 = REP_{ell+1} o F2' o REMOVE_{ell+1}.
+- Ket qua:
+  + Sau 1 lan F2, flag doi |0> -> |1>, danh dau da mo phong xong 1 step.
+
+4) MUC 5.4: HOAN TAT MO PHONG TOAN BO
+- Muc tieu:
+  + Lap lai mo phong 1 step dung p(|x|) lan.
+- Y tuong:
+  + Moi vong: ap NOT o F2 de reset flag tu |1> ve |0> de dung lai duoc.
+  + Lap chinh xac p(|x|) lan bang de quy 1-qubit.
+- Ham:
+  + g_hat = Skip[NOT o F2]
+  + F3 = QRec_1[I, Branch[g_hat, I], I | F3, I]
+- Y nghia:
+  + F3 dong vai tro "engine" mo phong day du computation cua QTM tren vung ma hoa.
+
+5) MUC 5.5: CHUAN BI OUTPUT
+- Muc tieu phan 1 Bo de 4.3:
+  + Dua ma output tilde(M[r]) len dau trai qustring.
+- Muc tieu phan 2 Bo de 4.3:
+  + Giai ma tu tilde(M[r]) ve M[r].
+
+5.1) Cac buoc i-iv (va tong hop F4)
+- f9: doi marker cuoi hat(3) -> hat(1) de danh dau duoi.
+- f10: day dan cac cap hat(3)hat(b) ben trai xuong cuoi bang REMOVE_4 co de quy.
+- h8: boc tach marker hat(1),hat(2),hat(3) ra cuoi, giu lai chuoi du lieu ma output.
+- h9: doi ky hieu cuoi hat(b) <-> hat(2) de tao dung ket thuc ma.
+- F4 = h9 o h8 o f10 o f9.
+- Ket qua:
+  + Trang thai co dang sum_r |tilde(M[r])>|xi_hat_{x,r}>.
+  + Bao toan noi tich/chuan va truc giao can thiet theo dieu kien Bo de 4.3.
+
+5.2) Lay output khong ma hoa
+- Dung g7 (de quy + REMOVE_1) de giai ma phan dau.
+- Dat F5 = g7 o F4.
+- Thu duoc dang |M[r]> o phan output can doc.
+- Day la buoc chot de hoan tat chung minh Bo de 4.3.
+
+6) MUC 5.6: UNG DUNG PHU CUA THU TUC MO PHONG
+- Tu cac buoc trong 5.2, tac gia rut ra 2 cong cu doc lap:
+  + Encode/Decode (Bo de 5.1)
+  + COPY_2 (Bo de 5.2)
+
+6.1) Bo de 5.1 - Encode/Decode
+- Encode:
+  + Encode(|0^{k+1}1> otimes |phi>) = sum_{s in {0,1}^k} (|tilde(s)> otimes |s><s|phi>)
+  + Tuc ma hoa k bit dau cua |phi> thanh dang tilde(s), tieu thu bo dem 0^k1.
+- Decode:
+  + La nghich dao cua Encode.
+  + Thuoc mu square_1^QP nhờ tinh dong duoi nghich dao (Menh de 3.5).
+
+6.2) Bo de 5.2 - COPY_2
+- Noi dung:
+  + Co the sao chep thong tin co dien da ma hoa, khong vi pham no-cloning vi doi tuong la chuoi co dien.
+- Cong thuc:
+  + COPY_2(|tilde(0^k)> otimes |phi>)
+    = sum_s (|tilde(s)> otimes |tilde(s)><tilde(s)|phi>)
+- Y nghia ky thuat:
+  + Dung de duplicate nhan/du lieu co dien trong cac buoc uncompute va rut trich output.
+
+7) MUC 6 - HUONG NGHIEN CUU TUONG LAI
+
+7.1) Muc 6.1 - Schematic definition hop ly hon
+- Van de:
+  + square_1^QP hien tai du de dac trung FBQP, nhung co the chua "dep"/"toi uu".
+- Vi du QFT:
+  + Dang tong quat tren so qubit tuy y co the khong bieu dien chinh xac trong khung hien tai.
+  + Goi y bo sung initial function CROT de bieu dien de hon.
+- Cau hoi mo:
+  + Co thay multi-qubit recursion bang 1-qubit recursion neu bo sung initial functions khac duoc khong?
+
+7.2) Muc 6.2 - Descriptional complexity va first-order theories
+- Descriptional complexity dc(f)[n]:
+  + So buoc toi thieu de xay ham square_1^QP xap xi/tinh f tren input do dai n.
+- Y nghia:
+  + Them 1 truc do "suc manh mo ta" khac voi do phuc tap thoi gian.
+- Mo rong:
+  + Ap dung ca cho ham/ngon ngu khong nam trong BQP/FBQP de do "do gan" voi square_1^QP.
+- Huong logic:
+  + Mo duong cho first-order quantum theories tren trang thai Hilbert.
+
+7.3) Muc 6.3 - Type-2 quantum functionals
+- Type-1:
+  + Ham tren chuoi/trang thai thong thuong.
+- Type-2:
+  + Ham nhan them ham oracle O lam dau vao.
+- Xay dung:
+  + Dinh nghia tilde(O) tren du lieu da ma hoa.
+  + Them initial function QUERY de hoi oracle theo kieu XOR ma hoa.
+- Tinh chat:
+  + QUERY o QUERY = I (tuong tu involution trong bo canh da cho).
+- Y nghia:
+  + Mo rong khung ly thuyet sang tinh toan luong tu bac cao.
+
+7.4) Muc 6.4 - Ung dung ngon ngu lap trinh luong tu
+- Luong y tuong:
+  + Mo ta so do xay ham square_1^QP co the xem nhu "chuong trinh".
+  + Moi luoc do = mot loai lenh.
+- Gia tri thuc tien:
+  + Co the lam nen tang thiet ke DSL/quantum programming language co cau truc ro rang.
+
+8) CAC THUAT NGU DE NHAM O TRANG 22-28
+- "Copy" o Bo de 5.2 la copy thong tin co dien da ma hoa, khong copy trang thai luong tu tuy y.
+- "Flag qubit" chi la co bao dieu khien quy trinh mo phong, khong phai output tinh toan.
+- "Skew final configurations" la bieu dien lai cau hinh de tien xu ly, khong doi ban chat tinh toan.
+- "Descriptional complexity" khong phai runtime; no do do kho cua cong thuc xay ham.
+
+9) TOM TAT 1 DOAN
+- Page 22-28 hoan tat phan kho nhat cua chung minh mo phong: tu ma hoa cau hinh ban dau den mo phong tung buoc, lap toan bo computation, chuan bi output ma hoa/giai ma, va ket thuc Bo de 4.3. Dong thoi, trang nay tach ra cac cong cu tai su dung (Encode/Decode/COPY_2) va mo ra 4 huong lon cho nghien cuu tiep theo: toi uu luoc do, do phuc tap mo ta, ham bac 2 co oracle, va ngon ngu lap trinh luong tu.

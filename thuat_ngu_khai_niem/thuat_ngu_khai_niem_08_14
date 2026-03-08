@@ -1,0 +1,167 @@
+PHAN TICH THUAT NGU VA KHAI NIEM - page_08_14
+
+Tai lieu nay giai thich cac thuat ngu, ky hieu, va y tuong chinh xuat hien trong page_08_14 (chu yeu cac Muc 3.1, 3.2, 3.3 va mo dau Muc 4.1).
+
+1) TAM NHIN CHUNG CUA PAGE 08-14
+- Day la phan "xuong song" cua bai bao: dinh nghia chinh thuc lop ham square_1^QP.
+- Tac gia khong chi neu dinh nghia, ma con chung minh cac tinh chat co ban:
+  + Dong duoi phep hop thanh.
+  + Bao toan chuan, bao toan so chieu (voi lop mu square_1^QP).
+  + Co nghich dao trong lop mu square_1^QP.
+- Sau do tac gia xay dung cac "cong cu" phuc tap hon (REMOVE, REP, REVERSE, Branch_k, ...), de chuan bi cho chung minh dinh ly lon o phan sau.
+
+2) DINH NGHIA 3.1: LOP square_1^QP
+- square_1^QP:
+  + La tap ham luong tu tu H_infty den H_infty.
+  + Duoc tao tu:
+    1. Ham khoi tao (I, PHASE_theta, ROT_theta, NOT, SWAP, MEAS[a]).
+    2. Quy tac xay dung (Compo, Branch, kQRec_t).
+- "So huu han lan ap dung":
+  + Nghia la tao ham moi bang chuoi buoc xay dung huu han.
+- Ham "bao toan so chieu":
+  + Neu dau vao nam trong H_{2^n} thi dau ra cung nam trong H_{2^n}.
+  + Tinh chat nay dac biet quan trong trong quy tac de quy kQRec_t.
+
+3) CAC HAM KHOI TAO (LUC DO I)
+- I (Identity): giu nguyen trang thai.
+- PHASE_theta:
+  + Dich pha tren thanh phan |1>, de lai |0>.
+  + Tuong ung cong pha 1-qubit.
+- ROT_theta:
+  + Phep quay trong mat phang trang thai qubit (theo truc xy trong mo ta bai bao).
+- NOT:
+  + Dao |0> <-> |1> tren qubit dau.
+- SWAP:
+  + Hoan doi 2 qubit dau (neu do dai >= 2), neu ngan hon thi de nguyen.
+- MEAS[a]:
+  + Chieu trang thai len nhanh co bit dau bang a.
+  + Co the lam thay doi chuan va co the mat tinh kha nghich.
+
+4) CAC QUY TAC XAY DUNG
+- Compo[g,h]:
+  + Ham tong hop g o sau h, tuc g(h(|phi>)).
+- Branch[g,h]:
+  + Tach theo qubit dau:
+    1. Nhanh |0> di qua g.
+    2. Nhanh |1> di qua h.
+- kQRec_t[g,h,p | F_k] (de quy luong tu k-qubit):
+  + Neu do dai <= t: dung ham co so g.
+  + Neu do dai > t: chia theo k qubit dau, xu ly tung nhanh roi ghep lai, cuoi cung ap h.
+  + p duoc dung nhu buoc tien xu ly (va phai bao toan so chieu).
+  + Moi f_s trong F_k la I hoac lai chinh ham de quy dang xay.
+
+5) DIEM Y TUONG QUAN TRONG CUA DE QUY LUONG TU
+- Khac primitive recursion co dien:
+  + Khong co bo dem "n+1, n, n-1" tren so tu nhien.
+- Cach lam cua bai bao:
+  + Chia de tri tren cau truc qubit.
+  + Moi buoc tach theo k qubit dau va de quy tren phan con lai.
+- Vi du 1 (k=1) va Vi du 2 (k=2):
+  + Minh hoa cu the cach dong chay cua QRec.
+  + Cho thay co the xay ham phuc tu tap quy tac rat ngan gon.
+
+6) DINH NGHIA 3.2: LOP mu square_1^QP
+- mu square_1^QP la lop con cua square_1^QP KHONG dung MEAS.
+- He qua quan trong:
+  + Ham trong lop nay bao toan so chieu.
+  + Co tinh "unitary-like" manh hon ve mat cau truc.
+- Truc giac:
+  + Bo MEAS giup giu tinh kha nghich va hanh vi "sach" hon cho phep bien doi.
+
+7) BO DE 3.3: XAY CAC CONG CHUAN TU LOP SO DO
+- Tac gia chung minh co the dung so do de tao duoc cac ham/cong quen thuoc:
+  + CNOT
+  + Z_{1,theta}
+  + zROT_theta
+  + GPS_theta (global phase shift)
+  + WH (Walsh-Hadamard)
+  + CPHASE_theta
+- Y nghia:
+  + So do khong chi ly thuyet, ma du bieu dat bo cong co ban cua mach luong tu.
+
+8) DO PHUC TAP MO TA (DESCRIPTIONAL COMPLEXITY)
+- Khai niem:
+  + So buoc toi thieu dung cac Luoc do I-IV de xay ham dich.
+- Vai tro:
+  + Lam tham so quy nap trong cac chung minh (dac biet Bo de 3.4, 3.5).
+- Truc giac:
+  + Day la do do "do dai cong thuc xay ham", khac voi do phuc tap thoi gian chay truyen thong.
+
+9) BO DE 3.4: TINH TUYEN TINH VA BAO TOAN CUA mu square_1^QP
+Voi moi f trong mu square_1^QP:
+- f(0-vector) = 0-vector.
+- Tinh cong tinh: f(|phi> + |psi>) = f(|phi>) + f(|psi>).
+- Tinh dong nhat vo huong: f(alpha|phi>) = alpha f(|phi>).
+- Bao toan so chieu va bao toan chuan.
+
+Y nghia:
+- Cac ham trong mu square_1^QP hanh xu nhu toan tu tuyen tinh va chuan-giu tren khong gian trang thai.
+- Day la nen tang de xay nghich dao va cac phep bien doi lon hon.
+
+10) MENH DE 3.5: DONG DUOI PHEP NGHICH DAO
+- Phat bieu:
+  + Neu g thuoc mu square_1^QP thi g^{-1} ton tai va cung thuoc mu square_1^QP.
+- Y nghia:
+  + Lop nay ben vung duoi phep dao nguoc.
+  + Rat hop voi triet ly unitary cua tinh toan luong tu.
+- Cong thuc nghich dao cho tung quy tac:
+  + Compo[g,h]^{-1} = Compo[h^{-1}, g^{-1}].
+  + Branch[g,h]^{-1} = Branch[g^{-1}, h^{-1}].
+  + kQRec co cong thuc nghich dao tuong ung voi dao vi tri cac thanh phan.
+
+11) LUA CHON GOC THETA VA TAP CONG
+- Bai bao neu:
+  + Co the co dinh goc theta thanh pi/4 trong mot bo ham khoi tao, van giu du suc xap xi.
+- Nen tang ly thuyet:
+  + Tinh pho dung cua tap cong (nhu WH, Z_{2,pi/4}) cho 1-qubit unitary.
+
+12) MUC 3.3: CAC HAM PHUC TAP XAY TU SO DO
+Cac ham then chot duoc xay:
+- Compo[G_k]: hop thanh nhieu ham theo thu tu tu dien.
+- Switch_k[g,h]: chon g/h theo nguong do dai.
+- LENGTH_k[g]: chi ap g neu do dai >= k.
+- REMOVE_k:
+  + Day k qubit dau xuong cuoi.
+- REP_k:
+  + Keo k qubit cuoi len dau.
+- SWAP_k:
+  + Hoan doi hai khoi k-qubit dau/cuoi.
+- REVERSE:
+  + Dao thu tu qubit.
+- Branch_k[G_k]:
+  + Phan nhanh theo k qubit dau, moi nhanh ap 1 ham g_s rieng.
+- RevBranch_k[G_k]:
+  + Phien ban doi xung theo k qubit cuoi.
+
+Y nghia tong quat:
+- Cac ham nay la "bo dung cu ky thuat" de mo phong cau truc mach luong tu va QTM o phan chung minh lon.
+
+13) BO DE 3.7, 3.8, 3.9, 3.10 (Y NGHIA)
+- Bo de 3.7:
+  + Moi song anh co dien tren {0,1}^k deu mo rong duoc thanh ham luong tu tuong ung tren k qubit dau.
+- Bo de 3.8:
+  + Co the ap f len k qubit dau va dong thoi ap g len phan con lai (tach xu ly theo khoi).
+- Bo de 3.9:
+  + Xay ham bo qua day 0 cho toi khi gap du so 1 mong muon roi moi ap ham f.
+  + Rat huu ich cho mo phong co che danh dau/padding.
+- Bo de 3.10:
+  + Xay duoc QFT k-qubit voi k la hang so trong khung mu square_1^QP.
+  + Cho thay so do co the bieu dat bien doi quan trong cua thuat toan luong tu.
+
+14) MO DAU MUC 4.1: DINH HUONG DINH LY CHINH
+- Muc tieu sap toi:
+  + Dac trung chinh xac FBQP bang square_1^QP.
+- Kho khan tac gia nhan manh:
+  + Mo phong ky hieu bang cua QTM (khong phai luc nao cung nhi phan truc tiep).
+  + Can xu ly ky thuat ma hoa, mo phong, va giu dung nghia tinh toan.
+
+15) CAC CAP THUAT NGU DE NHAM LAN
+- "Khong dung MEAS" != "khong lien quan do luong":
+  + Chi la loai khoi tao su chieu do trong dinh nghia lop con mu square_1^QP.
+- "Bao toan chuan" khong dong nghia ngay lap tuc la "mot cong don"; no la tinh chat toan cuc cua ham trong lop.
+- "Descriptional complexity" khac "runtime complexity":
+  + Mot ben do do dai quy trinh xay ham.
+  + Mot ben do do lon tai nguyen khi thuc thi.
+
+16) TOM TAT 1 DOAN
+- Page 08-14 la phan cot loi ky thuat cua bai bao: dinh nghia formal square_1^QP, tach lop mu square_1^QP, chung minh cac tinh chat dai so/chuan/dao nguoc, va dung cac luoc do de lap ghep nhieu ham quan trong (tu CNOT den QFT k-hang-so). Toan bo phan nay dong vai tro bo cong cu cho chung minh dac trung FBQP o cac trang tiep theo.

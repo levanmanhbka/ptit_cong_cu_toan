@@ -1,0 +1,77 @@
+TONG HOP TU CAC FILE page_01_07_en.tex -> page_22_28_en.tex
+
+1) BAI TOAN MA BAI BAO GIAI QUYET
+- Bai bao giai bai toan dac trung hoa tinh toan luong tu thoi gian da thuc (FBQP/BQP) bang mot mo hinh thu ba, khong dung truc tiep QTM hay ho mach luong tu.
+- Mo hinh thu ba la mot dinh nghia so do (schematic definition) cua ham luong tu tren H_infty, gom:
+  + Ham khoi tao: I, NOT, PHASE_theta, ROT_theta, SWAP, MEAS.
+  + Quy tac xay dung: Compo, Branch, kQRec.
+- Dinh ly chinh (Theorem 4.1): lop ham square_1^QP (dac biet la mu square_1^QP khi bo MEAS) dac trung dung cac ham trong FBQP theo nghia xac suat thanh cong cao.
+- Nghia la: co tuong duong ly thuyet giua mo hinh so do ham luong tu va mo hinh may/mach luong tu de mo ta tinh duoc da thuc.
+
+2) CACH TIEP CAN CUA BAI BAO KHAC GI SO VOI CAC CACH TRUOC (UU/ NHUOC)
+
+2.1) So voi QTM
+- QTM can dieu kien well-formedness (unit length, orthogonality, separability) de dam bao unitarity.
+- Cach tiep can moi tranh duoc viec phai dat va kiem tra truc tiep cac dieu kien ky thuat nay trong mo hinh may.
+
+Uu diem:
+- Don gian hon ve mat mo ta: "xay ham" thay vi "dinh nghia ham chuyen may".
+- Co tinh mo-dun: ghep quy tac de tao ham lon tu ham nho.
+- Voi lop mu square_1^QP, co tinh dong duoi phep nghich dao (Proposition 3.5).
+
+Nhuoc diem/chi phi:
+- Chung minh tuong duong voi QTM rat ky thuat (Lemmas 4.2, 4.3; Section 5).
+- Can ma hoa chi tiet ky hieu bang va cau hinh (hat(0), hat(1), hat(b), hat(2), hat(3)).
+- Can them workspace/padding do ham trong mu square_1^QP bao toan so chieu.
+
+2.2) So voi quantum circuits
+- Ho mach luong tu can uniformity condition de mo ta ho mach kha lap trinh theo n.
+- Cach tiep can so do khong can dua ra uniformity theo kieu ho mach; qua trinh xay ham chinh la dac ta hanh vi.
+
+Uu diem:
+- Xu ly dau vao so qubit tuy y (khong bi co dinh theo tung mach don le).
+- Tu nhien cho nghien cuu descriptional complexity (do phuc tap mo ta).
+- Co the dien dat cac cong/chuyen doi quan trong (CNOT, WH, CPHASE, QFT co dinh k).
+
+Nhuoc diem:
+- Ngon ngu ky hieu va de quy luong tu (kQRec) co do phuc tap cao, kho doc voi nguoi moi.
+- Mot so phep bien doi tong quat (vi du QFT tren so qubit tuy y) co the can mo rong tap ham khoi tao (Section 6.1, vi du CROT).
+
+3) CAC LINH VUC CO THE AP DUNG PHUONG PHAP TRONG BAI BAO
+- Ly thuyet do phuc tap luong tu:
+  + Tao thang do descriptional complexity dc(f)[n] cho ham/ngon ngu.
+- Descriptional complexity va phan loai bai toan:
+  + So sanh suc manh mo ta cua ngon ngu/ham theo do dai dau vao.
+- Ly thuyet ham bac cao (higher-type quantum functionals):
+  + Mo rong type-1 sang type-2 voi oracle (Section 6.3, QUERY).
+- Nen tang logic/ly thuyet bac nhat cho tinh toan luong tu:
+  + Dinh huong xay first-order quantum theories (Section 6.2).
+- Thiet ke ngon ngu lap trinh luong tu:
+  + Dinh nghia so do co the xem nhu chuong trinh xay ham; hop cho DSL/QLang (Section 6.4).
+- Ky thuat mo phong va bien doi:
+  + Encoder/Decoder va copy thong tin co dien da ma hoa (Lemmas 5.1, 5.2) co gia tri trong pipeline xu ly du lieu luong tu-co dien.
+
+4) SO SANH VOI CAC PHUONG PHAP HIEN NAY
+
+4.1) Voi khung ly thuyet chuan (QTM + circuits)
+- Bai bao khong thay the hoan toan QTM/circuits trong trien khai, nhung dua ra mot mo ta tuong duong ve mat suc manh tinh toan (Theorem 4.1).
+- Gia tri noi bat:
+  + Goc nhin "xay dung ham" thay vi "thiet ke may/mach".
+  + Giam phu thuoc vao dieu kien ky thuat nang (well-formedness, uniformity) o cap mo hinh.
+
+4.2) Voi nhu cau thuc te hien nay (NISQ, framework lap trinh)
+- Thuc te he sinh thai hien tai van xoay quanh circuit model va compiler stack.
+- Phuong phap trong bai phu hop hon voi:
+  + Nen tang ly thuyet.
+  + Kiem chung tinh tinh toan.
+  + Thiet ke ngu nghia/ngon ngu lap trinh cap cao.
+- Chua phai mot quy trinh thay the truc tiep cho flow transpiler-hardware, nhung la co so manh de xay abstraction cap cao.
+
+4.3) Tong ket so sanh
+- QTM/circuit: manh o mo phong thuc thi va he cong cu co san.
+- Schematic square_1^QP: manh o tinh khai niem, tinh mo-dun, kha nang mo rong sang do phuc tap mo ta, logic va ham bac cao.
+- Vi tri hop ly hien nay: bo sung va tang cuong ly thuyet cho cac phuong phap chuan, khong doi khang.
+
+GHI CHU DOC FILE
+- Da tong hop theo thu tu page_01_07_en.tex -> page_08_14_en.tex -> page_15_21_en.tex -> page_22_28_en.tex.
+- Cac moc noi dung chinh duoc su dung: Definition 3.1, Lemmas 3.4/4.2/4.3/5.1/5.2, Proposition 3.5, Theorem 4.1, Theorem 4.4, Sections 5 va 6.

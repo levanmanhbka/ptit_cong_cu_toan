@@ -1,0 +1,159 @@
+PHAN TICH THUAT NGU VA KHAI NIEM - page_15_21
+
+Tai lieu nay giai thich cac thuat ngu, ky hieu, va y tuong chinh trong page_15_21 (phan cuoi Muc 4.1, Muc 4.2, va mo dau Muc 5.1-5.2).
+
+1) MUC TIEU CHUNG CUA DOAN 15-21
+- Day la phan "cau noi" tu dinh nghia so do sang dinh ly dac trung FBQP.
+- Tac gia xu ly 3 viec ky thuat kho:
+  + Ma hoa ky hieu bang cua QTM bang qubit.
+  + Xu ly "rac" (garbage qubits) khi mo phong bang ham luong tu.
+  + Dung 2 bo de 4.2, 4.3 de chung minh Dinh ly 4.1.
+
+2) MA HOA KY HIEU BANG (ENCODING SCHEME)
+- Van de:
+  + QTM lam viec voi bang chu cai bang (co ky hieu trong b), khong chi 0/1.
+  + Ham square_1^QP xu ly trang thai qubit, can quy doi thong nhat.
+- So do ma hoa duoc chon:
+  + hat(0)=00
+  + hat(1)=01
+  + hat(b)=10
+  + them hat(2)=11, hat(3)=10 (dung cho danh dau/phu tro)
+- Ma cua chuoi s=s1...sn:
+  + tilde(s)=hat(s1)...hat(sn)hat(2)
+  + hat(2) dong vai tro dau ket thuc (end marker)
+  + do dai: |tilde(s)| = 2|s| + 2
+- Y nghia:
+  + Chuan hoa dau vao/dau ra va noi dung bang de mo phong tren qubit.
+
+3) VAN DE KHONG GIAN LUU TRU VA BO SUNG QUBIT
+- Van de:
+  + QTM mo rong bang linh hoat bang cach di sang o moi.
+  + Ham mu square_1^QP bao toan so chieu, khong tu "mo rong" so qubit.
+- Cach khac phuc:
+  + Them qubit dem/padding ngay tu dau vao.
+  + Dung cac dang dau vao mo rong:
+    1. |phi^p(x)> = |0^{|x|}1>|0^{p(|x|)}10^{11p(|x|)+6}1>|x>
+    2. |phi^{p,f}(x)> = |tilde(0^{|f(x)|})>|0^{|f(x)|+1}1>|phi^p(x)>
+- Truc giac:
+  + p(|x|) cung cap workspace de mo phong tinh toan QTM trong gioi han da thuc.
+
+4) "RAC" (GARBAGE QUBITS)
+- Khi g mo phong tinh toan, dau ra thuong co dang:
+  + "phan thong tin can doc" + "phan du thua".
+- Khai niem rac:
+  + La cac qubit con lai tu qua trinh mo phong, khong phai ket qua can xuat.
+- Xu ly rac:
+  + Neu biet truoc |f(x)|, co the uncompute mot phan (ap dung dao nguoc phu hop) de "don" rac.
+  + Day la y nghia sau cua bieu thuc su dung |phi^{p,f}(x)> va phat bieu (3) cua Dinh ly 4.1.
+
+5) DINH LY 4.1 (DINH LY CHINH) - Y NGHIA
+Phat bieu tuong duong giua 3 dieu kien:
+- (1) f thuoc FBQP.
+- (2) Ton tai g thuoc mu square_1^QP va da thuc p sao cho do duoc f(x) tu phan dau cua |phi_g^p(x)> voi xac suat >= 1-epsilon.
+- (3) Phien ban manh hon co "clean target state" |Psi_{f(x)}> trong khong gian mo rong, cung dat xac suat >= 1-epsilon.
+
+Y nghia ly thuyet:
+- Day la cau noi giua mo hinh may (FBQP/QTM) va mo hinh so do ham luong tu.
+- Chung to square_1^QP/mu square_1^QP dac trung duoc tinh toan da thuc luong tu.
+
+6) QTM "BAO THU", "THUAN TUY", "DAU RA SACH"
+- QTM dang chuan (normal form):
+  + Co cau truc chuyen tiep dac thu khi vao trang thai ket thuc.
+- QTM tinh (stationary):
+  + Khi dung, dau bang quay ve o bat dau.
+- QTM bao thu (conservative):
+  + well-formed + stationary + normal form.
+- QTM thuan tuy (plainly/purely formed o day):
+  + Moi chuyen tiep co dang mot nhanh pha don (e^{i theta}|...>) hoac 2 nhanh cos/sin.
+  + Giup mo phong theo gate-level ro rang hon.
+- Dau ra sach (clean output):
+  + Khong co ky hieu khong-trong o vung ben trai output.
+
+7) CAU HINH LECH VA TOAN TU TIEN HOA LECH
+- Tac gia doi cach bieu dien cau hinh:
+  + Tu (q,h,tape) sang cach tach z1,z2 roi doi thanh (z2,z1,h,q).
+- Muc dich:
+  + Thuan tien cho ma hoa va phep bien doi trong chung minh.
+- Toan tu tien hoa lech (U_hat_delta):
+  + Ban "thich nghi ky hieu" cua U_delta cho bieu dien cau hinh lech.
+  + Khong nhat thiet la mo ta truc tiep boi khuon QTM tieu chuan, nhung phuc vu chung minh.
+
+8) BO DE 4.2 - NOI DUNG COT LOI
+- Phat bieu:
+  + Moi ham f trong square_1^QP co the duoc QTM 1-bang bao thu, thuan tuy, dau ra sach mo phong trong thoi gian da thuc.
+- Y nghia:
+  + Huong "so do -> may": moi ham xay bang luoc do deu co ban sao may.
+- Ky thuat chung minh:
+  + Mo phong tung ham khoi tao (I, PHASE, ROT, NOT, SWAP, MEAS).
+  + Mo phong tung quy tac (Compo, Branch, kQRec).
+  + Dong bo thoi gian dung bang "dong ho noi bo".
+
+9) BO DE 4.3 (BO DE CHINH) - NOI DUNG COT LOI
+- Phat bieu:
+  + Voi QTM M phu hop, ton tai g trong mu square_1^QP va da thuc p sao cho ket qua g tao ra gan tuong ung voi chong chap cac cau hinh cuoi da ma hoa cua M.
+  + Co them rang buoc truc giao/noi tich giua cac trang thai phu tro (xi-hat) de bao toan cau truc xac suat.
+  + Co the sua g thanh g' de doi ma da ma hoa tilde(M[r]) ve M[r] (giai ma).
+- Y nghia:
+  + Day la "dong co ky thuat" giup quy doi mo phong QTM sang ham so do mot cach dung xac suat va dung cau truc trang thai.
+
+10) CHUNG MINH DINH LY 4.1: BA HUONG SUY DIEN
+- (1 => 2):
+  + Tu f trong FBQP, lay QTM M tinh f (sai so <= epsilon).
+  + Dung Bo de 4.3 de lay g trong mu square_1^QP.
+  + Suy ra do duoc f(x) voi xac suat cao tu |phi_g^p(x)>.
+- (2 => 3):
+  + Tang cuong tu "doc ket qua" sang "tao trang thai muc tieu sach" |Psi_{f(x)}>.
+  + Dung ma hoa/nhan ban/giai ma va ap g^{-1} de uncompute rac.
+- (3 => 1):
+  + Dung ham g1 de xay QTM tinh lai f.
+  + Tach f tu f1 co do dai co dinh de de xu ly.
+  + Suy ra f thuoc FBQP.
+
+11) DINH LY 4.4 - DANG CHUAN LUONG TU (PHIEN BAN YEU)
+- Noi dung:
+  + Ton tai ham luong tu "pho quat" f trong square_1^QP.
+  + Voi moi g trong square_1^QP, ton tai ma e va da thuc p de f(|tilde(e)>|0^{p(|x|)}1>|x>) mo phong duoc g(|x>) (duoi trace distance <= epsilon sau partial trace).
+- Truc giac:
+  + Tuong tu tu tuong may Turing pho quat/Kleene normal form o ban co dien.
+  + Nhung o day la dang luong tu, do gan theo trace norm va partial trace.
+
+12) VAI TRO CUA QTM PHO QUAT (MENH DE 4.5)
+- Menh de 4.5:
+  + Ton tai QTM pho quat U mo phong moi QTM well-formed voi do chinh xac epsilon.
+  + Do tre da thuc theo t va log(1/epsilon).
+- Vai tro trong 4.4:
+  + Cung cap nen mo phong "mot may cho tat ca".
+  + Ket hop voi Bo de 4.2, 4.3 de nang thanh ham pho quat trong square_1^QP.
+
+13) MUC 5.1: BAT DAU CHUNG MINH BO DE 4.3
+- Muc tieu muc 5:
+  + Mo phong tung buoc van hanh QTM bang ham luong tu so do.
+- Gia thiet ky thuat:
+  + Sigma={0,1}, Gamma={0,1,b}, Q={0,1}^ell, q0=0^ell, qf=1^ell.
+  + May dung dong thoi tren moi nhanh tinh toan.
+  + p(n) > ell.
+- Ma hoa cau hinh:
+  + |hat(gamma)> = |q> tensor |s1,hat(sigma1)> ... |s_{2p(n)+1},hat(sigma_{2p(n)+1)}>
+  + s_i danh dau vi tri dau bang (hat(2)/hat(3)).
+- Y nghia:
+  + Bien "cau hinh may" thanh "chuoi qubit" co cau truc de cac ham so do xu ly.
+
+14) MUC 5.2: XAY CAU HINH DAU DA MA HOA
+- Muc tieu:
+  + Tu |phi^p(x)> tao ra ma cua cau hinh ban dau |hat(gamma0)>.
+- Cac thao tac cot loi:
+  + Dung Skip[NOT] va cac ham de quy de tai cau truc thanh cac khoi 0^m 1 phuc vu danh dau.
+  + Dung REVERSE, SWAP, REP, Branch, kQRec de chen/can le/doi thu tu bit.
+  + Bien du lieu x thanh dang cap ma hat(x_i) va chen marker vi tri dau bang.
+- Y nghia:
+  + Dat nen trang thai ban dau da chuan hoa de bat dau mo phong tung buoc tien hoa cua QTM.
+
+15) THUAT NGU DE NHAM O PHAN NAY
+- "Gan dung" trong bo de 4.3 khong chi la sai so so hoc don gian:
+  + Con rang buoc cau truc noi tich va truc giao cua cac thanh phan phu tro.
+- "Trace distance" danh gia muc do phan biet hai trang thai mat do, khong phai khoang cach Euclid thuong.
+- "Partial trace" la bo qua he con khong quan sat (de so sanh phan thong tin can thiet).
+- "Clean output" khong co nghia khong co rac noi bo; no chi rang buoc vung ben trai output tren bang may.
+
+16) TOM TAT 1 DOAN
+- Page 15-21 la phan ky thuat xuyen suot giua mo hinh QTM va mo hinh ham so do: tac gia dua ra co che ma hoa bang/cau hinh, xu ly workspace va garbage, phat bieu va dung hai bo de tru cot (4.2, 4.3) de chung minh Dinh ly 4.1, roi mo rong thanh dang chuan luong tu (4.4). Dau Muc 5 bat dau hien thuc hoa mo phong tung buoc bang cac ham trong square_1^QP.

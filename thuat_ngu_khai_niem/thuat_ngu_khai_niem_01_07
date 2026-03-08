@@ -1,0 +1,120 @@
+PHAN TICH THUAT NGU VA KHAI NIEM - page_01_07
+
+Tai lieu nay giai thich cac thuat ngu, ky hieu, va y tuong chinh duoc trinh bay trong page_01_07 (ban tieng Anh va ban dich tieng Viet).
+
+1) BUC TRANH TONG QUAN
+- Muc tieu cua bai bao: dua ra mo hinh thu ba de dac trung hoa tinh toan da thuc luong tu.
+- Hai mo hinh da co truoc do:
+  + Quantum Turing Machine (QTM): mo hinh may tinh co hoc cho tinh toan luong tu.
+  + Quantum circuit: mo hinh mach gom cac cong luong tu.
+- Mo hinh thu ba bai bao de xuat: "dinh nghia so do" (schematic definition), tuc xay dung ham luong tu tu:
+  + Tap ham khoi tao ban dau.
+  + Cac quy tac xay dung (composition, branching, recursion).
+
+2) THUAT NGU COI LOI VE DO PHUC TAP
+- BQP (Bounded-error Quantum Polynomial time):
+  + Lop ngon ngu duoc QTM chay trong thoi gian da thuc nhan dung voi xac suat cao (thuong >= 2/3).
+  + Day la phien ban luong tu cua y tuong "tinh duoc hieu qua voi sai so bi chan".
+- FBQP:
+  + Tuong tu BQP nhung cho bai toan ham (xuat chuoi), khong chi bai toan quyet dinh (nhan/khong nhan).
+- Polynomial-time computability:
+  + Tinh toan co do phuc tap bi chan boi da thuc theo do dai dau vao.
+- Uniformity condition (voi ho mach):
+  + Dam bao moi mach C_n co the duoc sinh "hieu qua" bang mot may Turing co dien.
+  + Neu khong co uniformity, mo hinh mach de "manh gia tao" hon muc can thiet.
+- Well-formedness condition (voi QTM):
+  + Tap dieu kien ky thuat de dam bao toan tu tien hoa cua may la unitary.
+  + Bai bao nhan manh rang dinh nghia so do moi tranh duoc ganh nang ky thuat nay.
+
+3) HAM LUONG TU VA KHONG GIAN HILBERT
+- Quantum function (trong bai nay):
+  + Ham anh xa tu khong gian Hilbert huu han chieu vao chinh no.
+  + Khac cach dung trong mot so tai lieu khac (chi nhan chuoi co dien va tra ve xac suat/chuoi).
+- Hilbert space H_{2^n}:
+  + Khong gian trang thai cua n qubit.
+- Qubit:
+  + Trang thai co dang a|0> + b|1>, voi |a|^2 + |b|^2 = 1.
+- Qustring do dai n:
+  + Trang thai tong quat cua n qubit, la to hop tuyen tinh cua cac |s>, s thuoc {0,1}^n.
+- Computational basis B_n:
+  + Tap co so chuan {|s> : s thuoc {0,1}^n}.
+- Amplitude:
+  + He so phuc trong khai trien trang thai luong tu theo co so.
+
+4) CAC KY HIEU TOAN HOC QUAN TRONG TRANG 01-07
+- N, Z, Q, R, C: lan luot la tap so tu nhien, nguyen, huu ty, thuc, phuc.
+- [m,n]_Z: doan so nguyen tu m den n.
+- |x|:
+  + Neu x la chuoi: do dai chuoi.
+  + Neu x la so phuc (theo quy uoc): gia tri tuyet doi.
+- Alpha*: lien hop phuc cua alpha.
+- A^T: chuyen vi; A^dagger: chuyen vi lien hop.
+- Tensor product (otimes):
+  + Phep ghep he luong tu, vi du |ab> = |a> otimes |b>.
+- Inner product <phi|psi>:
+  + Tich vo huong trong khong gian Hilbert.
+- Norm ||phi||:
+  + Chuan cua vector trang thai.
+- Trace va partial trace tr_B:
+  + Trace: tong cac phan tu duong cheo chinh.
+  + Partial trace: "vet bo" mot he con de lay trang thai reduced cua he con con lai.
+- Trace norm ||A||_tr:
+  + Chuan dung de do khoang cach/trich xuat thong tin tu ma tran.
+- Total variation distance:
+  + Do lech giua hai phan phoi xac suat.
+
+5) QTM (QUANTUM TURING MACHINE)
+- Cau truc QTM:
+  + Tap trang thai trong Q, bang chu cai tape, ham chuyen luong tu delta, trang thai dau q0, tap trang thai ket thuc Qf.
+- Cấu hinh (configuration):
+  + Mo ta trang thai hien tai cua may: trang thai trong, vi tri dau doc/ghi, noi dung tape.
+- Time-evolution operator U_delta:
+  + Toan tu mo ta 1 buoc tien hoa cua may theo ham chuyen delta.
+  + Phai la unitary de hop le vat ly luong tu.
+- Ba dieu kien well-formedness:
+  + Unit length, orthogonality, separability.
+  + Muc dich: dam bao U_delta bao toan chuan l2 (tuong duong don vi tinh unitary trong khung mo ta nay).
+
+6) QUANTUM CIRCUIT
+- Quantum gate:
+  + Toan tu unitary tac dong len so qubit co dinh.
+- Vi du cong:
+  + WH (Walsh-Hadamard): tao chong chap deu tu trang thai co so.
+  + CNOT: cong 2-qubit voi 1 control va 1 target.
+  + Z_{1,theta}, Z_{2,theta}: dich pha.
+  + R_theta: phep quay trong mat phang trang thai.
+- Universal gate set:
+  + Tap cong du de xap xi moi toan tu unitary (voi do chinh xac tuy y).
+- P-uniform quantum circuit family {C_n}:
+  + Ho mach ma mo ta C_n duoc sinh hieu qua boi may Turing co dien.
+
+7) DINH NGHIA SO DO MOI TRONG BAI BAO
+- Lop ham square_1^QP:
+  + Duoc tao tu cac ham khoi tao I, NOT, PHASE_theta, ROT_theta, SWAP, MEAS.
+  + Cac quy tac xay dung: Compo, Branch, kQRec.
+- Lop mu square_1^QP (ban khong do):
+  + Giong square_1^QP nhung khong dung MEAS (chi giu tinh chat unitary).
+- Y nghia cua quantum recursion trong bai:
+  + Khong giong primitive recursion co dien.
+  + Theo huong chia de tri tren so qubit truy cap duoc.
+
+8) CAC KET QUA CHINH DUOC NEU O PAGE 01-07
+- Bai bao tuyên bo: mo hinh so do dac trung chinh xac cac ham tinh duoc trong FBQP (duoi cach ma hoa phu hop va xac suat thanh cong cao).
+- Dinh ly chinh (Theorem 4.1) duoc tach thanh 2 bo de (Lemmas 4.2 va 4.3).
+- Huong chung minh quan trong:
+  + Mo phong QTM bang ham trong square_1^QP.
+  + Tận dung ket qua kinh dien cua Bernstein-Vazirani va Yao.
+- He qua:
+  + Co the dien dat BQP/FBQP theo mot ngon ngu "xay dung ham" thay vi mo ta may.
+  + Mo ra huong nghien cuu ve descriptional complexity, higher-type quantum functionals, va ngon ngu lap trinh luong tu.
+
+9) NHUNG DIEM DE GAY NHAM KHI DOC BAN DICH
+- "Superposition" nen hieu la "chong chap" (khong phai "sieu vi tri" theo nghia dia ly).
+- "Unitary" la toan tu bao toan chuan (khong mat thong tin luong tu).
+- "Uniform" trong mach luong tu la tinh tao-mach-hieu-qua theo n, khong phai "dong deu" theo nghia thong thuong.
+- "Quantum function" o bai nay la ham tren trang thai luong tu, khong phai ham co dien tra ve xac suat.
+
+10) TOM TAT NGAN
+- Trang 01-07 dat nen mong dinh nghia va ky hieu cho toan bo bai bao.
+- Dong gop trung tam: dua mo hinh so do don gian de dac trung tinh toan da thuc luong tu, tranh duoc cac rang buoc ky thuat nang cua QTM/mach.
+- Cac phan 2.1-2.3 cung cap day du ngon ngu toan hoc luong tu (Hilbert, qubit, QTM, circuit) de doc cac phan sau.
