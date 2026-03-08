@@ -68,7 +68,7 @@ ${ }^{\ddagger}$ Đơn vị hiện tại: Khoa Kỹ thuật, Đại học Fukui,
 }
 từ trên xuống dưới bởi $1 / 3$. Hơn nữa, các QTM được trang bị băng xuất có thể tính toán các hàm có giá trị chuỗi thay vì các ngôn ngữ, và các hàm đó tạo thành một lớp hàm, được gọi là FBQP .
 
-Từ một góc độ khác, Yao 40 đã mở rộng khái niệm mạng lượng tử của Deutsch 11 và hình thành một khái niệm về mạch lượng tử, đó là một tương tự lượng tử của mạch Boolean cổ điển. Khác với mô hình mạch Boolean cổ điển, một mạch lượng tử được cấu thành từ các cổng lượng tử, mỗi cổng đại diện cho một phép biến đổi đơn vị tác động lên một không gian Hilbert có kích thước nhỏ, cố định. Để hoạt động như một "bộ lập trình" phép toán đơn vị, một họ các mạch lượng tử yêu cầu điều kiện đồng nhất, đảm bảo rằng bản thiết kế của mỗi mạch lượng tử có thể được thực hiện dễ dàng. Yao đã chỉ ra rằng một họ đồng nhất của các mạch lượng tử đủ mạnh để mô phỏng một máy Turing lượng tử được hình thành tốt. Như Nishimura và Ozawa 26 đã chỉ ra, điều kiện đồng nhất của một họ mạch lượng tử là cần thiết để nắm bắt chính xác tính toán đa thức lượng tử. Với điều kiện đồng nhất này, BQP và FBQP được đặc trưng chính xác bởi các họ mạch lượng tử đồng nhất được tạo thành từ nhiều cổng lượng tử có kích thước đa thức.
+Từ một góc độ khác, Yao 40 đã mở rộng khái niệm mạng lượng tử của Deutsch [12] và hình thành một khái niệm về mạch lượng tử, đó là một tương tự lượng tử của mạch Boolean cổ điển. Khác với mô hình mạch Boolean cổ điển, một mạch lượng tử được cấu thành từ các cổng lượng tử, mỗi cổng đại diện cho một phép biến đổi đơn vị tác động lên một không gian Hilbert có kích thước nhỏ, cố định. Để hoạt động như một "bộ lập trình" phép toán đơn vị, một họ các mạch lượng tử yêu cầu điều kiện đồng nhất, đảm bảo rằng bản thiết kế của mỗi mạch lượng tử có thể được thực hiện dễ dàng. Yao đã chỉ ra rằng một họ đồng nhất của các mạch lượng tử đủ mạnh để mô phỏng một máy Turing lượng tử được hình thành tốt. Như Nishimura và Ozawa 26 đã chỉ ra, điều kiện đồng nhất của một họ mạch lượng tử là cần thiết để nắm bắt chính xác tính toán đa thức lượng tử. Với điều kiện đồng nhất này, BQP và FBQP được đặc trưng chính xác bởi các họ mạch lượng tử đồng nhất được tạo thành từ nhiều cổng lượng tử có kích thước đa thức.
 
 Bài báo hiện tại táo bạo tiếp cận theo cách thứ ba để đặc trưng hóa tính toán đa thức lượng tử. Khác với các mô hình thiết bị cơ học đã đề cập, cách tiếp cận của chúng tôi là mở rộng định nghĩa sơ đồ (quy nạp hoặc xây dựng) của các hàm (nguyên thủy) đệ quy trên các số tự nhiên. Định nghĩa sơ đồ như vậy đã được Peano nghĩ ra vào thế kỷ 19 [28], trái ngược với định nghĩa được đưa ra bởi mô hình máy Turing của Turing 32. Sơ đồ cổ điển này bao gồm một tập hợp nhỏ các hàm ban đầu và một tập hợp nhỏ các quy tắc, quy định cách xây dựng một hàm mới từ các hàm hiện có. Ví dụ, mỗi hàm đệ quy nguyên thủy được xây dựng từ các hàm hằng số, kế tiếp, và chiếu bởi việc áp dụng hữu hạn các quy tắc hợp thành và quy tắc đệ quy nguyên thủy. Đặc biệt, quy tắc đệ quy nguyên thủy giới thiệu một hàm mới có giá trị được xác định bởi quy tắc suy diễn. Các hàm đệ quy (dưới dạng các hàm đệ quy $\mu$ [19, 20]) yêu cầu thêm một sơ đồ, được gọi là phép toán tối thiểu (hoặc số nhỏ nhất). Các hàm này trùng với hình thức chính quy của các hàm đệ quy tổng quát của Gödel-Herbrand (xem [10]). Để có cái nhìn lịch sử về những khái niệm này, xem, ví dụ, 29. Những cách tiếp cận sơ đồ tương tự để nắm bắt tính toán đa thức cổ điển đã được tìm kiếm trong tài liệu $[7,8,9,24,35$. Những cách tiếp cận đó đã dẫn đến những chủ đề nghiên cứu khá khác biệt so với những gì mô hình máy Turing cung cấp.
 
@@ -795,27 +795,47 @@ Hướng tới việc hiện thực hóa một máy tính lượng tử "đa nă
 
 Định nghĩa sơ đồ của chúng ta cung cấp một mô tả về cách định nghĩa một hàm lượng tử $\square_{1}^{\mathrm{QP}}$ đã cho. Mô tả này có thể được xem như một tập hợp các hướng dẫn, mỗi hướng dẫn chỉ dẫn cách áp dụng từng sơ đồ để xây dựng hàm lượng tử mong muốn và do đó nó giống như một chương trình chỉ đạo cách xây dựng hàm lượng tử. Do đó, mô tả sơ đồ của chúng ta về quá trình xây dựng các hàm lượng tử có thể giúp chúng ta thiết kế các ngôn ngữ lập trình lượng tử phù hợp trong tương lai.
 
-% ---- Nội dung từ page_22_28_vi.tex ----
-[21] S. C. Kleene, Hàm đệ quy và lượng từ của các loại hữu hạn I, Trans. Amer. Math. Soc. 91 (1959) 1-52.\\[0pt]
-[22] S. C. Kleene, Hàm đệ quy và lượng từ của các loại hữu hạn II, Trans. Amer. Math. Soc. 108 (1963) 106-142.\\[0pt]
-[23] K. Ko và H. Friedman, Độ phức tạp tính toán của các hàm số thực, Theor. Comput. Sci. 20 (1982) 323-352.\\[0pt]
-[24] K. Mehlhorn, Các lớp con đệ quy đa thức và trừu tượng, J. Comput. System Sci. 12 (1976) 147-178.\\[0pt]
-[25] M. A. Nielsen và I. L. Chuang, Tính toán Lượng tử và Thông tin Lượng tử, Cambridge University Press, 2000.\\[0pt]
-[26] H. Nishimura và M. Ozawa, Độ phức tạp tính toán của các họ mạch lượng tử đồng nhất và máy Turing lượng tử. Theor. Comput. Sci. 276 (2002) 147-181.\\[0pt]
-[27] M. Ozawa và H. Nishimura, Các hàm chuyển tiếp cục bộ của máy Turing lượng tử, RAIRO - Tin học Lý thuyết và Ứng dụng 276 (2000) 379-402.\\[0pt]
+\section*{References}
+[1] L. M. Adleman, J. DeMarrais, and M. A. Huang, Quantum computability, SIAM J. Comput. 26 (1997) 1524-1540.\\[0pt]
+[2] A. Barenco, C. H. Bennett, R. Cleve, D. DiVicenzo, N. Margolus, P. Shor, T. Sleator, J. Smolin, and H. Weinfurter, Elementary gates for quantum computation, Phys. Rev., A, 52 (1995) 3457-3467.\\[0pt]
+[3] P. Benioff, The computer as a physical system: a microscopic quantum mechanical Hamiltonian model of computers represented by Turing machines. J. Statist. Phys. 22 (1980) 563-591.\\[0pt]
+[4] C. H. Bennett, E. Bernstein, G. Brassard, and U. Vazirani, Strengths and weaknesses of quantum computing, SIAM J. Comput. 26 (1997) 1510-1523.\\[0pt]
+[5] E. Bernstein and U. Vazirani, Quantum complexity theory, SIAM J. Comput. 26 (1997) 1411-1473.\\[0pt]
+[6] P. O. Boykin, T. Mor, M. Pulver, V. Roychowdhury, and F. Vatan, On universal and fault-tolerant quantum computing. arXiv:quant-ph/9906054, 1999.\\[0pt]
+[7] A. Cobham, The intrinsic computational difficulty of functions, in the Proceedings of the 1964 Congress for Logic, Mathematics, and Philosophy of Science, pp. 24-30, North-Holland, 1964.\\[0pt]
+[8] R. L. Constable, Type two computational complexity, in the Proceedings of the 5th ACM Symposium on Theory of Computing (STOC'73), pp. 108-121, 1973.\\[0pt]
+[9] S. Cook and B. M. Kapron, Characterizations of the basic feasible functionals of finite type, in the Proceedings of the 30th IEEE Conference on Foundations of Computer Science (STOC'89), pp. 154-159, 1989.\\[0pt]
+[10] M. Davis, (ed.) The Unidecidable. Basic Papers on Undecidable Propositions, Unsolvable Problems, and Computable Functions, Raven Press, Hewlett, New York, 1965.\\[0pt]
+[11] D. Deutsch, Quantum theory, the Church-Turing principle, and the universal quantum computer, Proceedings Royal Society London, Ser. A, 400 (1985) 97-117.\\[0pt]
+[12] D. Deutsch, Quantum computational networks, Proceedings Royal Society London, Ser. A, 425 (1989) 73-90.\\[0pt]
+[13] S. J. Gay. Quantum programming languages: survey and bibliography. Math. Struct. in Comp. Science 16 (2006) 581-600.\\[0pt]
+[14] L. K. Grover, A fast quantum mechanical algorithm for database search, in the Proceedings of the 28th Annual ACM Symposium on the Theory of Computing (STOC'96), pp. 212-219, 1996.\\[0pt]
+[15] L. Grover. Quantum mechanics in searching for a needle in a haystack. Physical Review Letters 79:325 (1997).\\[0pt]
+[16] J. Hopcroft and J. Ullman, An Introduction to Automata Theory, Languages and Computation, AddisonWesley, Reading MA, 1979.\\[0pt]
+[17] A. Kitaev. Quantum computations: algorithms and error correction. Russian Math. Surveys 52 (1997) 1191-1249.\\[0pt]
+[18] A. Y. Kitaev, A. H. Shen, and M. N. Vyalyi. Classical and Quantum Computation (Graduate Studies in Mathematics), American Mathematical Society, 2002.\\[0pt]
+[19] S. C. Kleene, General recursive functions of natural numbers, Math. Ann. 112 (1936) 727-742.\\[0pt]
+[20] S. C. Kleene, Recursive predicates and quantifiers, Trans. A. M. S. 53 (1943) 41-73.\\[0pt]
+[21] S. C. Kleene, Recursive functionals and quantifiers of finite types I, Trans. Amer. Math. Soc. 91 (1959) 1-52.\\[0pt]
+[22] S. C. Kleene, Recursive functionals and quantifiers of finite types II, Trans. Amer. Math. Soc. 108 (1963) 106-142.\\[0pt]
+[23] K. Ko and H. Friedman, Computational complexity of real functions, Theor. Comput. Sci. 20 (1982) 323352.\\[0pt]
+[24] K. Mehlhorn, Polynomial and abstract subrecursive classes, J. Comput. System Sci. 12 (1976) 147-178.\\[0pt]
+[25] M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum Information, Cambridge University Press, 2000.\\[0pt]
+[26] H. Nishimura and M. Ozawa, Computational complexity of uniform quantum circuit families and quantum Turing machines. Theor. Comput. Sci. 276 (2002) 147-181.\\[0pt]
+[27] M. Ozawa and H. Nishimura, Local transition functions of quantum Turing machines, RAIRO - Theoretical Informatics and Applications 276 (2000) 379-402.\\[0pt]
 [28] G. Peano, Sul concetto di numero, Rivista di Matematica 1 (1891) 87-102, 256-267.\\[0pt]
-[29] R. I. Soare, Tính toán và đệ quy. The Bulletin of Symbolic Logic, vol. 2, No. 3 (1996), pp.284-321.\\[0pt]
-[30] P. W. Shor, Các thuật toán thời gian đa thức cho phân tích số nguyên tố và logarit rời rạc trên máy tính lượng tử, SIAM J. Comput. 26 (1997) 1484-1509.\\[0pt]
-[31] M. Townsend, Độ phức tạp cho các quan hệ loại-2, Notre Dame J. Formal Logic 31 (1990) 241-262.\\[0pt]
-[32] A. M. Turing, Về các số có thể tính toán với một ứng dụng cho vấn đề Entscheidungsproblem. Proc. London Math. Soc. ver. 2, 42 (1936) 230-265. Errutum ibid 43 (1937) 544-546.\\[0pt]
-[33] M. Villagra và T. Yamakami. Độ phức tạp trạng thái lượng tử của các ngôn ngữ hình thức, Proceedings of the 17th International Workshop on Descriptional Complexity of Formal Systems (DFCS 2015), Springer, Lecture Notes in Computer Science, vol. 9118, pp. 280-291, 2015.\\[0pt]
-[34] T. Yamakami. Các thuộc tính cấu trúc cho các lớp có thể tính toán khả thi của loại hai. Mathematical Systems Theory 25 (1992) 177-201.\\[0pt]
-[35] T. Yamakami, Tính toán khả thi và tôpô bị giới hạn tài nguyên, Inf. Comput. 116 (1995) 214-230.\\[0pt]
-[36] T. Yamakami, Nền tảng của lập trình máy Turing lượng tử nhiều băng, trong Proc. 24th Mathematical Foundations of Computer Science (MFCS'99), Lecture Notes in Computer Science, vol. 1672, pp. 430-441, 1999. Xem thêm tại arXiv:quant-ph/9906084.\\[0pt]
-[37] T. Yamakami. Quantum NP và một hệ phân cấp lượng tử. Trong Proc. của Hội nghị Quốc tế IFIP lần thứ 2 về Lý thuyết Khoa học Máy tính (TCS 2002), Kluwer Academic Press (dưới tên Foundations of Information Technology in the Era of Network and Mobile Computing), chuỗi IFIP-The International Federation for Information Processing, vol. 96 (Track 1), pp. 323-336, 2002.\\[0pt]
-[38] T. Yamakami, Phân tích các hàm lượng tử, Int. J. Found. Comput. Sci. 14 (2003) 815-852. Một phiên bản sơ bộ xuất hiện trong Proc. 19th International Conference on Foundations of Software Technology and Theoretical Computer Science, Lecture Notes in Computer Science, Vol. 1738, pp. 407-419, 1999.\\[0pt]
-[39] T. Yamakami, Một định nghĩa đệ quy về tính toán thời gian đa thức lượng tử (tóm tắt mở rộng), trong Proc. của Hội thảo lần thứ 9 về Mô hình Phi Cổ điển của Máy Tự động và Ứng dụng (NCMA 2017), Österreichische Computer Gesellschaft 2017, Hiệp hội Máy tính Áo, pp. 243-258, 2017.\\[0pt]
-[40] A. C. Yao, Độ phức tạp mạch lượng tử, trong Proc. của Hội nghị chuyên đề thường niên lần thứ 34 của IEEE về Nền tảng của Khoa học Máy tính (FOCS'93), pp. 80-91, 1993.
+[29] R. I. Soare, Computability and recursion. The Bulletin of Symbolic Logic, vol. 2, No. 3 (1996), pp.284-321.\\[0pt]
+[30] P. W. Shor, Polynomial-time algorithms for prime factorization and discrete logarithms on a quantum computer, SIAM J. Comput. 26 (1997) 1484-1509.\\[0pt]
+[31] M. Townsend, Complexity for type-2 relations, Notre Dame J. Formal Logic 31 (1990) 241-262.\\[0pt]
+[32] A. M. Turing, On computable numbers with an application to the Entscheidungsproblem. Proc. London Math. Soc. ver. 2, 42 (1936) 230-265. Errutum ibid 43 (1937) 544-546.\\[0pt]
+[33] M. Villagra and T. Yamakami. Quantum state complexity of formal languages, Proceedings of the 17th International Workshop on Descriptional Complexity of Formal Systems (DFCS 2015), Springer, Lecture Notes in Computer Science, vol. 9118, pp. 280-291, 2015.\\[0pt]
+[34] T. Yamakami. Structural properties for feasiblely computable classes of type two. Mathematical Systems Theory 25 (1992) 177-201.\\[0pt]
+[35] T. Yamakami, Feasible computability and resource bounded topology, Inf. Comput. 116 (1995) 214-230.\\[0pt]
+[36] T. Yamakami, A foundation of programming a multi-tape quantum Turing machine, in the Proc. 24th Mathematical Foundations of Computer Science (MFCS'99), Lecture Notes in Computer Science, vol. 1672, pp. 430-441, 1999. See also arXiv:quant-ph/9906084.\\[0pt]
+[37] T. Yamakami. Quantum NP and a quantum hierarchy. In the Proc. of the 2nd IFIP International Conference on Theoretical Computer Science (TCS 2002), Kluwer Academic Press (under the name Foundations of Information Technology in the Era of Network and Mobile Computing), the series IFIPThe International Federation for Information Processing, vol. 96 (Track 1), pp. 323-336, 2002.\\[0pt]
+[38] T. Yamakami, Analysis of quantum functions, Int. J. Found. Comput. Sci. 14 (2003) 815-852. A preliminary version appeared in the Proc. 19th International Conference on Foundations of Software Technology and Theoretical Computer Science, Lecture Notes in Computer Science, Vol. 1738, pp. 407-419, 1999.\\[0pt]
+[39] T. Yamakami, A recursive definition of quantum polynomial time computability (extended abstract), in the Proc. of the 9th Workshop on Non-Classical Models of Automata and Applications (NCMA 2017), Österreichische Computer Gesellschaft 2017, the Austrian Computer Society, pp. 243-258, 2017.\\[0pt]
+[40] A. C. Yao, Quantum circuit complexity, in the Proc. of the 34th Annual IEEE Symposium on Foundations of Computer Science (FOCS'93), pp. 80-91, 1993.
 
 \end{document}
 
