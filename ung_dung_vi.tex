@@ -1,0 +1,162 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage[vietnamese]{babel}
+\IfFontExistsTF{TeX Gyre Termes}{\setmainfont{TeX Gyre Termes}}{\setmainfont{Latin Modern Roman}}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{bbold}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\providecommand{\DeclareUnicodeCharacter}[2]{}
+\DeclareUnicodeCharacter{25A1}{\ifmmode\square\else{$\square$}\fi}
+
+\title{Các Lĩnh Vực Ứng Dụng của Hệ \(\square_{1}^{\mathrm{QP}}\)}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\fontsize{12pt}{18pt}\selectfont
+
+Tài liệu này trình bày chi tiết các lĩnh vực có thể áp dụng hệ thống trình bày trong bài báo, trong đó trọng tâm là định nghĩa sơ đồ của hàm lượng tử trên $\mathcal{H}_{\infty}$ thông qua các schemata I--IV, kết quả đặc trưng hóa FBQP/BQP (Định lý 4.1), và định lý dạng chuẩn lượng tử (Định lý 4.4). Mục tiêu của tài liệu là chỉ ra rõ: phương pháp này dùng để giải quyết bài toán nào, áp dụng theo cơ chế nào, và giá trị khoa học/ứng dụng nằm ở đâu.
+
+\section*{1. Vấn đề nghiên cứu mà bài báo giải quyết}
+\textbf{Vấn đề cốt lõi.} Các mô hình truyền thống để đặc tả tính toán lượng tử đa thức thời gian (QTM, họ mạch lượng tử đồng đều) mạnh nhưng đi kèm nhiều điều kiện kỹ thuật. Bài báo đưa ra một mô hình thay thế theo hướng \textit{xây dựng hàm} thay vì \textit{thiết kế máy/mạch}.
+
+\textbf{Đóng góp chính.}
+\begin{itemize}[leftmargin=1.5em]
+\item Định nghĩa hệ hàm $\square_{1}^{\mathrm{QP}}$ bằng bộ hàm khởi tạo và quy tắc xây dựng.
+\item Định nghĩa lớp con $\widehat{\square_{1}^{\mathrm{QP}}}$ (không dùng MEAS) để bảo toàn tính khả nghịch và tính chất hình thức cần thiết.
+\item Chứng minh tính tương đương về sức mạnh biểu diễn với FBQP/BQP (Định lý 4.1).
+\item Suy ra phiên bản dạng chuẩn lượng tử (Định lý 4.4), gắn với ý tưởng phổ quát hóa trong lý thuyết tính toán.
+\end{itemize}
+
+\textbf{Ý nghĩa khoa học.} Đóng góp này không chỉ là một mô tả thay thế. Nó tạo nên một ``ngôn ngữ mô tả có cấu trúc'' cho hàm lượng tử, cho phép nghiên cứu độ phức tạp mô tả, logic, và functional bậc cao trên cùng một nền tảng.
+
+\section*{2. Các lĩnh vực áp dụng và dạng bài toán có thể giải}
+\begin{enumerate}[leftmargin=*,itemsep=0.9em]
+\item \textbf{Lý thuyết độ phức tạp lượng tử và chứng minh tính thuộc lớp}
+
+\textit{Áp dụng trực tiếp:} Dùng hệ $\square_{1}^{\mathrm{QP}}$ làm công cụ chuyển đổi bài toán từ đặc tả thuật toán sang đặc tả hàm, từ đó chứng minh thuộc FBQP/BQP theo khung Theorem 4.1.
+
+\textit{Dạng bài toán giải được:}
+\begin{itemize}[leftmargin=1.5em]
+\item Bài toán cần chứng minh ``hàm này tính được trong thời gian đa thức lượng tử'' nhưng đặc tả ban đầu nằm ở dạng quy trình máy/mạch.
+\item Bài toán cần đối chiếu giữa nhiều mô hình tính toán (QTM, circuit, hàm).
+\end{itemize}
+
+\textit{Giá trị cho giảng dạy/chấm điểm:} Thể hiện được năng lực nối kết giữa định nghĩa, bổ đề trung gian, và định lý đặc trưng hóa.
+
+\item \textbf{Descriptional complexity và phân loại sức mạnh biểu diễn}
+
+\textit{Áp dụng trực tiếp:} Dùng số lần áp dụng schemata để đo ``chi phí mô tả'' của hàm, không đồng nhất với chi phí thời gian hay số cổng.
+
+\textit{Dạng bài toán giải được:}
+\begin{itemize}[leftmargin=1.5em]
+\item So sánh hai cách đặc tả cùng một bài toán xem cách nào gọn hơn về mặt xây dựng.
+\item Xây dựng thang đo $dc(f)[n]$ để phân loại bài toán theo độ khó biểu diễn.
+\end{itemize}
+
+\textit{Giá trị học thuật:} Mở ra hướng nghiên cứu song song với circuit complexity, nhưng nhấn vào cấu trúc hàm và quy tắc suy diễn.
+
+\item \textbf{Kỹ thuật mô phỏng và biến đổi mô hình (QTM $\leftrightarrow$ hàm)}
+
+\textit{Áp dụng trực tiếp:} Dựa trên các bổ đề mô phỏng (tương ứng Lemma 4.2, 4.3 và Section 5), có thể chuẩn hóa quy trình chuyển đổi mô tả máy thành mô tả hàm và ngược lại.
+
+\textit{Dạng bài toán giải được:}
+\begin{itemize}[leftmargin=1.5em]
+\item Bài toán cần chứng minh tương đương giữa hai hệ hình thức để đảm bảo tính đúng của mô hình.
+\item Bài toán cần quản lý ``garbage'' và khôi phục thông tin trong tính toán khả nghịch từng phần.
+\end{itemize}
+
+\textit{Giá trị thực hành nghiên cứu:} Làm rõ ``cơ chế nội bộ'' của phép mô phỏng thay vì chỉ đưa kết quả đến-thêm.
+
+\item \textbf{Xử lý dữ liệu lai cổ điển--lượng tử trong pipeline tính toán}
+
+\textit{Áp dụng trực tiếp:} Các kết quả Encode/Decode/$\mathrm{COPY}_2$ cho thấy có thể thao tác có hệ thống với thông tin cổ điển đã được lượng tử hóa.
+
+\textit{Dạng bài toán giải được:}
+\begin{itemize}[leftmargin=1.5em]
+\item Chuyển mã dữ liệu vào/ra giữa xâu nhị phân và qustring khi cần định danh biên, biên giới dữ liệu, và marker kết thúc.
+\item Sao chép thành phần cổ điển an toàn trong bối cảnh không thể sao chép trạng thái lượng tử tổng quát.
+\end{itemize}
+
+\textit{Giá trị ứng dụng:} Làm nền cho các quy trình tiền xử lý/hậu xử lý trong hệ lai quantum-classical.
+
+\item \textbf{Dạng chuẩn lượng tử và tính phổ quát của mô tả hàm}
+
+\textit{Áp dụng trực tiếp:} Định lý 4.4 cho một hàm phổ quát trong khung $\square_{1}^{\mathrm{QP}}$, tạo khuôn chung để phân tích sai số, không gian làm việc bổ sung, và điều kiện mô phỏng.
+
+\textit{Dạng bài toán giải được:}
+\begin{itemize}[leftmargin=1.5em]
+\item Bài toán cần mô tả ``một bộ mô phỏng tổng quát'' thay vì thiết kế lại mỗi lần cho từng hàm đích.
+\item Bài toán cần thống nhất tiêu chí đánh giá sai số mô phỏng (trace norm / total variation).
+\end{itemize}
+
+\textit{Giá trị lý thuyết:} Gắn kết với tính phổ quát trong tính toán, tương tự vai trò định lý dạng chuẩn trong đệ quy cổ điển.
+
+\item \textbf{First-order quantum theories và nền tảng logic}
+
+\textit{Áp dụng trực tiếp:} Định nghĩa sơ đồ cho phép xem các phép xây dựng hàm như đối tượng hình thức hóa, từ đó hỗ trợ xây dựng hệ mệnh đề, luật suy diễn, và lớp con của lý thuyết bậc nhất trên không gian Hilbert.
+
+\textit{Dạng bài toán giải được:}
+\begin{itemize}[leftmargin=1.5em]
+\item Mô tả và chứng minh tính chất của lớp bài toán lượng tử bằng công cụ logic hình thức.
+\item Nối kết giữa độ phức tạp tính toán và độ phức tạp mô tả trong một khung logic thống nhất.
+\end{itemize}
+
+\item \textbf{Higher-type quantum functionals (type-2 với oracle)}
+
+\textit{Áp dụng trực tiếp:} Mở rộng từ hàm type-1 sang functional bậc cao dựa trên oracle và QUERY, mở rộng biên nghiên cứu từ ``hàm trên xâu'' sang ``hàm trên hàm''.
+
+\textit{Dạng bài toán giải được:}
+\begin{itemize}[leftmargin=1.5em]
+\item Bài toán tương tác với oracle trong phân tích độ phức tạp lượng tử.
+\item Bài toán đánh giá sức mạnh tính toán khi quyền truy cập đến hàm đen được xem như tài nguyên.
+\end{itemize}
+
+\item \textbf{Thiết kế ngôn ngữ lập trình lượng tử cấp cao}
+
+\textit{Áp dụng trực tiếp:} Mỗi schemata có thể xem như một ``toán tử ngôn ngữ'', và tổ hợp schemata tạo thành chương trình xây hàm. Điều này phù hợp với thiết kế DSL/QLang có ngữ nghĩa hình thức rõ ràng.
+
+\textit{Dạng bài toán giải được:}
+\begin{itemize}[leftmargin=1.5em]
+\item Định nghĩa tập lệnh mô-đun để ghép các biến đổi lượng tử phức tạp.
+\item Tiến tới khả năng kiểm chứng hình thức cho chương trình lượng tử cấp cao.
+\end{itemize}
+\end{enumerate}
+
+\section*{3. Vị trí của phương pháp trong bối cảnh hiện nay}
+\textbf{Điểm mạnh nổi bật.}
+\begin{itemize}[leftmargin=1.5em]
+\item Giảm phụ thuộc vào chi tiết kỹ thuật của QTM/circuit khi trình bày ý tưởng tính toán.
+\item Mô-đun hóa quy trình xây dựng hàm, thuận lợi cho phân tích hình thức.
+\item Hỗ trợ mở rộng từ kết quả cốt lõi sang các hướng nghiên cứu liên ngành: logic, complexity, PL.
+\end{itemize}
+
+\textbf{Giới hạn cần nêu rõ trong bài nộp.}
+\begin{itemize}[leftmargin=1.5em]
+\item Chứng minh tương đương (đặc biệt các bổ đề kỹ thuật) dài và khó, chi phí lập luận cao.
+\item Chưa phải công cụ thay thế trực tiếp cho toàn bộ pipeline thực thi NISQ transpiler--hardware.
+\item Để áp dụng kỹ thuật cần năng lực xử lý mã hóa trạng thái và quản lý workspace bổ sung.
+\end{itemize}
+
+\textbf{Đánh giá cân bằng.} Cách trình bày bằng $\square_{1}^{\mathrm{QP}}$ nên được xem là lớp bổ sung mạnh cho khung chuẩn (QTM + circuit): mạnh về nền tảng lý thuyết và đặc tả, bổ trợ cho hướng triển khai hệ thống.
+
+\section*{4. Đề xuất cách trình bày để đạt điểm cao}
+\begin{enumerate}[leftmargin=*,itemsep=0.6em]
+\item Nêu rõ cấu trúc ``vấn đề -- phương pháp -- kết quả -- ứng dụng -- giới hạn''.
+\item Gắn mỗi lĩnh vực ứng dụng với một cơ chế cụ thể trong bài (Theorem 4.1, Theorem 4.4, Encode/Decode, QUERY).
+\item Phân biệt rõ ``ứng dụng lý thuyết'' và ``ứng dụng triển khai'', tránh khẳng định quá mức.
+\item Bổ sung một đoạn nhận xét phản biện: điểm mạnh, điểm yếu, và điều kiện để mở rộng hướng nghiên cứu.
+\end{enumerate}
+
+\section*{5. Kết luận}
+Hệ thống trình bày trong bài báo có giá trị đặc biệt cao đối với các bài toán cần mô tả hình thức và chứng minh tính chất tính toán lượng tử. Trong ngắn hạn, ứng dụng mạnh nhất nằm ở tầng lý thuyết độ phức tạp, logic và thiết kế abstraction. Trong dài hạn, đây là nền tảng tiềm năng cho ngôn ngữ lập trình lượng tử cấp cao và các khung kiểm chứng hình thức cho hệ tính toán lượng tử.
+
+\end{document}

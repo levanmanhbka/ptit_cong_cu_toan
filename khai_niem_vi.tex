@@ -1,7 +1,7 @@
 \documentclass[12pt,a4paper]{article}
 \usepackage{fontspec}
 \usepackage[vietnamese]{babel}
-\setmainfont{TeX Gyre Termes}
+\IfFontExistsTF{TeX Gyre Termes}{\setmainfont{TeX Gyre Termes}}{\setmainfont{Latin Modern Roman}}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -21,14 +21,13 @@
 
 \begin{document}
 \maketitle
+\fontsize{12pt}{18pt}\selectfont
 
 \vspace{0.5em}
 \begin{enumerate}[leftmargin=*,itemsep=0.8em]
 \item \textbf{Quantum Function (Hàm lượng tử)}
 
 \textit{Định nghĩa:} Hàm ánh xạ một trạng thái lượng tử thành một trạng thái lượng tử khác; trong bài báo, các hàm này chủ yếu được xét trên không gian $\mathcal{H}_{\infty}$.
-
-\textit{Nguồn:} Mục 3.1.
 
 \textit{Đặc điểm chính:}
 \begin{itemize}[leftmargin=1.5em]
@@ -41,8 +40,6 @@
 
 \textit{Định nghĩa:} Không gian Hilbert dùng làm miền biểu diễn thống nhất cho các qustring có độ dài bất kỳ.
 
-\textit{Nguồn:} Mục 3.1.
-
 \textit{Đặc điểm chính:}
 \begin{itemize}[leftmargin=1.5em]
 \item Gồm các không gian con $\mathcal{H}_{2^n}$.
@@ -53,8 +50,6 @@
 \item \textbf{Qubit}
 
 \textit{Định nghĩa:} Đơn vị thông tin lượng tử cơ bản trong $\mathcal{H}_2$, với cơ sở tính toán chuẩn $\{|0\rangle,|1\rangle\}$.
-
-\textit{Nguồn:} Mục 3.1.
 
 \textit{Đặc điểm chính:}
 \begin{itemize}[leftmargin=1.5em]
@@ -67,8 +62,6 @@
 
 \textit{Định nghĩa:} Chuỗi trạng thái gồm nhiều qubit, dùng để biểu diễn dữ liệu vào/ra hoặc cấu hình tính toán.
 
-\textit{Nguồn:} Mục 3.1.
-
 \textit{Đặc điểm chính:}
 \begin{itemize}[leftmargin=1.5em]
 \item Có độ dài qubit hữu hạn tại mỗi thời điểm.
@@ -79,8 +72,6 @@
 \item \textbf{$\square_{1}^{\mathrm{QP}}$-functions}
 
 \textit{Định nghĩa:} Lớp hàm lượng tử được định nghĩa theo lược đồ, tạo từ tập hàm khởi đầu và các quy tắc xây dựng (\textit{composition}, \textit{swapping}, \textit{branching}, \textit{multi-qubit quantum recursion}).
-
-\textit{Nguồn:} Mục 3.1.
 
 \textit{Đặc điểm chính:}
 \begin{itemize}[leftmargin=1.5em]
@@ -93,8 +84,6 @@
 
 \textit{Định nghĩa:} Lớp con của $\square_{1}^{\mathrm{QP}}$, giữ nguyên hệ quy tắc xây dựng nhưng loại bỏ phép đo MEAS.
 
-\textit{Nguồn:} Mục 3.2, Định nghĩa 3.2.
-
 \textit{Đặc điểm chính:}
 \begin{itemize}[leftmargin=1.5em]
 \item Bảo toàn số chiều (\textit{dimension-preserving}).
@@ -105,8 +94,6 @@
 \item \textbf{MEAS (partial projective measurement)}
 
 \textit{Định nghĩa:} Hàm khởi đầu trong Scheme I, ví dụ $\mathrm{MEAS}[a](|\phi\rangle)=|a\rangle\langle a|\phi\rangle$, biểu diễn phép đo chiếu từng phần.
-
-\textit{Nguồn:} Mục 3.1 (Scheme I).
 
 \textit{Đặc điểm chính:}
 \begin{itemize}[leftmargin=1.5em]
@@ -119,91 +106,61 @@
 
 \textit{Định nghĩa:} Tính chất bảo toàn số chiều: nếu $|\phi\rangle\in\mathcal{H}_{2^n}$ thì $f(|\phi\rangle)\in\mathcal{H}_{2^n}$, tương đương $\ell(|\phi\rangle)=\ell(f(|\phi\rangle))$.
 
-\textit{Nguồn:} Mục 3.1.
-
 \item \textbf{Norm-preserving}
 
 \textit{Định nghĩa:} Tính chất bảo toàn chuẩn: $\|f(|\phi\rangle)\|=\||\phi\rangle\|$ với mọi $|\phi\rangle\in\mathcal{H}_{\infty}$.
-
-\textit{Nguồn:} Bổ đề 3.4.
 
 \item \textbf{FBQP}
 
 \textit{Định nghĩa:} Lớp các bài toán hàm trong đó máy Turing lượng tử chạy thời gian đa thức cho đầu ra cổ điển đúng với xác suất cao.
 
-\textit{Nguồn:} Định lý 4.1.
-
 \item \textbf{BQP}
 
 \textit{Định nghĩa:} Lớp các ngôn ngữ quyết định được bởi tính toán lượng tử thời gian đa thức với xác suất sai bị chặn bởi một hằng số nhỏ hơn $1/2$.
-
-\textit{Nguồn:} Mục 4.2 (ngữ cảnh định lý dạng chuẩn lượng tử).
 
 \item \textbf{QTM (Quantum Turing Machine)}
 
 \textit{Định nghĩa:} Mô hình máy Turing lượng tử gồm trạng thái nội, băng làm việc, đầu đọc/ghi và hàm chuyển $\delta$.
 
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
-
 \item \textbf{Well-formed QTM}
 
 \textit{Định nghĩa:} QTM thỏa các ràng buộc hình thức của mô hình (ví dụ các điều kiện trực giao và bảo toàn xác suất), bảo đảm tính hợp lệ vật lý.
-
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
 
 \item \textbf{Stationary QTM}
 
 \textit{Định nghĩa:} QTM mà khi dừng thì đầu đọc/ghi trở về ô bắt đầu trong các cấu hình kết thúc.
 
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
-
 \item \textbf{Normal Form QTM}
 
 \textit{Định nghĩa:} Dạng chuẩn của QTM thỏa $\delta(q_f,\sigma)=|q_0\rangle|\sigma\rangle|R\rangle$ với mọi $\sigma\in\Gamma$.
-
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
 
 \item \textbf{Conservative QTM}
 
 \textit{Định nghĩa:} Theo bài báo, đây là QTM đồng thời \textit{well-formed}, \textit{stationary} và ở \textit{normal form}.
 
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
-
 \item \textbf{Plain QTM}
 
 \textit{Định nghĩa:} QTM có mỗi chuyển tiếp $(p,\sigma)$ ở dạng một nhánh $e^{i\theta}|q,\tau,d\rangle$ hoặc hai nhánh $\cos\theta|q,\tau,d\rangle+\sin\theta|q',\tau',d'\rangle$.
-
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
 
 \item \textbf{Clean Outputs}
 
 \textit{Định nghĩa:} Tính chất đầu ra sạch: khi máy dừng, vùng bên trái ô bắt đầu (các chỉ số âm) không còn ký hiệu nào khác ký hiệu trống.
 
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
-
 \item \textbf{Essential Tape Region}
 
 \textit{Định nghĩa:} Vùng băng hữu hạn từ $-p(|x|)$ đến $+p(|x|)$ đủ để bao phủ toàn bộ diễn tiến của máy trong $p(|x|)$ bước.
-
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
 
 \item \textbf{Skew Configuration}
 
 \textit{Định nghĩa:} Cách viết lại cấu hình theo dạng $(z_2,z_1,h,q)$ nhằm thuận tiện cho mã hóa và cho chứng minh mô phỏng.
 
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
-
 \item \textbf{Time-evolution operator $U_\delta$ và skew time-evolution operator $\widehat{U}_{\delta}$}
 
 \textit{Định nghĩa:} $U_\delta$ là toán tử tiến hóa thời gian của mô hình gốc; $\widehat{U}_{\delta}$ là phiên bản điều chỉnh để tác động trên cấu hình skew.
 
-\textit{Nguồn:} Phần giới thiệu trước Bổ đề 4.2.
-
 \item \textbf{Garbage qubits}
 
 \textit{Định nghĩa:} Các qubit tàn dư sinh ra trong quá trình tính toán, không thuộc phần thông tin đầu ra chính cần quan sát.
-
-\textit{Nguồn:} Phần dẫn trước Định lý 4.1.
 
 \item \textbf{Sơ đồ mã hóa $\hat{0},\hat{1},\hat{b},\hat{2},\hat{3}$ và $\widetilde{s}$}
 
@@ -212,19 +169,13 @@
 \widetilde{s}=\hat{s}_1\hat{s}_2\cdots\hat{s}_n\hat{2},\qquad |\widetilde{s}|=2|s|+2.
 \]
 
-\textit{Nguồn:} Phần sơ đồ mã hóa trước Định lý 4.1.
-
 \item \textbf{Encode/Decode}
 
 \textit{Định nghĩa:} Hàm \textit{Encode} thực hiện mã hóa xâu cổ điển thành dạng mã; \textit{Decode}=\textit{Encode}$^{-1}$ thực hiện giải mã ngược trong $\widehat{\square_{1}^{\mathrm{QP}}}$.
 
-\textit{Nguồn:} Mục 5.6, Bổ đề 5.1.
-
 \item \textbf{$\mathrm{COPY}_2$}
 
 \textit{Định nghĩa:} Hàm cho phép sao chép thông tin cổ điển đã mã hóa; việc này không mâu thuẫn với định lý cấm sao chép trạng thái lượng tử bất kỳ.
-
-\textit{Nguồn:} Mục 5.6, Bổ đề 5.2.
 
 \item \textbf{Multi-qubit quantum recursion}
 
@@ -234,49 +185,33 @@ kQ\mathrm{Rec}_t\bigl[g,h,p\mid\mathcal{F}_k\bigr],
 \]
 hoạt động theo chiến lược chia để trị trên các khối $k$ qubit.
 
-\textit{Nguồn:} Mục 3.1 (Scheme IV).
-
 \item \textbf{Theorem 4.1 (Main Theorem)}
 
 \textit{Định nghĩa:} Định lý chính phát biểu đặc trưng của FBQP thông qua sự tồn tại hàm $g\in\widehat{\square_{1}^{\mathrm{QP}}}$ và đa thức $p$ sao cho xác suất đúng đạt ít nhất $1-\varepsilon$.
-
-\textit{Nguồn:} Định lý 4.1.
 
 \item \textbf{Quantum Normal Form Theorem (Theorem 4.4)}
 
 \textit{Định nghĩa:} Phiên bản lượng tử của định lý dạng chuẩn: tồn tại một hàm phổ quát trong $\square_{1}^{\mathrm{QP}}$ có thể mô phỏng các hàm khác với sai số cho trước.
 
-\textit{Nguồn:} Mục 4.2, Theorem 4.4.
-
 \item \textbf{Universal QTM}
 
 \textit{Định nghĩa:} QTM có thể mô phỏng QTM khác với độ chính xác tùy ý $\varepsilon$ và độ suy giảm hiệu năng chỉ ở mức đa thức.
-
-\textit{Nguồn:} Proposition 4.5.
 
 \item \textbf{Trace distance}
 
 \textit{Định nghĩa:} Độ đo khác biệt giữa hai trạng thái mật độ; được dùng để ràng buộc sai số mô phỏng trong Theorem 4.4.
 
-\textit{Nguồn:} Mục 4.2.
-
 \item \textbf{Total variation distance}
 
 \textit{Định nghĩa:} Độ sai khác giữa hai phân phối xác suất cổ điển của kết quả đo; là thước đo sai số mô phỏng giữa các máy.
-
-\textit{Nguồn:} Mục 4.2.
 
 \item \textbf{Descriptional complexity trong $\square_{1}^{\mathrm{QP}}$}
 
 \textit{Định nghĩa:} Số lần tối thiểu cần áp dụng các schema (hàm khởi đầu và quy tắc xây dựng) để tạo ra hàm đích hoặc hàm xấp xỉ theo tiêu chuẩn của bài báo.
 
-\textit{Nguồn:} Phần sau Bổ đề 3.3.
-
 \item \textbf{Schemes I--IV (Hệ lược đồ định nghĩa)}
 
 \textit{Định nghĩa:} Bộ lược đồ gồm tập hàm lượng tử khởi đầu (Scheme I) và các quy tắc xây dựng (Schemes II--IV) dùng để sinh ra các hàm trong $\square_{1}^{\mathrm{QP}}$.
-
-\textit{Nguồn:} Mục 3.1.
 
 \item \textbf{Compo $[g,h]$ (Quy tắc hợp thành)}
 
@@ -285,13 +220,9 @@ hoạt động theo chiến lược chia để trị trên các khối $k$ qubit
 \mathrm{Compo}[g,h](|\phi\rangle)=g(h(|\phi\rangle)).
 \]
 
-\textit{Nguồn:} Mục 3.1 (Scheme II).
-
 \item \textbf{Branch $[g,h]$ (Quy tắc phân nhánh)}
 
 \textit{Định nghĩa:} Quy tắc phân nhánh theo qubit đầu, kết hợp hai nhánh biến đổi tương ứng với thành phần $|0\rangle$ và $|1\rangle$ của đầu vào.
-
-\textit{Nguồn:} Mục 3.1 (Scheme III).
 
 \item \textbf{Single-qubit quantum recursion $\mathrm{QRec}_t$}
 
@@ -300,19 +231,13 @@ hoạt động theo chiến lược chia để trị trên các khối $k$ qubit
 \mathrm{QRec}_t\bigl[g,h,p\mid f_0,f_1\bigr].
 \]
 
-\textit{Nguồn:} Mục 3.1 (trường hợp $k=1$).
-
 \item \textbf{Skew final configuration và tập $\mathrm{FSC}_{M,n}$}
 
 \textit{Định nghĩa:} Cấu hình kết thúc ở dạng skew của máy $M$ trên đầu vào độ dài $n$; ký hiệu $\mathrm{FSC}_{M,n}$ là tập tất cả các cấu hình kết thúc có thể xảy ra.
 
-\textit{Nguồn:} Bổ đề 4.3.
-
 \item \textbf{$M[r]$ (Chuỗi đầu ra gắn với cấu hình skew)}
 
 \textit{Định nghĩa:} Ký hiệu chuỗi đầu ra được đọc từ một cấu hình skew kết thúc $r$, trên vùng băng thiết yếu của máy.
-
-\textit{Nguồn:} Đoạn sau Bổ đề 4.2.
 
 \item \textbf{Encoded skew final configuration}
 
@@ -321,31 +246,21 @@ hoạt động theo chiến lược chia để trị trên các khối $k$ qubit
 \sum_{x:|x|=n}\sum_{r\in\mathrm{FSC}_{M,n}}\langle x\mid\psi\rangle\,|\widetilde{M[r]}\rangle\,|\xi_{x,r}\rangle.
 \]
 
-\textit{Nguồn:} Bổ đề 4.3.
-
 \item \textbf{Bộ ba mô phỏng $\langle M,x,t,\varepsilon\rangle$}
 
 \textit{Định nghĩa:} Mã hóa đầu vào cho máy phổ quát, gồm mô tả máy $M$, dữ liệu $x$, số bước $t$ và ngưỡng sai số $\varepsilon$.
-
-\textit{Nguồn:} Proposition 4.5.
 
 \item \textbf{Polynomial slowdown (Suy giảm đa thức)}
 
 \textit{Định nghĩa:} Độ tăng chi phí thời gian khi mô phỏng máy khác mà vẫn bị chặn bởi một đa thức theo kích thước đầu vào và tham số độ chính xác.
 
-\textit{Nguồn:} Proposition 4.5.
-
 \item \textbf{Trace norm $\|\cdot\|_{\mathrm{tr}}$}
 
 \textit{Định nghĩa:} Chuẩn vết dùng để lượng hóa sai khác giữa các trạng thái mật độ trong phát biểu của định lý dạng chuẩn lượng tử.
 
-\textit{Nguồn:} Mục 4.2, Theorem 4.4.
-
 \item \textbf{Partial trace $\operatorname{tr}_n$}
 
 \textit{Định nghĩa:} Phép lấy vết riêng phần trên một tập qubit con, dùng để loại bỏ phần hệ phụ khi so sánh trạng thái đầu ra hiệu dụng.
-
-\textit{Nguồn:} Mục 4.2, Theorem 4.4.
 
 \item \textbf{Endmarker $\hat{2}$ trong mã hóa $\widetilde{s}$}
 
@@ -355,7 +270,7 @@ hoạt động theo chiến lược chia để trị trên các khối $k$ qubit
 \]
 giúp tách biên rõ ràng giữa dữ liệu và phần còn lại của qustring.
 
-\textit{Nguồn:} Phần sơ đồ mã hóa trước Định lý 4.1.
 \end{enumerate}
 
 \end{document}
+

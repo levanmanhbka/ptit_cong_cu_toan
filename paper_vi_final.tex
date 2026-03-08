@@ -1,14 +1,16 @@
 \documentclass[10pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T5]{fontenc}
-\usepackage[english]{babel}
+\usepackage{fontspec}
+\usepackage[vietnamese]{babel}
+\IfFontExistsTF{TeX Gyre Termes}{\setmainfont{TeX Gyre Termes}}{\setmainfont{Latin Modern Roman}}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage[version=4]{mhchem}
 \usepackage{stmaryrd}
 \usepackage{bbold}
-\usepackage{lmodern}
+\usepackage{docmute}
+\usepackage{enumitem}
+\usepackage{hyperref}
 \usepackage[a4paper,top=2.2cm,bottom=2.5cm,left=2.2cm,right=2.2cm]{geometry}
 
 % Nới lỏng quy tắc ngắt dòng để tránh tràn lề
@@ -45,6 +47,8 @@
 
 \begin{document}
 \maketitle
+
+\section*{Phần 1. Dịch thuật}
 
 % ---- Nội dung từ page_01_07_vi.tex ----
 \begin{abstract}
@@ -248,10 +252,58 @@ F(|\phi\rangle)=F(\alpha|0\rangle+\beta|1\rangle)=N O T(\alpha|0\rangle+\beta|1\
 $$
 
 (2) Tiếp theo, giả sử $|\phi\rangle$ có độ dài 2. Trong trường hợp $|\phi\rangle$ là trạng thái lượng tử cơ sở $|00\rangle$ trong $B_{2}=\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}$, ta có $\left|\psi_{p, \phi}\right\rangle=\left|\psi_{N O T, 00}\right\rangle=N O T(|00\rangle)=|10\rangle$. Tương tự, nếu $|\phi\rangle$ lần lượt là $|01\rangle,|10\rangle$, và $|11\rangle$, thì trạng thái lượng tử $\left|\psi_{p, \phi}\right\rangle$ tương ứng là $|11\rangle,|00\rangle$, và $|01\rangle$. Liên quan đến phép đo chiếu từng phần, suy ra rằng với mọi bit $a \in\{0,1\},\langle 1 \mid 1 a\rangle=|a\rangle,\langle 0 \mid 0 a\rangle=|a\rangle,\langle 1 \mid 0 a\rangle=\mathbf{0}$, và $\langle 0 \mid 1 a\rangle=\mathbf{0}$. Cũng lưu ý rằng $I(\mathbf{0})=\mathbf{0}$. Dùng các đẳng thức này cùng với $F(|0\rangle)=|1\rangle$ và $F(|1\rangle)=|0\rangle$ thu được ở (1), ta có thể tính kết quả $F(|\phi\rangle)$ như sau.\\
-(i) $F(|00\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 00}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 00}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 10\rangle)+|1\rangle \otimes F(\langle 1 \mid 10\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|0\rangle))=h(|1\rangle \otimes F(|0\rangle))=S W A P(|1\rangle \otimes|1\rangle)=S W A P(|11\rangle)=|11\rangle$.\\
-(ii) $F(|10\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 10}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 10}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 00\rangle)+|1\rangle \otimes F(\langle 1 \mid 00\rangle))=\right. h(|0\rangle \otimes I(|0\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|0\rangle))=S W A P(|0\rangle \otimes|0\rangle)=S W A P(|00\rangle)=|00\rangle$.\\
-(iii) $F(|01\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 01}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 01}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 11\rangle)+|1\rangle \otimes F(\langle 1 \mid 11\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|1\rangle))=h(|1\rangle \otimes F(|1\rangle))=S W A P(|1\rangle \otimes|0\rangle)=S W A P(|10\rangle)=|01\rangle$.\\
-(iv) $F(|11\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 11}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 11}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 01\rangle)+|1\rangle \otimes F(\langle 1 \mid 01\rangle))=\right. h(|0\rangle \otimes I(|1\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|1\rangle))=S W A P(|0\rangle \otimes|1\rangle)=S A W P(|01\rangle)=|10\rangle$.
+(i)
+\[
+\begin{aligned}
+F(|00\rangle)
+&= h\Bigl(|0\rangle \otimes f_{0}(\langle 0 \mid \psi_{N O T, 00}\rangle)
+  + |1\rangle \otimes f_{1}(\langle 1 \mid \psi_{N O T, 00}\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\langle 0 \mid 10\rangle)
+  + |1\rangle \otimes F(\langle 1 \mid 10\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\mathbf{0}) + |1\rangle \otimes F(|0\rangle)\Bigr)
+ = h\bigl(|1\rangle \otimes F(|0\rangle)\bigr) \\
+&= S W A P(|1\rangle \otimes |1\rangle)=S W A P(|11\rangle)=|11\rangle.
+\end{aligned}
+\]
+(ii)
+\[
+\begin{aligned}
+F(|10\rangle)
+&= h\Bigl(|0\rangle \otimes f_{0}(\langle 0 \mid \psi_{N O T, 10}\rangle)
+  + |1\rangle \otimes f_{1}(\langle 1 \mid \psi_{N O T, 10}\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\langle 0 \mid 00\rangle)
+  + |1\rangle \otimes F(\langle 1 \mid 00\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(|0\rangle) + |1\rangle \otimes F(\mathbf{0})\Bigr)
+ = h\bigl(|0\rangle \otimes I(|0\rangle)\bigr) \\
+&= S W A P(|0\rangle \otimes |0\rangle)=S W A P(|00\rangle)=|00\rangle.
+\end{aligned}
+\]
+(iii)
+\[
+\begin{aligned}
+F(|01\rangle)
+&= h\Bigl(|0\rangle \otimes f_{0}(\langle 0 \mid \psi_{N O T, 01}\rangle)
+  + |1\rangle \otimes f_{1}(\langle 1 \mid \psi_{N O T, 01}\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\langle 0 \mid 11\rangle)
+  + |1\rangle \otimes F(\langle 1 \mid 11\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\mathbf{0}) + |1\rangle \otimes F(|1\rangle)\Bigr)
+ = h\bigl(|1\rangle \otimes F(|1\rangle)\bigr) \\
+&= S W A P(|1\rangle \otimes |0\rangle)=S W A P(|10\rangle)=|01\rangle.
+\end{aligned}
+\]
+(iv)
+\[
+\begin{aligned}
+F(|11\rangle)
+&= h\Bigl(|0\rangle \otimes f_{0}(\langle 0 \mid \psi_{N O T, 11}\rangle)
+  + |1\rangle \otimes f_{1}(\langle 1 \mid \psi_{N O T, 11}\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\langle 0 \mid 01\rangle)
+  + |1\rangle \otimes F(\langle 1 \mid 01\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(|1\rangle) + |1\rangle \otimes F(\mathbf{0})\Bigr)
+ = h\bigl(|0\rangle \otimes I(|1\rangle)\bigr) \\
+&= S W A P(|0\rangle \otimes |1\rangle)=S W A P(|01\rangle)=|10\rangle.
+\end{aligned}
+\]
 
 Theo Bổ đề 3.4 (2), chẳng hạn khi $|\phi\rangle$ có dạng $\alpha|00\rangle+\beta|10\rangle$, ta được
 
@@ -260,15 +312,73 @@ F(|\phi\rangle)=F(\alpha|00\rangle+\beta|10\rangle)=\alpha F(|00\rangle)+\beta F
 $$
 
 (3) Xét trường hợp độ dài của $|\phi\rangle$ là 3. Với cơ sở tính toán $B_{3}= \{|000\rangle,|001\rangle,|010\rangle, \ldots,|111\rangle\}$, ta chỉ tính các kết quả $F(|\phi\rangle)$ cho đầu vào $|\phi\rangle$ thuộc $\{|001\rangle,|101\rangle\}$. Lưu ý rằng $\left|\psi_{N O T, 001}\right\rangle=|101\rangle$ và $\left|\psi_{N O T, 101}\right\rangle=|001\rangle$. Nhắc lại từ (1)-(2) rằng $F(|01\rangle)=|01\rangle$ và $F(\mathbf{0})=\mathbf{0}$.\\
-(i) $F(|001\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 001}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 001}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 101\rangle)+|1\rangle \otimes F(\langle 1 \mid 101\rangle))=\right. h(|0\rangle \otimes I(\mathbf{0})+|1\rangle \otimes F(|01\rangle))=h(|1\rangle \otimes F(|01\rangle))=S W A P(|1\rangle \otimes|01\rangle)=S A W P(|101\rangle)=|011\rangle$.\\
-(ii) $F(|101\rangle)=h\left(|0\rangle \otimes f_{0}\left(\left\langle 0 \mid \psi_{N O T, 101}\right\rangle\right)+|1\rangle \otimes f_{1}\left(\left\langle 1 \mid \psi_{N O T, 101}\right\rangle\right)=h(|0\rangle \otimes I(\langle 0 \mid 001\rangle)+|1\rangle \otimes F(\langle 1 \mid 001\rangle))=\right. h(|0\rangle \otimes I(|01\rangle)+|1\rangle \otimes F(\mathbf{0}))=h(|0\rangle \otimes I(|01\rangle))=S W A P(|0\rangle \otimes|01\rangle)=S A W P(|001\rangle)=|001\rangle$.
+(i)
+\[
+\begin{aligned}
+F(|001\rangle)
+&= h\Bigl(|0\rangle \otimes f_{0}(\langle 0 \mid \psi_{N O T, 001}\rangle)
+  + |1\rangle \otimes f_{1}(\langle 1 \mid \psi_{N O T, 001}\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\langle 0 \mid 101\rangle)
+  + |1\rangle \otimes F(\langle 1 \mid 101\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\mathbf{0}) + |1\rangle \otimes F(|01\rangle)\Bigr)
+ = h\bigl(|1\rangle \otimes F(|01\rangle)\bigr) \\
+&= S W A P(|1\rangle \otimes |01\rangle)=S W A P(|101\rangle)=|011\rangle.
+\end{aligned}
+\]
+(ii)
+\[
+\begin{aligned}
+F(|101\rangle)
+&= h\Bigl(|0\rangle \otimes f_{0}(\langle 0 \mid \psi_{N O T, 101}\rangle)
+  + |1\rangle \otimes f_{1}(\langle 1 \mid \psi_{N O T, 101}\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(\langle 0 \mid 001\rangle)
+  + |1\rangle \otimes F(\langle 1 \mid 001\rangle)\Bigr) \\
+&= h\Bigl(|0\rangle \otimes I(|01\rangle) + |1\rangle \otimes F(\mathbf{0})\Bigr)
+ = h\bigl(|0\rangle \otimes I(|01\rangle)\bigr) \\
+&= S W A P(|0\rangle \otimes |01\rangle)=S W A P(|001\rangle)=|001\rangle.
+\end{aligned}
+\]
 
 Chẳng hạn nếu $|\phi\rangle$ có dạng $\alpha|001\rangle+\beta|101\rangle$, Bổ đề 3.4(2) kéo theo $F(|\phi\rangle)=F(\alpha|001\rangle+\beta|101\rangle)= \alpha F(|001\rangle)+\beta F(|101\rangle)=\alpha|011\rangle+\beta|001\rangle$.\\
 Ví dụ 2. Ta xét một ví dụ khác cho trường hợp $k=2$. Chẳng hạn đặt $t=3, g=N O T, h=S W A P$, và $p=N O T$, ta viết $F$ cho $2 Q R e c_{3}\left[N O T, S W A P, N O T \mid f_{00}, f_{01}, f_{10}, f_{11}\right]$ với $f_{00}=I$, $f_{01}=N O T, f_{10}=F$, và $f_{11}=F$. Gọi $|\phi\rangle$ là một trạng thái lượng tử bất kỳ trong $\mathcal{H}_{\infty}$.\\
 (1) Khi độ dài của $|\phi\rangle$ không quá 3, ta lập tức có $F(|\phi\rangle)=g(|\phi\rangle)=N O T(|\phi\rangle)$. Ví dụ, $F(|0\rangle)=|1\rangle, F(|10\rangle)=|00\rangle$, và $F(|101\rangle)=|001\rangle$.\\
 (2) Giả sử độ dài của $|\phi\rangle$ là 4, xét các trạng thái lượng tử cơ sở trong $B_{4}= \{|0000\rangle,|0001\rangle,|0010\rangle, \ldots,|1111\rangle\}$. Ở đây, ta chỉ tập trung vào hai trường hợp: $|\phi\rangle \in\{|0101\rangle,|1011\rangle\}$. Ta lưu ý rằng $\left|\psi_{N O T, 0010}\right\rangle=N O T(|0010\rangle)=|1010\rangle$ và $\left|\psi_{N O T, 1011}\right\rangle=N O T(|1011\rangle)=|0011\rangle$.\\
-(i) $F(|0010\rangle)=h\left(|00\rangle \otimes f_{00}\left(\left\langle 00 \mid \psi_{N O T, 0010}\right\rangle\right)+|01\rangle \otimes f_{01}\left(\left\langle 01 \mid \psi_{N O T, 0010}\right\rangle\right)+|10\rangle \otimes f_{10}\left(\left\langle 10 \mid \psi_{N O T, 0010}\right\rangle\right)+\right. \left.|11\rangle \otimes f_{11}\left(\left\langle 11 \mid \psi_{N O T, 0010}\right\rangle\right)\right)=h(|00\rangle \otimes I(\langle 00 \mid 1010\rangle)+|01\rangle \otimes N O T(\langle 01 \mid 1010\rangle)+|10\rangle \otimes F(\langle 10 \mid 1010\rangle)+|11\rangle \otimes F(\langle 11 \mid 1010\rangle))=h(|00\rangle \otimes I(\mathbf{0})+|01\rangle \otimes N O T(\mathbf{0})+|10\rangle \otimes F(|10\rangle)+|11\rangle \otimes F(\mathbf{0}))=h(|10\rangle \otimes F(|10\rangle))= S W A P(|10\rangle \otimes|00\rangle)=S W A P(|1000\rangle)=|0100\rangle$.\\
-(ii) $F(|1101\rangle)=h\left(|00\rangle \otimes f_{00}\left(\left\langle 00 \mid \psi_{N O T, 1101}\right\rangle\right)+|01\rangle \otimes f_{01}\left(\left\langle 01 \mid \psi_{N O T, 1101}\right\rangle\right)+|10\rangle \otimes f_{10}\left(\left\langle 10 \mid \psi_{N O T, 1101}\right\rangle\right)+\right. \left.|11\rangle \otimes f_{11}\left(\left\langle 11 \mid \psi_{N O T, 1101}\right\rangle\right)\right)=h(|00\rangle \otimes I(\langle 00 \mid 0101\rangle)+|01\rangle \otimes N O T(\langle 01 \mid 0101\rangle)+|10\rangle \otimes F(\langle 10 \mid 0101\rangle)+|11\rangle \otimes F(\langle 11 \mid 0101\rangle))=h(|00\rangle \otimes I(\mathbf{0})+|01\rangle \otimes N O T(|01\rangle)+|10\rangle \otimes F(\mathbf{0})+|11\rangle \otimes F(\mathbf{0}))=h(|01\rangle \otimes N O T(|01\rangle))= S W A P(|01\rangle \otimes|11\rangle)=S W A P(|0111\rangle)=|1011\rangle$.
+(i)
+\[
+\begin{aligned}
+F(|0010\rangle)
+&= h\Bigl(|00\rangle \otimes f_{00}(\langle 00 \mid \psi_{N O T, 0010}\rangle)
+ + |01\rangle \otimes f_{01}(\langle 01 \mid \psi_{N O T, 0010}\rangle) \\
+&\qquad + |10\rangle \otimes f_{10}(\langle 10 \mid \psi_{N O T, 0010}\rangle)
+ + |11\rangle \otimes f_{11}(\langle 11 \mid \psi_{N O T, 0010}\rangle)\Bigr) \\
+&= h\Bigl(|00\rangle \otimes I(\langle 00 \mid 1010\rangle)
+ + |01\rangle \otimes N O T(\langle 01 \mid 1010\rangle) \\
+&\qquad + |10\rangle \otimes F(\langle 10 \mid 1010\rangle)
+ + |11\rangle \otimes F(\langle 11 \mid 1010\rangle)\Bigr) \\
+&= h\Bigl(|00\rangle \otimes I(\mathbf{0}) + |01\rangle \otimes N O T(\mathbf{0})
+ + |10\rangle \otimes F(|10\rangle) + |11\rangle \otimes F(\mathbf{0})\Bigr) \\
+&= h\bigl(|10\rangle \otimes F(|10\rangle)\bigr)
+ = S W A P(|10\rangle \otimes |00\rangle)=S W A P(|1000\rangle)=|0100\rangle.
+\end{aligned}
+\]
+(ii)
+\[
+\begin{aligned}
+F(|1101\rangle)
+&= h\Bigl(|00\rangle \otimes f_{00}(\langle 00 \mid \psi_{N O T, 1101}\rangle)
+ + |01\rangle \otimes f_{01}(\langle 01 \mid \psi_{N O T, 1101}\rangle) \\
+&\qquad + |10\rangle \otimes f_{10}(\langle 10 \mid \psi_{N O T, 1101}\rangle)
+ + |11\rangle \otimes f_{11}(\langle 11 \mid \psi_{N O T, 1101}\rangle)\Bigr) \\
+&= h\Bigl(|00\rangle \otimes I(\langle 00 \mid 0101\rangle)
+ + |01\rangle \otimes N O T(\langle 01 \mid 0101\rangle) \\
+&\qquad + |10\rangle \otimes F(\langle 10 \mid 0101\rangle)
+ + |11\rangle \otimes F(\langle 11 \mid 0101\rangle)\Bigr) \\
+&= h\Bigl(|00\rangle \otimes I(\mathbf{0}) + |01\rangle \otimes N O T(|01\rangle)
+ + |10\rangle \otimes F(\mathbf{0}) + |11\rangle \otimes F(\mathbf{0})\Bigr) \\
+&= h\bigl(|01\rangle \otimes N O T(|01\rangle)\bigr)
+ = S W A P(|01\rangle \otimes |11\rangle)=S W A P(|0111\rangle)=|1011\rangle.
+\end{aligned}
+\]
 
 \subsection*{3.2 Một lớp con của $\square_{1}^{\mathrm{QP}}$ và các tính chất cơ bản}
 Trong sáu hàm lượng tử khởi đầu của Lược đồ I, MEAS có hành vi khá khác biệt. Nó có thể thay đổi chuẩn cũng như số chiều của các trạng thái lượng tử, và điều đó khiến nó về bản chất là không khả nghịch. Vì lý do này, trong thực hành thường có lợi khi giới hạn sự chú ý vào một lớp con của $\square_{1}^{\mathrm{QP}}$, gọi là $\widehat{\square_{1}^{\mathrm{QP}}}$, lớp này cấm hoàn toàn việc sử dụng MEAS.
@@ -796,26 +906,61 @@ Hướng tới việc hiện thực hóa một máy tính lượng tử "đa nă
 Định nghĩa sơ đồ của chúng ta cung cấp một mô tả về cách định nghĩa một hàm lượng tử $\square_{1}^{\mathrm{QP}}$ đã cho. Mô tả này có thể được xem như một tập hợp các hướng dẫn, mỗi hướng dẫn chỉ dẫn cách áp dụng từng sơ đồ để xây dựng hàm lượng tử mong muốn và do đó nó giống như một chương trình chỉ đạo cách xây dựng hàm lượng tử. Do đó, mô tả sơ đồ của chúng ta về quá trình xây dựng các hàm lượng tử có thể giúp chúng ta thiết kế các ngôn ngữ lập trình lượng tử phù hợp trong tương lai.
 
 % ---- Nội dung từ page_22_28_vi.tex ----
-[21] S. C. Kleene, Hàm đệ quy và lượng từ của các loại hữu hạn I, Trans. Amer. Math. Soc. 91 (1959) 1-52.\\[0pt]
-[22] S. C. Kleene, Hàm đệ quy và lượng từ của các loại hữu hạn II, Trans. Amer. Math. Soc. 108 (1963) 106-142.\\[0pt]
-[23] K. Ko và H. Friedman, Độ phức tạp tính toán của các hàm số thực, Theor. Comput. Sci. 20 (1982) 323-352.\\[0pt]
-[24] K. Mehlhorn, Các lớp con đệ quy đa thức và trừu tượng, J. Comput. System Sci. 12 (1976) 147-178.\\[0pt]
-[25] M. A. Nielsen và I. L. Chuang, Tính toán Lượng tử và Thông tin Lượng tử, Cambridge University Press, 2000.\\[0pt]
-[26] H. Nishimura và M. Ozawa, Độ phức tạp tính toán của các họ mạch lượng tử đồng nhất và máy Turing lượng tử. Theor. Comput. Sci. 276 (2002) 147-181.\\[0pt]
-[27] M. Ozawa và H. Nishimura, Các hàm chuyển tiếp cục bộ của máy Turing lượng tử, RAIRO - Tin học Lý thuyết và Ứng dụng 276 (2000) 379-402.\\[0pt]
+\section*{References}
+[1] L. M. Adleman, J. DeMarrais, and M. A. Huang, Quantum computability, SIAM J. Comput. 26 (1997) 1524-1540.\\[0pt]
+[2] A. Barenco, C. H. Bennett, R. Cleve, D. DiVicenzo, N. Margolus, P. Shor, T. Sleator, J. Smolin, and H. Weinfurter, Elementary gates for quantum computation, Phys. Rev., A, 52 (1995) 3457-3467.\\[0pt]
+[3] P. Benioff, The computer as a physical system: a microscopic quantum mechanical Hamiltonian model of computers represented by Turing machines. J. Statist. Phys. 22 (1980) 563-591.\\[0pt]
+[4] C. H. Bennett, E. Bernstein, G. Brassard, and U. Vazirani, Strengths and weaknesses of quantum computing, SIAM J. Comput. 26 (1997) 1510-1523.\\[0pt]
+[5] E. Bernstein and U. Vazirani, Quantum complexity theory, SIAM J. Comput. 26 (1997) 1411-1473.\\[0pt]
+[6] P. O. Boykin, T. Mor, M. Pulver, V. Roychowdhury, and F. Vatan, On universal and fault-tolerant quantum computing. arXiv:quant-ph/9906054, 1999.\\[0pt]
+[7] A. Cobham, The intrinsic computational difficulty of functions, in the Proceedings of the 1964 Congress for Logic, Mathematics, and Philosophy of Science, pp. 24-30, North-Holland, 1964.\\[0pt]
+[8] R. L. Constable, Type two computational complexity, in the Proceedings of the 5th ACM Symposium on Theory of Computing (STOC'73), pp. 108-121, 1973.\\[0pt]
+[9] S. Cook and B. M. Kapron, Characterizations of the basic feasible functionals of finite type, in the Proceedings of the 30th IEEE Conference on Foundations of Computer Science (STOC'89), pp. 154-159, 1989.\\[0pt]
+[10] M. Davis, (ed.) The Unidecidable. Basic Papers on Undecidable Propositions, Unsolvable Problems, and Computable Functions, Raven Press, Hewlett, New York, 1965.\\[0pt]
+[11] D. Deutsch, Quantum theory, the Church-Turing principle, and the universal quantum computer, Proceedings Royal Society London, Ser. A, 400 (1985) 97-117.\\[0pt]
+[12] D. Deutsch, Quantum computational networks, Proceedings Royal Society London, Ser. A, 425 (1989) 73-90.\\[0pt]
+[13] S. J. Gay. Quantum programming languages: survey and bibliography. Math. Struct. in Comp. Science 16 (2006) 581-600.\\[0pt]
+[14] L. K. Grover, A fast quantum mechanical algorithm for database search, in the Proceedings of the 28th Annual ACM Symposium on the Theory of Computing (STOC'96), pp. 212-219, 1996.\\[0pt]
+[15] L. Grover. Quantum mechanics in searching for a needle in a haystack. Physical Review Letters 79:325 (1997).\\[0pt]
+[16] J. Hopcroft and J. Ullman, An Introduction to Automata Theory, Languages and Computation, AddisonWesley, Reading MA, 1979.\\[0pt]
+[17] A. Kitaev. Quantum computations: algorithms and error correction. Russian Math. Surveys 52 (1997) 1191-1249.\\[0pt]
+[18] A. Y. Kitaev, A. H. Shen, and M. N. Vyalyi. Classical and Quantum Computation (Graduate Studies in Mathematics), American Mathematical Society, 2002.\\[0pt]
+[19] S. C. Kleene, General recursive functions of natural numbers, Math. Ann. 112 (1936) 727-742.\\[0pt]
+[20] S. C. Kleene, Recursive predicates and quantifiers, Trans. A. M. S. 53 (1943) 41-73.\\[0pt]
+[21] S. C. Kleene, Recursive functionals and quantifiers of finite types I, Trans. Amer. Math. Soc. 91 (1959) 1-52.\\[0pt]
+[22] S. C. Kleene, Recursive functionals and quantifiers of finite types II, Trans. Amer. Math. Soc. 108 (1963) 106-142.\\[0pt]
+[23] K. Ko and H. Friedman, Computational complexity of real functions, Theor. Comput. Sci. 20 (1982) 323352.\\[0pt]
+[24] K. Mehlhorn, Polynomial and abstract subrecursive classes, J. Comput. System Sci. 12 (1976) 147-178.\\[0pt]
+[25] M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum Information, Cambridge University Press, 2000.\\[0pt]
+[26] H. Nishimura and M. Ozawa, Computational complexity of uniform quantum circuit families and quantum Turing machines. Theor. Comput. Sci. 276 (2002) 147-181.\\[0pt]
+[27] M. Ozawa and H. Nishimura, Local transition functions of quantum Turing machines, RAIRO - Theoretical Informatics and Applications 276 (2000) 379-402.\\[0pt]
 [28] G. Peano, Sul concetto di numero, Rivista di Matematica 1 (1891) 87-102, 256-267.\\[0pt]
-[29] R. I. Soare, Tính toán và đệ quy. The Bulletin of Symbolic Logic, vol. 2, No. 3 (1996), pp.284-321.\\[0pt]
-[30] P. W. Shor, Các thuật toán thời gian đa thức cho phân tích số nguyên tố và logarit rời rạc trên máy tính lượng tử, SIAM J. Comput. 26 (1997) 1484-1509.\\[0pt]
-[31] M. Townsend, Độ phức tạp cho các quan hệ loại-2, Notre Dame J. Formal Logic 31 (1990) 241-262.\\[0pt]
-[32] A. M. Turing, Về các số có thể tính toán với một ứng dụng cho vấn đề Entscheidungsproblem. Proc. London Math. Soc. ver. 2, 42 (1936) 230-265. Errutum ibid 43 (1937) 544-546.\\[0pt]
-[33] M. Villagra và T. Yamakami. Độ phức tạp trạng thái lượng tử của các ngôn ngữ hình thức, Proceedings of the 17th International Workshop on Descriptional Complexity of Formal Systems (DFCS 2015), Springer, Lecture Notes in Computer Science, vol. 9118, pp. 280-291, 2015.\\[0pt]
-[34] T. Yamakami. Các thuộc tính cấu trúc cho các lớp có thể tính toán khả thi của loại hai. Mathematical Systems Theory 25 (1992) 177-201.\\[0pt]
-[35] T. Yamakami, Tính toán khả thi và tôpô bị giới hạn tài nguyên, Inf. Comput. 116 (1995) 214-230.\\[0pt]
-[36] T. Yamakami, Nền tảng của lập trình máy Turing lượng tử nhiều băng, trong Proc. 24th Mathematical Foundations of Computer Science (MFCS'99), Lecture Notes in Computer Science, vol. 1672, pp. 430-441, 1999. Xem thêm tại arXiv:quant-ph/9906084.\\[0pt]
-[37] T. Yamakami. Quantum NP và một hệ phân cấp lượng tử. Trong Proc. của Hội nghị Quốc tế IFIP lần thứ 2 về Lý thuyết Khoa học Máy tính (TCS 2002), Kluwer Academic Press (dưới tên Foundations of Information Technology in the Era of Network and Mobile Computing), chuỗi IFIP-The International Federation for Information Processing, vol. 96 (Track 1), pp. 323-336, 2002.\\[0pt]
-[38] T. Yamakami, Phân tích các hàm lượng tử, Int. J. Found. Comput. Sci. 14 (2003) 815-852. Một phiên bản sơ bộ xuất hiện trong Proc. 19th International Conference on Foundations of Software Technology and Theoretical Computer Science, Lecture Notes in Computer Science, Vol. 1738, pp. 407-419, 1999.\\[0pt]
-[39] T. Yamakami, Một định nghĩa đệ quy về tính toán thời gian đa thức lượng tử (tóm tắt mở rộng), trong Proc. của Hội thảo lần thứ 9 về Mô hình Phi Cổ điển của Máy Tự động và Ứng dụng (NCMA 2017), Österreichische Computer Gesellschaft 2017, Hiệp hội Máy tính Áo, pp. 243-258, 2017.\\[0pt]
-[40] A. C. Yao, Độ phức tạp mạch lượng tử, trong Proc. của Hội nghị chuyên đề thường niên lần thứ 34 của IEEE về Nền tảng của Khoa học Máy tính (FOCS'93), pp. 80-91, 1993.
+[29] R. I. Soare, Computability and recursion. The Bulletin of Symbolic Logic, vol. 2, No. 3 (1996), pp.284-321.\\[0pt]
+[30] P. W. Shor, Polynomial-time algorithms for prime factorization and discrete logarithms on a quantum computer, SIAM J. Comput. 26 (1997) 1484-1509.\\[0pt]
+[31] M. Townsend, Complexity for type-2 relations, Notre Dame J. Formal Logic 31 (1990) 241-262.\\[0pt]
+[32] A. M. Turing, On computable numbers with an application to the Entscheidungsproblem. Proc. London Math. Soc. ver. 2, 42 (1936) 230-265. Errutum ibid 43 (1937) 544-546.\\[0pt]
+[33] M. Villagra and T. Yamakami. Quantum state complexity of formal languages, Proceedings of the 17th International Workshop on Descriptional Complexity of Formal Systems (DFCS 2015), Springer, Lecture Notes in Computer Science, vol. 9118, pp. 280-291, 2015.\\[0pt]
+[34] T. Yamakami. Structural properties for feasiblely computable classes of type two. Mathematical Systems Theory 25 (1992) 177-201.\\[0pt]
+[35] T. Yamakami, Feasible computability and resource bounded topology, Inf. Comput. 116 (1995) 214-230.\\[0pt]
+[36] T. Yamakami, A foundation of programming a multi-tape quantum Turing machine, in the Proc. 24th Mathematical Foundations of Computer Science (MFCS'99), Lecture Notes in Computer Science, vol. 1672, pp. 430-441, 1999. See also arXiv:quant-ph/9906084.\\[0pt]
+[37] T. Yamakami. Quantum NP and a quantum hierarchy. In the Proc. of the 2nd IFIP International Conference on Theoretical Computer Science (TCS 2002), Kluwer Academic Press (under the name Foundations of Information Technology in the Era of Network and Mobile Computing), the series IFIPThe International Federation for Information Processing, vol. 96 (Track 1), pp. 323-336, 2002.\\[0pt]
+[38] T. Yamakami, Analysis of quantum functions, Int. J. Found. Comput. Sci. 14 (2003) 815-852. A preliminary version appeared in the Proc. 19th International Conference on Foundations of Software Technology and Theoretical Computer Science, Lecture Notes in Computer Science, Vol. 1738, pp. 407-419, 1999.\\[0pt]
+[39] T. Yamakami, A recursive definition of quantum polynomial time computability (extended abstract), in the Proc. of the 9th Workshop on Non-Classical Models of Automata and Applications (NCMA 2017), Österreichische Computer Gesellschaft 2017, the Austrian Computer Society, pp. 243-258, 2017.\\[0pt]
+[40] A. C. Yao, Quantum circuit complexity, in the Proc. of the 34th Annual IEEE Symposium on Foundations of Computer Science (FOCS'93), pp. 80-91, 1993.
+
+\clearpage
+\section*{Phần 2. Thuật ngữ và khái niệm}
+{\begingroup
+\fontsize{12pt}{18pt}\selectfont
+\let\maketitle\relax\input{khai_niem_vi.tex}
+\par\endgroup}
+
+\clearpage
+\section*{Phần 3. Các lĩnh vực có thể áp dụng}
+{\begingroup
+\fontsize{12pt}{18pt}\selectfont
+\let\maketitle\relax\input{ung_dung_vi.tex}
+\par\endgroup}
 
 \end{document}
 
